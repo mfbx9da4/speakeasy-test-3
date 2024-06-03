@@ -16,12 +16,10 @@ List all pets
 ```typescript
 import { SDK } from "petstore";
 
-async function run() {
-  const sdk = new SDK();
+const sdk = new SDK();
 
-  const limit = 21453;
-  
-  const result = await sdk.pets.listPets(limit);
+async function run() {
+  const result = await sdk.pets.listPets(21453);
 
   // Handle the result
   console.log(result)
@@ -41,7 +39,7 @@ run();
 
 ### Response
 
-**Promise<[operations.ListPetsResponse](../../models/operations/listpetsresponse.md)>**
+**Promise\<[operations.ListPetsResponse](../../models/operations/listpetsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -57,9 +55,9 @@ Create a pet
 ```typescript
 import { SDK } from "petstore";
 
-async function run() {
-  const sdk = new SDK();
+const sdk = new SDK();
 
+async function run() {
   const result = await sdk.pets.createPets({
     id: 596804,
     name: "<value>",
@@ -83,7 +81,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreatePetsResponse](../../models/operations/createpetsresponse.md)>**
+**Promise\<[operations.CreatePetsResponse](../../models/operations/createpetsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -99,12 +97,10 @@ Info for a specific pet
 ```typescript
 import { SDK } from "petstore";
 
-async function run() {
-  const sdk = new SDK();
+const sdk = new SDK();
 
-  const petId = "<value>";
-  
-  const result = await sdk.pets.showPetById(petId);
+async function run() {
+  const result = await sdk.pets.showPetById("<value>");
 
   // Handle the result
   console.log(result)
@@ -124,7 +120,7 @@ run();
 
 ### Response
 
-**Promise<[operations.ShowPetByIdResponse](../../models/operations/showpetbyidresponse.md)>**
+**Promise\<[operations.ShowPetByIdResponse](../../models/operations/showpetbyidresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

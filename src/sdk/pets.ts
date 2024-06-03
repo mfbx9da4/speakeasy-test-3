@@ -9,7 +9,6 @@ import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
 import * as components from "../models/components";
-import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 
 export class Pets extends ClientSDK {
@@ -68,68 +67,45 @@ export class Pets extends ClientSDK {
             .filter(Boolean)
             .join("&");
 
-        const context = { operationID: "listPets" };
+        const context = { operationID: "listPets", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
-            HttpMeta: {
-                Response: response,
-                Request: request,
-            },
+            HttpMeta: { Response: response, Request: request$ },
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.ListPetsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        Headers: this.unpackHeaders(response.headers),
-                        Pets: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.ListPetsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        Error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            throw new errors.SDKError("Unexpected API response", { response, request });
-        }
+        const [result$] = await this.matcher<operations.ListPetsResponse>()
+            .json(200, operations.ListPetsResponse$, { hdrs: true, key: "Pets" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.ListPetsResponse$, { key: "Error" })
+            .match(response, request$, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
      * Create a pet
      */
     async createPets(
-        input: components.Pet,
+        request: components.Pet,
         options?: RequestOptions
     ): Promise<operations.CreatePetsResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => components.Pet$.outboundSchema.parse(value$),
             "Input validation failed"
         );
@@ -139,46 +115,28 @@ export class Pets extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "createPets" };
+        const context = { operationID: "createPets", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "POST", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
-            HttpMeta: {
-                Response: response,
-                Request: request,
-            },
+            HttpMeta: { Response: response, Request: request$ },
         };
 
-        if (this.matchStatusCode(response, 201)) {
-            // fallthrough
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.CreatePetsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        Error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            throw new errors.SDKError("Unexpected API response", { response, request });
-        }
+        const [result$] = await this.matcher<operations.CreatePetsResponse>()
+            .void(201, operations.CreatePetsResponse$)
+            .fail(["4XX", "5XX"])
+            .json("default", operations.CreatePetsResponse$, { key: "Error" })
+            .match(response, request$, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.CreatePetsResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -212,50 +170,27 @@ export class Pets extends ClientSDK {
 
         const query$ = "";
 
-        const context = { operationID: "showPetById" };
+        const context = { operationID: "showPetById", oAuth2Scopes: [], securitySource: null };
+
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
+            context,
             { method: "GET", path: path$, headers: headers$, query: query$, body: body$ },
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
-            HttpMeta: {
-                Response: response,
-                Request: request,
-            },
+            HttpMeta: { Response: response, Request: request$ },
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.ShowPetByIdResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        Pet: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.ShowPetByIdResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        Error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            throw new errors.SDKError("Unexpected API response", { response, request });
-        }
+        const [result$] = await this.matcher<operations.ShowPetByIdResponse>()
+            .json(200, operations.ShowPetByIdResponse$, { key: "Pet" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.ShowPetByIdResponse$, { key: "Error" })
+            .match(response, request$, { extraFields: responseFields$ });
+
+        return result$;
     }
 }

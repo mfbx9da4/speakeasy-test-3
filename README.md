@@ -22,13 +22,13 @@ It has been generated successfully based on your OpenAPI spec. However, it is no
 ### NPM
 
 ```bash
-npm add <UNSET>
+npm add https://github.com/mfbx9da4/speakeasy-test-3
 ```
 
 ### Yarn
 
 ```bash
-yarn add <UNSET>
+yarn add https://github.com/mfbx9da4/speakeasy-test-3
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -46,12 +46,10 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ```typescript
 import { SDK } from "petstore";
 
+const sdk = new SDK();
+
 async function run() {
-    const sdk = new SDK();
-
-    const limit = 21453;
-
-    const result = await sdk.pets.listPets(limit);
+    const result = await sdk.pets.listPets(21453);
 
     // Handle the result
     console.log(result);
@@ -88,14 +86,12 @@ Validation errors can also occur when either method arguments or data returned f
 import { SDK } from "petstore";
 import * as errors from "petstore/models/errors";
 
+const sdk = new SDK();
+
 async function run() {
-    const sdk = new SDK();
-
-    const limit = 21453;
-
     let result;
     try {
-        result = await sdk.pets.listPets(limit);
+        result = await sdk.pets.listPets(21453);
     } catch (err) {
         switch (true) {
             case err instanceof errors.SDKValidationError: {
@@ -134,14 +130,12 @@ You can override the default server globally by passing a server index to the `s
 ```typescript
 import { SDK } from "petstore";
 
+const sdk = new SDK({
+    serverIdx: 0,
+});
+
 async function run() {
-    const sdk = new SDK({
-        serverIdx: 0,
-    });
-
-    const limit = 21453;
-
-    const result = await sdk.pets.listPets(limit);
+    const result = await sdk.pets.listPets(21453);
 
     // Handle the result
     console.log(result);
@@ -159,14 +153,12 @@ The default server can also be overridden globally by passing a URL to the `serv
 ```typescript
 import { SDK } from "petstore";
 
+const sdk = new SDK({
+    serverURL: "http://petstore.swagger.io/v1",
+});
+
 async function run() {
-    const sdk = new SDK({
-        serverURL: "http://petstore.swagger.io/v1",
-    });
-
-    const limit = 21453;
-
-    const result = await sdk.pets.listPets(limit);
+    const result = await sdk.pets.listPets(21453);
 
     // Handle the result
     console.log(result);
@@ -207,7 +199,7 @@ const httpClient = new HTTPClient({
 
 httpClient.addHook("beforeRequest", (request) => {
   const nextRequest = new Request(request, {
-    signal: request.signal || AbortSignal.timeout(5000);
+    signal: request.signal || AbortSignal.timeout(5000)
   });
 
   nextRequest.headers.set("x-custom-header", "custom value");

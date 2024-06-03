@@ -2,12 +2,10 @@
 ```typescript
 import { SDK } from "petstore";
 
+const sdk = new SDK();
+
 async function run() {
-    const sdk = new SDK();
-
-    const limit = 21453;
-
-    const result = await sdk.pets.listPets(limit);
+    const result = await sdk.pets.listPets(21453);
 
     // Handle the result
     console.log(result);
