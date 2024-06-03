@@ -10,7 +10,3 @@ targets:
     first-target:
         target: typescript
         source: openapi
-        codeSamples:
-            output: code-samples.yaml
-            registry:
-                location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self-self/code-samples-first-target

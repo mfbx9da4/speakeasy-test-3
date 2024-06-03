@@ -2,16 +2,16 @@ speakeasyVersion: 1.299.3
 sources:
     openapi:
         sourceNamespace: openapi
-        sourceRevisionDigest: sha256:4d719ce1517558b9523b6c916c6cd34d1bf55702d4dc5a5a1371fc8468de5596
-        sourceBlobDigest: sha256:320162356043ce7cf02e6fb4fdee31436b17a0651e3a33361cdfa277d529eb79
+        sourceRevisionDigest: sha256:69ef51690f73ec596af12e434bf51fa69873c426aa45b2fac5ebc68be7d0c4d6
+        sourceBlobDigest: sha256:882c8a4516516bd1badd8beafb0d9a8d28aca72aa62703ec079928a77a1a306d
         tags:
             - latest
 targets:
     first-target:
         source: openapi
         sourceNamespace: openapi
-        sourceRevisionDigest: sha256:4d719ce1517558b9523b6c916c6cd34d1bf55702d4dc5a5a1371fc8468de5596
-        sourceBlobDigest: sha256:320162356043ce7cf02e6fb4fdee31436b17a0651e3a33361cdfa277d529eb79
+        sourceRevisionDigest: sha256:69ef51690f73ec596af12e434bf51fa69873c426aa45b2fac5ebc68be7d0c4d6
+        sourceBlobDigest: sha256:882c8a4516516bd1badd8beafb0d9a8d28aca72aa62703ec079928a77a1a306d
         outLocation: /Users/da/code/misc/speakeasy-test-3
 workflow:
     workflowVersion: 1.0.0
@@ -26,3 +26,7 @@ workflow:
         first-target:
             target: typescript
             source: openapi
+            codeSamples:
+                output: code-samples.yaml
+                registry:
+                    location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self-self/code-samples-first-target
