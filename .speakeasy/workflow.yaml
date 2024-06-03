@@ -5,7 +5,7 @@ sources:
         inputs:
             - location: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
         registry:
-            location: registry.speakeasyapi.dev/petstore-workspace/petstore-workspace/openapi
+            location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self/openapi
 targets:
     first-target:
         target: typescript
