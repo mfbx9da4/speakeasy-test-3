@@ -1,19 +1,18 @@
-speakeasyVersion: 1.299.4
+speakeasyVersion: 1.299.3
 sources:
     openapi:
         sourceNamespace: openapi
-        sourceRevisionDigest: sha256:e04ae657abd4d52c5ee249f12035e4f586e90bfd2f34fb9a3922d6367a3950f3
-        sourceBlobDigest: sha256:83f79ba4f8289e7bdf52f609a4456a7d03fa8f0741c74542f6b7e660c8c0a8b8
+        sourceRevisionDigest: sha256:d92b510c59220139be7b0c1f45e9aaaa9d332a13233bf66e0240efd225318cef
+        sourceBlobDigest: sha256:ae402be360de99e6ffd2c2e345c6f3141f86ba66e98e6f2a9bf7839b0d0255ec
         tags:
             - latest
-            - main
 targets:
     first-target:
         source: openapi
         sourceNamespace: openapi
-        sourceRevisionDigest: sha256:e04ae657abd4d52c5ee249f12035e4f586e90bfd2f34fb9a3922d6367a3950f3
-        sourceBlobDigest: sha256:83f79ba4f8289e7bdf52f609a4456a7d03fa8f0741c74542f6b7e660c8c0a8b8
-        outLocation: /github/workspace/repo
+        sourceRevisionDigest: sha256:d92b510c59220139be7b0c1f45e9aaaa9d332a13233bf66e0240efd225318cef
+        sourceBlobDigest: sha256:ae402be360de99e6ffd2c2e345c6f3141f86ba66e98e6f2a9bf7839b0d0255ec
+        outLocation: /Users/da/code/misc/speakeasy-test-3
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -22,8 +21,12 @@ workflow:
             inputs:
                 - location: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
             registry:
-                location: registry.speakeasyapi.dev/petstore-workspace/petstore-workspace/openapi
+                location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self/openapi
     targets:
         first-target:
             target: typescript
             source: openapi
+            codeSamples:
+                output: code-samples.yaml
+                registry:
+                    location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self-self/code-samples-first-target
