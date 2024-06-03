@@ -36,7 +36,7 @@ export class SDK extends ClientSDK {
     }
 
     private _pets?: Pets;
-    get pets() {
+    get pets(): Pets {
         return (this._pets ??= new Pets(this.options$));
     }
 }

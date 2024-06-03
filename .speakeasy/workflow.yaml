@@ -1,8 +1,11 @@
 workflowVersion: 1.0.0
+speakeasyVersion: latest
 sources:
     openapi:
         inputs:
             - location: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
+        registry:
+            location: registry.speakeasyapi.dev/petstore-workspace/petstore-workspace/openapi
 targets:
     first-target:
         target: typescript
