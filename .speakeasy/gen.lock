@@ -3,16 +3,16 @@ id: 7f47b505-484c-4b8b-b5dc-a1438904fbbe
 management:
   docChecksum: 1bdb7a6f8bf3995d4b40475228403253
   docVersion: 1.0.0
-  speakeasyVersion: 1.299.4
-  generationVersion: 2.338.7
-  releaseVersion: 0.1.0
-  configChecksum: f1d9671f69c8334b1db0cde943996341
+  speakeasyVersion: 1.300.1
+  generationVersion: 2.339.1
+  releaseVersion: 0.1.1
+  configChecksum: 248282fba026956277bd4d5b942c493c
   repoURL: https://github.com/mfbx9da4/speakeasy-test-3.git
   installationURL: https://github.com/mfbx9da4/speakeasy-test-3
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.9.10
+    core: 3.9.12
     flattening: 2.81.1
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.4
@@ -32,6 +32,7 @@ generatedFiles:
   - src/lib/encodings.ts
   - src/lib/http.ts
   - src/lib/is-plain-object.ts
+  - src/lib/primitives.ts
   - src/lib/retries.ts
   - src/lib/schemas.ts
   - src/lib/sdks.ts
