@@ -3,7 +3,7 @@ speakeasyVersion: latest
 sources:
     openapi:
         inputs:
-            - location: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
+            - location: https://docs.speakeasyapi.dev/openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self/openapi
 targets:
