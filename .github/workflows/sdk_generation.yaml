@@ -12,7 +12,7 @@ permissions:
                 type: boolean
                 default: false
             push_code_samples_only:
-                description: push only code samples from sdk generation
+                description: Force push only code samples from SDK generation
                 type: boolean
                 default: false
     schedule:
@@ -23,7 +23,7 @@ jobs:
         with:
             force: ${{ github.event.inputs.force }}
             mode: pr
-            push_code_samples_only: ${{ github.event.inputs.push_code_samples_only }}
+            push_code_samples_only: ${{ fromJSON(github.event.inputs.push_code_samples_only) }}
             speakeasy_version: latest
         secrets:
             github_access_token: ${{ secrets.GITHUB_TOKEN }}
