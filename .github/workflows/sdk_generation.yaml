@@ -1,1 +1,17 @@
-{"Name":"Generate","Permissions":{"Checks":"write","Contents":"write","PullRequests":"write","Statuses":"write"},"On":{"WorkflowDispatch":{"Inputs":{"Force":{"Description":"Force generation of SDKs","Type":"boolean","Default":false},"PushCodeSamplesOnly":{"Description":"push only code samples from sdk generation","Type":"boolean","Default":false}}},"Schedule":[{"Cron":"0 0 * * *"}]},"Jobs":{"Generate":{"Uses":"speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@v15","With":{"force":"${{ github.event.inputs.force }}","mode":"pr","push_code_samples_only":"${{ github.event.inputs.push_code_samples_only }}","speakeasy_version":"latest"},"Secrets":{"github_access_token":"${{ secrets.GITHUB_TOKEN }}","speakeasy_api_key":"${{ secrets.SPEAKEASY_API_KEY }}"}},"Publish":{"Uses":"","With":null,"Secrets":null},"Tag":{"Uses":"","With":null,"Secrets":null}}}
+name: ""
+"on":
+    workflow_dispatch:
+        inputs:
+            force:
+                description: ""
+                type: ""
+                default: false
+            push_code_samples_only:
+                description: push only code samples from sdk generation
+                type: boolean
+                default: false
+jobs:
+    generate:
+        uses: ""
+        with:
+            push_code_samples_only: ${{ github.event.inputs.push_code_samples_only }}
