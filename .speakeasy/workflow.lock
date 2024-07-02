@@ -1,25 +1,28 @@
-speakeasyVersion: 1.299.3
+speakeasyVersion: 1.325.0
 sources:
     openapi:
         sourceNamespace: openapi
-        sourceRevisionDigest: sha256:69ef51690f73ec596af12e434bf51fa69873c426aa45b2fac5ebc68be7d0c4d6
-        sourceBlobDigest: sha256:882c8a4516516bd1badd8beafb0d9a8d28aca72aa62703ec079928a77a1a306d
+        sourceRevisionDigest: sha256:7c57478b9b899a101687c3d1c78c5ab94ab29ea552107019bd1971a5bf94080a
+        sourceBlobDigest: sha256:324d8ecb62fdbf0d5102b644afaa4039b7c634a2e88623d8b8d3acef34c187bd
         tags:
             - latest
+            - main
 targets:
     first-target:
         source: openapi
         sourceNamespace: openapi
-        sourceRevisionDigest: sha256:69ef51690f73ec596af12e434bf51fa69873c426aa45b2fac5ebc68be7d0c4d6
-        sourceBlobDigest: sha256:882c8a4516516bd1badd8beafb0d9a8d28aca72aa62703ec079928a77a1a306d
-        outLocation: /Users/da/code/misc/speakeasy-test-3
+        sourceRevisionDigest: sha256:7c57478b9b899a101687c3d1c78c5ab94ab29ea552107019bd1971a5bf94080a
+        sourceBlobDigest: sha256:324d8ecb62fdbf0d5102b644afaa4039b7c634a2e88623d8b8d3acef34c187bd
+        codeSamplesNamespace: code-samples-typescript-first-target
+        codeSamplesRevisionDigest: sha256:b67f254427a7de0ca02f667c725a1b72339dca2f020944b2368532011b4bac14
+        outLocation: /github/workspace/repo
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
         openapi:
             inputs:
-                - location: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
+                - location: https://docs.speakeasyapi.dev/openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self/openapi
     targets:
@@ -29,4 +32,4 @@ workflow:
             codeSamples:
                 output: code-samples.yaml
                 registry:
-                    location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self-self/code-samples-first-target
+                    location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self/code-samples-typescript-first-target

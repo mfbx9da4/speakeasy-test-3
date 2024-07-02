@@ -2,10 +2,21 @@
 ```typescript
 import { SDK } from "petstore";
 
-const sdk = new SDK();
+const sdk = new SDK({
+    security: {
+        apiKey: "<YOUR_API_KEY_HERE>",
+    },
+});
 
 async function run() {
-    const result = await sdk.pets.listPets(21453);
+    const result = await sdk.apis.getApis(
+        {
+            and: false,
+        },
+        {
+            key: ["<value>"],
+        }
+    );
 
     // Handle the result
     console.log(result);
