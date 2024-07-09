@@ -5,6 +5,9 @@ permissions:
     pull-requests: write
     statuses: write
 "on":
+    push:
+        branches:
+            - main
     workflow_dispatch:
         inputs:
             force:
