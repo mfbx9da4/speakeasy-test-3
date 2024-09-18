@@ -1,0 +1,15 @@
+# GetWorkspaceTargetsGlobals
+
+## Example Usage
+
+```typescript
+import { GetWorkspaceTargetsGlobals } from "petstore/models/operations";
+
+let value: GetWorkspaceTargetsGlobals = {};
+```
+
+## Fields
+
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `workspaceID`      | *string*           | :heavy_minus_sign: | N/A                |

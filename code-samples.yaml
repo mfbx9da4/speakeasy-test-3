@@ -1,0 +1,419 @@
+overlay: 1.0.0
+info:
+  title: CodeSamples overlay for typescript target
+  version: 0.0.0
+actions:
+  - target: $["paths"]["/v1/apis"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getApis
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apis.getApis();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getAllApiVersions
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apis.getAllApiVersions(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: upsertApi
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apis.upsertApi(\"<value>\", {\n    apiId: \"<value>\",\n    description: \"Synchronised 5th generation knowledge user\",\n    versionId: \"<value>\",\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/api_endpoints"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getAllApiEndpoints
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apiEndpoints.getAllApiEndpoints(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteApi
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apis.deleteApi(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getAllForVersionApiEndpoints
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apiEndpoints.getAllForVersionApiEndpoints(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/find/{displayName}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: findApiEndpoint
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apiEndpoints.findApiEndpoint(\"<value>\", \"<value>\", \"Don.Strosin\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteApiEndpoint
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apiEndpoints.deleteApiEndpoint(\"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getApiEndpoint
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apiEndpoints.getApiEndpoint(\"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: upsertApiEndpoint
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apiEndpoints.upsertApiEndpoint(\"<value>\", \"<value>\", \"<value>\", {\n    apiEndpointId: \"<value>\",\n    description: \"Public-key systematic attitude\",\n    displayName: \"Camille.Schaefer11\",\n    method: \"<value>\",\n    path: \"/Library\",\n    versionId: \"<value>\",\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}/generate/openapi"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generateOpenApiSpecForApiEndpoint
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apiEndpoints.generateOpenApiSpecForApiEndpoint(\"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}/generate/postman"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generatePostmanCollectionForApiEndpoint
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apiEndpoints.generatePostmanCollectionForApiEndpoint(\"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/generate/openapi"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generateOpenApiSpec
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apis.generateOpenApiSpec(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/generate/postman"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generatePostmanCollection
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.apis.generatePostmanCollection(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/metadata"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getVersionMetadata
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.metadata.getVersionMetadata(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/metadata"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: insertVersionMetadata
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.metadata.insertVersionMetadata(\"<value>\", \"<value>\", {\n    metaKey: \"<value>\",\n    metaValue: \"<value>\",\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/metadata/{metaKey}/{metaValue}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteVersionMetadata
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.metadata.deleteVersionMetadata(\"<value>\", \"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSchema
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.schemas.getSchema(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: registerSchema
+          source: "import { openAsBlob } from \"node:fs\";\nimport { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.schemas.registerSchema(\"<value>\", \"<value>\", {\n    file: await openAsBlob(\"example.file\"),\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/download"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: downloadSchema
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.schemas.downloadSchema(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{baseRevisionID}/diff/{targetRevisionID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSchemaDiff
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.schemas.getSchemaDiff(\"<value>\", \"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{revisionID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteSchema
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.schemas.deleteSchema(\"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{revisionID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSchemaRevision
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.schemas.getSchemaRevision(\"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{revisionID}/download"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: downloadSchemaRevision
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.schemas.downloadSchemaRevision(\"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schemas"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSchemas
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.schemas.getSchemas(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/artifacts/namespaces"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getNamespaces
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.artifacts.getNamespaces();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/artifacts/namespaces/{namespace_name}/revisions"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getRevisions
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.artifacts.getRevisions(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/artifacts/namespaces/{namespace_name}/revisions/{revision_reference}/summary"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getOASSummary
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.artifacts.getOASSummary(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/artifacts/namespaces/{namespace_name}/tags"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getTags
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.artifacts.getTags(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/artifacts/namespaces/{namespace_name}/tags"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: postTags
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.artifacts.postTags(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/artifacts/preflight"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: preflight
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.artifacts.preflight();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/auth/access_token"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getAccessToken
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK();\n\nasync function run() {\n  const result = await sdk.auth.getAccessToken(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/auth/validate"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: validateApiKey
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.auth.validateApiKey();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/eventlog/query"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: queryEventLog
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.requests.queryEventLog();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/eventlog/{requestID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getRequestFromEventLog
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.requests.getRequestFromEventLog(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/eventlog/{requestID}/generate/postman"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generateRequestPostmanCollection
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.requests.generateRequestPostmanCollection(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/github/action"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getAction
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.github.getAction(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/github/check_access"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: checkAccess
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.github.checkAccess(\"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/github/configure_code_samples"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: configureCodeSamples
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.github.configureCodeSamples({\n    org: \"<value>\",\n    repo: \"<value>\",\n    targetName: \"<value>\",\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/github/configure_mintlify_repo"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: configureMintlifyRepo
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.github.configureMintlifyRepo({\n    org: \"<value>\",\n    repo: \"<value>\",\n    input: \"<value>\",\n    overlays: [\n      \"<value>\",\n    ],\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/github/configure_target"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: configureTarget
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.github.configureTarget({\n    org: \"<value>\",\n    repoName: \"<value>\",\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/github/publishing_prs"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: fetchPublishingPRs
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.github.fetchPublishingPRs(\"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/github/publishing_secrets"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: githubCheckPublishingSecrets
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.github.githubCheckPublishingSecrets(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/github/publishing_secrets"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: githubStorePublishingSecrets
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.github.githubStorePublishingSecrets({\n    generateGenLockId: \"<value>\",\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/github/trigger_action"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: triggerAction
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.github.triggerAction({\n    org: \"<value>\",\n    repoName: \"<value>\",\n    genLockId: \"<value>\",\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/oci/v2/{organization_slug}/{workspace_slug}/{namespace_name}/blobs/{digest}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getBlob
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.artifacts.getBlob(\"<value>\", \"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/oci/v2/{organization_slug}/{workspace_slug}/{namespace_name}/manifests/{revision_reference}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getManifest
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.artifacts.getManifest(\"<value>\", \"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/organization"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getOrganizations
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.organizations.getOrganizations();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/organization/free_trial"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createFreeTrial
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.organizations.createFreeTrial();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/organization/usage"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getOrganizationUsage
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.organizations.getOrganizationUsage();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/organization/{organizationID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getOrganization
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.organizations.getOrganization(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/reports"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: uploadReport
+          source: "import { openAsBlob } from \"node:fs\";\nimport { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.reports.uploadReport({\n    data: {},\n    file: await openAsBlob(\"example.file\"),\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/reports/changes/{documentChecksum}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getChangesReportSignedUrl
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.reports.getChangesReportSignedUrl(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/reports/linting/{documentChecksum}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getLintingReportSignedUrl
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.reports.getLintingReportSignedUrl(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/short_urls"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: create
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.shortURLs.create({\n    url: \"http://limp-pastry.org\",\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/suggest/openapi"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: suggestOpenAPI
+          source: "import { openAsBlob } from \"node:fs\";\nimport { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.suggest.suggestOpenAPI(\"<value>\", {\n    schema: await openAsBlob(\"example.file\"),\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/suggest/openapi/{namespace_name}/{revision_reference}"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: suggestOpenAPIRegistry
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.suggest.suggestOpenAPIRegistry(\"<value>\", \"<value>\", \"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/suggest/openapi_from_summary"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: suggest
+          source: "import { SDK } from \"petstore\";\nimport { SuggestRequestBodySuggestionType } from \"petstore/models/components\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.suggest.suggest(\"<value>\", {\n    oasSummary: {\n      info: {\n        title: \"<value>\",\n        summary: \"<value>\",\n        description: \"Operative impactful monitoring\",\n        version: \"<value>\",\n        license: {},\n      },\n      operations: [\n        {\n          method: \"<value>\",\n          path: \"/rescue\",\n          operationId: \"<value>\",\n          description: \"Object-based multi-state pricing structure\",\n          tags: [\n            \"<value>\",\n          ],\n        },\n      ],\n    },\n    suggestionType: SuggestRequestBodySuggestionType.DiagnosticsOnly,\n    diagnostics: [\n      {\n        message: \"<value>\",\n        path: [\n          \"/opt/include\",\n        ],\n        type: \"<value>\",\n      },\n    ],\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/user"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getUser
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.auth.getUser();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/workspace/access"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceAccess
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.auth.getWorkspaceAccess();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/workspace/embed-access-token"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getEmbedAccessToken
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.embeds.getEmbedAccessToken();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/workspace/embed-access-tokens/valid"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getValidEmbedAccessTokens
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.embeds.getValidEmbedAccessTokens();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/workspace/embed-access-tokens/{tokenID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: revokeEmbedAccessToken
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.embeds.revokeEmbedAccessToken(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/workspace/{workspaceID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspace
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.workspaces.getWorkspace();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/workspace/{workspaceID}/events"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: searchWorkspaceEvents
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.events.searchWorkspaceEvents({});\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/workspace/{workspaceID}/events"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: postWorkspaceEvents
+          source: "import { SDK } from \"petstore\";\nimport { InteractionType } from \"petstore/models/components\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.events.postWorkspaceEvents([\n    {\n      id: \"<id>\",\n      executionId: \"<value>\",\n      workspaceId: \"<value>\",\n      speakeasyApiKeyName: \"<value>\",\n      interactionType: InteractionType.Publish,\n      localStartedAt: new Date(\"2022-05-18T11:28:11.328Z\"),\n      createdAt: new Date(\"2024-05-07T12:35:47.182Z\"),\n      speakeasyVersion: \"<value>\",\n      success: false,\n    },\n  ]);\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/workspace/{workspaceID}/events/targets"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceTargets
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.events.getWorkspaceTargets();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/workspace/{workspaceID}/events/targets/{targetID}/events"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceEventsByTarget
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.events.getWorkspaceEventsByTarget(\"<value>\");\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/v1/workspace/{workspaceID}/feature_flags"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceFeatureFlags
+          source: "import { SDK } from \"petstore\";\n\nconst sdk = new SDK({\n  security: {\n    apiKey: \"<YOUR_API_KEY_HERE>\",\n  },\n});\n\nasync function run() {\n  const result = await sdk.workspaces.getWorkspaceFeatureFlags();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"

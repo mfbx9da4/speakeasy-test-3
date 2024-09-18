@@ -1,0 +1,21 @@
+# DeleteApiEndpointRequest
+
+## Example Usage
+
+```typescript
+import { DeleteApiEndpointRequest } from "petstore/models/operations";
+
+let value: DeleteApiEndpointRequest = {
+  apiID: "<value>",
+  versionID: "<value>",
+  apiEndpointID: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                 | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `apiID`                                               | *string*                                              | :heavy_check_mark:                                    | The ID of the Api the ApiEndpoint belongs to.         |
+| `versionID`                                           | *string*                                              | :heavy_check_mark:                                    | The version ID of the Api the ApiEndpoint belongs to. |
+| `apiEndpointID`                                       | *string*                                              | :heavy_check_mark:                                    | The ID of the ApiEndpoint to delete.                  |
