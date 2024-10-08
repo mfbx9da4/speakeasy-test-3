@@ -1,0 +1,1933 @@
+overlay: 1.0.0
+info:
+  title: CodeSamples overlay for typescript target
+  version: 0.0.0
+actions:
+  - target: $["paths"]["/v1/apis"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getApis
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apis.getApis();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getAllApiVersions
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apis.getAllApiVersions("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: upsertApi
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apis.upsertApi({
+                apiId: "<id>",
+                description: "consequently brr happily yowza however gosh investigate joyfully direct",
+                versionId: "<id>",
+              }, "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/api_endpoints"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getAllApiEndpoints
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apiEndpoints.getAllApiEndpoints("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteApi
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apis.deleteApi("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getAllForVersionApiEndpoints
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apiEndpoints.getAllForVersionApiEndpoints("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/find/{displayName}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: findApiEndpoint
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apiEndpoints.findApiEndpoint("<id>", "<id>", "Don_Kihn39");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteApiEndpoint
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apiEndpoints.deleteApiEndpoint("<id>", "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getApiEndpoint
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apiEndpoints.getApiEndpoint("<id>", "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: upsertApiEndpoint
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apiEndpoints.upsertApiEndpoint({
+                apiEndpointId: "<id>",
+                description: "commandeer equate pish psst hoot ugh frankly supposing",
+                displayName: "Eliseo.Little15",
+                method: "<value>",
+                path: "/etc/defaults",
+                versionId: "<id>",
+              }, "<id>", "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}/generate/openapi"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generateOpenApiSpecForApiEndpoint
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apiEndpoints.generateOpenApiSpecForApiEndpoint("<id>", "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}/generate/postman"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generatePostmanCollectionForApiEndpoint
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apiEndpoints.generatePostmanCollectionForApiEndpoint("<id>", "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/generate/openapi"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generateOpenApiSpec
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apis.generateOpenApiSpec("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/generate/postman"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generatePostmanCollection
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.apis.generatePostmanCollection("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/metadata"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getVersionMetadata
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.metadata.getVersionMetadata("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/metadata"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: insertVersionMetadata
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.metadata.insertVersionMetadata({
+                metaKey: "<value>",
+                metaValue: "<value>",
+              }, "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/metadata/{metaKey}/{metaValue}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteVersionMetadata
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.metadata.deleteVersionMetadata("<id>", "<id>", "<value>", "<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSchema
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.schemas.getSchema("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: registerSchema
+          source: |-
+            import { openAsBlob } from "node:fs";
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.schemas.registerSchema({
+                file: await openAsBlob("example.file"),
+              }, "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/download"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: downloadSchema
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.schemas.downloadSchema("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{baseRevisionID}/diff/{targetRevisionID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSchemaDiff
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.schemas.getSchemaDiff("<id>", "<id>", "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{revisionID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteSchema
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.schemas.deleteSchema("<id>", "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{revisionID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSchemaRevision
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.schemas.getSchemaRevision("<id>", "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{revisionID}/download"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: downloadSchemaRevision
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.schemas.downloadSchemaRevision("<id>", "<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schemas"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSchemas
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.schemas.getSchemas("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/artifacts/namespaces"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getNamespaces
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.getNamespaces();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/artifacts/namespaces/{namespace_name}/revisions"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getRevisions
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.getRevisions("<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/artifacts/namespaces/{namespace_name}/tags"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getTags
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.getTags("<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/artifacts/namespaces/{namespace_name}/tags"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: postTags
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.postTags("<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/artifacts/preflight"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: preflight
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.preflight();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/auth/access_token"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getAccessToken
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK();
+
+            async function run() {
+              const result = await sdk.auth.getAccessToken("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/auth/validate"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: validateApiKey
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.auth.validateApiKey();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/eventlog/query"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: queryEventLog
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.requests.queryEventLog();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/eventlog/{requestID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getRequestFromEventLog
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.requests.getRequestFromEventLog("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/eventlog/{requestID}/generate/postman"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generateRequestPostmanCollection
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.requests.generateRequestPostmanCollection("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/action"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getGitHubAction
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.getAction("<value>", "<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/check_access"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: checkGithubAccess
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.checkAccess("<value>", "<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/configure_code_samples"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: githubConfigureCodeSamples
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.configureCodeSamples({
+                org: "<value>",
+                repo: "<value>",
+                targetName: "<value>",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/configure_mintlify_repo"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: githubConfigureMintlifyRepo
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.configureMintlifyRepo({
+                org: "<value>",
+                repo: "<value>",
+                input: "<value>",
+                overlays: [
+                  "<value>",
+                ],
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/configure_target"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: githubConfigureTarget
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.configureTarget({
+                org: "<value>",
+                repoName: "<value>",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/publishing_prs"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: githubCheckPublishingPRs
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.checkPublishingPRs("<id>", "<value>", "<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/publishing_secrets"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: githubCheckPublishingSecrets
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.checkPublishingSecrets("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/publishing_secrets"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: githubStorePublishingSecrets
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.storePublishingSecrets({
+                generateGenLockId: "<id>",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/trigger_action"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: githubTriggerAction
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.triggerAction({
+                org: "<value>",
+                repoName: "<value>",
+                genLockId: "<id>",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/oci/v2/{organization_slug}/{workspace_slug}/{namespace_name}/blobs/{digest}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getBlob
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.getBlob("<value>", "<value>", "<value>", "<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/oci/v2/{organization_slug}/{workspace_slug}/{namespace_name}/manifests/{revision_reference}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getManifest
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.getManifest("<value>", "<value>", "<value>", "<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/organization"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createOrganization
+          source: |-
+            import { SDK } from "petstore";
+            import { AccountType } from "petstore/models/components";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.organizations.create({
+                id: "<id>",
+                name: "<value>",
+                slug: "<value>",
+                accountType: AccountType.ScaleUp,
+                telemetryDisabled: false,
+                createdAt: new Date("2023-04-03T12:48:32.253Z"),
+                updatedAt: new Date("2022-05-28T06:20:22.766Z"),
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/organization/free_trial"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createFreeTrial
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.organizations.createFreeTrial();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/organization/usage"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getOrganizationUsage
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.organizations.getUsage();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/organization/{organizationID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getOrganization
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.organizations.get("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/organizations"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getOrganizations
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.organizations.getAll();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/reports"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: uploadReport
+          source: |-
+            import { openAsBlob } from "node:fs";
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.reports.uploadReport({
+                data: {},
+                file: await openAsBlob("example.file"),
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/reports/changes/{documentChecksum}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getChangesReportSignedUrl
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.reports.getChangesReportSignedUrl("<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/reports/linting/{documentChecksum}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getLintingReportSignedUrl
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.reports.getLintingReportSignedUrl("<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/short_urls"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: create
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.shortURLs.create({
+                url: "https://probable-heating.com/",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/suggest/openapi"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: suggestOpenAPI
+          source: |-
+            import { openAsBlob } from "node:fs";
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.suggest.suggestOpenAPI({
+                schema: await openAsBlob("example.file"),
+              }, "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/suggest/openapi/{namespace_name}/{revision_reference}"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: suggestOpenAPIRegistry
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.suggest.suggestOpenAPIRegistry("<id>", "<value>", "<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/suggest/openapi_from_summary"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: suggest
+          source: |-
+            import { SDK } from "petstore";
+            import { SuggestRequestBodySuggestionType } from "petstore/models/components";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.suggest.suggest({
+                oasSummary: {
+                  info: {
+                    title: "<value>",
+                    summary: "<value>",
+                    description: "ugh which garrote ashamed sarong fiddle really",
+                    version: "<value>",
+                    license: {},
+                  },
+                  operations: [
+                    {
+                      method: "<value>",
+                      path: "/rescue",
+                      operationId: "<id>",
+                      description: "kielbasa psst stitcher cannon devoted blindly apropos low",
+                      tags: [
+                        "<value>",
+                      ],
+                    },
+                  ],
+                },
+                suggestionType: SuggestRequestBodySuggestionType.DiagnosticsOnly,
+                diagnostics: [
+                  {
+                    message: "<value>",
+                    path: [
+                      "/opt/share",
+                    ],
+                    type: "<value>",
+                  },
+                ],
+              }, "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/user"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getUser
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.auth.getUser();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceByContext
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.get();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createWorkspace
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.create({
+                createdAt: new Date("2023-06-18T07:14:55.338Z"),
+                id: "<id>",
+                name: "<value>",
+                organizationId: "<id>",
+                slug: "<value>",
+                telemetryDisabled: false,
+                updatedAt: new Date("2023-04-03T12:48:32.253Z"),
+                verified: true,
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/access"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceAccess
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.auth.getAccess();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/embed-access-token"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getEmbedAccessToken
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.embeds.getEmbedAccessToken();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/embed-access-tokens/valid"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getValidEmbedAccessTokens
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.embeds.getValidEmbedAccessTokens();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/embed-access-tokens/{tokenID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: revokeEmbedAccessToken
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.embeds.revokeEmbedAccessToken("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/events/targets"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceTargets
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.events.getTargets();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspace
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.getByID("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/details"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: updateWorkspaceDetails
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.update({
+                createdAt: new Date("2024-07-28T19:04:48.565Z"),
+                id: "<id>",
+                name: "<value>",
+                organizationId: "<id>",
+                slug: "<value>",
+                telemetryDisabled: false,
+                updatedAt: new Date("2023-01-13T16:52:57.274Z"),
+                verified: false,
+              }, "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/events"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: searchWorkspaceEvents
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.events.search({
+                workspaceId: "<id>",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/events"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: postWorkspaceEvents
+          source: |-
+            import { SDK } from "petstore";
+            import { InteractionType } from "petstore/models/components";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.events.post([
+                {
+                  id: "<id>",
+                  executionId: "<id>",
+                  workspaceId: "<id>",
+                  speakeasyApiKeyName: "<value>",
+                  interactionType: InteractionType.Quickstart,
+                  localStartedAt: new Date("2023-09-09T05:59:33.876Z"),
+                  createdAt: new Date("2024-08-12T17:54:17.538Z"),
+                  speakeasyVersion: "<value>",
+                  success: true,
+                },
+              ], "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/events/targets"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceTargetsDeprecated
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.events.getTargetsDeprecated("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/events/targets/{target_id}/events"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceEventsByTarget
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.events.getEventsByTarget("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/feature_flags"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceFeatureFlags
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.getFeatureFlags("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/settings"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceSettings
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.getSettings("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/settings"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: updateWorkspaceSettings
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.updateSettings({
+                workspaceId: "<id>",
+              }, "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/team"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceTeam
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.getTeam("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/team/email/{email}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: grantUserAccessToWorkspace
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.grantAccess("<id>", "Lucinda.Batz8@hotmail.com");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/team/{userId}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: revokeUserAccessToWorkspace
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.revokeAccess("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/tokens"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaceTokens
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.getTokens("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/tokens"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createWorkspaceToken
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.createToken({
+                id: "<id>",
+                name: "<value>",
+                alg: "<value>",
+                key: "<key>",
+                createdAt: "<value>",
+              }, "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/{workspace_id}/tokens/{tokenID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteWorkspaceToken
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.deleteToken("<id>", "<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspaces"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWorkspaces
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.getAll();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
