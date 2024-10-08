@@ -10,6 +10,9 @@ targets:
     first-target:
         target: typescript
         source: openapi
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             output: code-samples.yaml
             registry:
