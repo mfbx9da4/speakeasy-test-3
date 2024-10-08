@@ -1,25 +1,27 @@
-speakeasyVersion: 1.299.3
+speakeasyVersion: 1.412.3
 sources:
     openapi:
         sourceNamespace: openapi
-        sourceRevisionDigest: sha256:69ef51690f73ec596af12e434bf51fa69873c426aa45b2fac5ebc68be7d0c4d6
-        sourceBlobDigest: sha256:882c8a4516516bd1badd8beafb0d9a8d28aca72aa62703ec079928a77a1a306d
+        sourceRevisionDigest: sha256:67d0077ef967403ac1ffe9ad0c7a639dbab02d01abe1b102efa9276b6006c37f
+        sourceBlobDigest: sha256:f5a6a776602f0d52882b31fb986311857356e9f95a49774fee822b6a1e14f4ac
         tags:
             - latest
+            - main
 targets:
     first-target:
         source: openapi
         sourceNamespace: openapi
-        sourceRevisionDigest: sha256:69ef51690f73ec596af12e434bf51fa69873c426aa45b2fac5ebc68be7d0c4d6
-        sourceBlobDigest: sha256:882c8a4516516bd1badd8beafb0d9a8d28aca72aa62703ec079928a77a1a306d
-        outLocation: /Users/da/code/misc/speakeasy-test-3
+        sourceRevisionDigest: sha256:67d0077ef967403ac1ffe9ad0c7a639dbab02d01abe1b102efa9276b6006c37f
+        sourceBlobDigest: sha256:f5a6a776602f0d52882b31fb986311857356e9f95a49774fee822b6a1e14f4ac
+        codeSamplesNamespace: code-samples-typescript-first-target
+        codeSamplesRevisionDigest: sha256:3b4d8e39c0abea9420a86f1442ef33cc65522554e4e65d55ae94528d786257ef
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
         openapi:
             inputs:
-                - location: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
+                - location: https://www.speakeasy.com/openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self/openapi
     targets:
@@ -29,4 +31,4 @@ workflow:
             codeSamples:
                 output: code-samples.yaml
                 registry:
-                    location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self-self/code-samples-first-target
+                    location: registry.speakeasyapi.dev/speakeasy-self/speakeasy-self/code-samples-typescript-first-target
