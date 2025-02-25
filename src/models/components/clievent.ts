@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   InteractionType,
   InteractionType$inboundSchema,
@@ -98,6 +101,14 @@ export type CliEvent = {
    * GitHub organization of the action.
    */
   ghActionOrganization?: string | undefined;
+  /**
+   * The reference to a created pull request URL.
+   */
+  ghPullRequest?: string | undefined;
+  /**
+   * Whether or not changes were committed from generation in the Github Action.
+   */
+  ghChangesCommitted?: boolean | undefined;
   /**
    * GitHub Action ref value.
    */
@@ -243,13 +254,13 @@ export type CliEvent = {
    */
   generateNumberOfOperationsUsed?: number | undefined;
   /**
+   * The number of terraform resources used in generation.
+   */
+  generateNumberOfTerraformResources?: number | undefined;
+  /**
    * Indicates whether the target was considered published.
    */
   generatePublished?: boolean | undefined;
-  /**
-   * The reference to a created pull request.
-   */
-  ghPullRequest?: string | undefined;
   /**
    * Expected Repo URL, for use in documentation generation.
    */
@@ -334,6 +345,10 @@ export type CliEvent = {
    * The last step of the event.
    */
   lastStep?: string | undefined;
+  /**
+   * The raw test report xml
+   */
+  testReportRaw?: string | undefined;
   /**
    * Workflow file (prior to execution)
    */
@@ -420,6 +435,8 @@ export const CliEvent$inboundSchema: z.ZodType<
   gh_action_run_link: z.string().optional(),
   gh_action_version: z.string().optional(),
   gh_action_organization: z.string().optional(),
+  gh_pull_request: z.string().optional(),
+  gh_changes_committed: z.boolean().optional(),
   gh_action_ref: z.string().optional(),
   gh_action_repository: z.string().optional(),
   repo_label: z.string().optional(),
@@ -456,8 +473,8 @@ export const CliEvent$inboundSchema: z.ZodType<
   generate_bump_type: GenerateBumpType$inboundSchema.optional(),
   generate_number_of_operations_ignored: z.number().int().optional(),
   generate_number_of_operations_used: z.number().int().optional(),
+  generate_number_of_terraform_resources: z.number().int().optional(),
   generate_published: z.boolean().optional(),
-  gh_pull_request: z.string().optional(),
   generate_repo_url: z.string().optional(),
   publish_package_url: z.string().optional(),
   publish_package_name: z.string().optional(),
@@ -479,6 +496,7 @@ export const CliEvent$inboundSchema: z.ZodType<
   error: z.string().optional(),
   mermaid_diagram: z.string().optional(),
   last_step: z.string().optional(),
+  test_report_raw: z.string().optional(),
   workflow_pre_raw: z.string().optional(),
   workflow_post_raw: z.string().optional(),
   workflow_lock_pre_raw: z.string().optional(),
@@ -499,6 +517,8 @@ export const CliEvent$inboundSchema: z.ZodType<
     "gh_action_run_link": "ghActionRunLink",
     "gh_action_version": "ghActionVersion",
     "gh_action_organization": "ghActionOrganization",
+    "gh_pull_request": "ghPullRequest",
+    "gh_changes_committed": "ghChangesCommitted",
     "gh_action_ref": "ghActionRef",
     "gh_action_repository": "ghActionRepository",
     "repo_label": "repoLabel",
@@ -535,8 +555,9 @@ export const CliEvent$inboundSchema: z.ZodType<
     "generate_number_of_operations_ignored":
       "generateNumberOfOperationsIgnored",
     "generate_number_of_operations_used": "generateNumberOfOperationsUsed",
+    "generate_number_of_terraform_resources":
+      "generateNumberOfTerraformResources",
     "generate_published": "generatePublished",
-    "gh_pull_request": "ghPullRequest",
     "generate_repo_url": "generateRepoUrl",
     "publish_package_url": "publishPackageUrl",
     "publish_package_name": "publishPackageName",
@@ -559,6 +580,7 @@ export const CliEvent$inboundSchema: z.ZodType<
     "openapi_diff_bump_type": "openapiDiffBumpType",
     "mermaid_diagram": "mermaidDiagram",
     "last_step": "lastStep",
+    "test_report_raw": "testReportRaw",
     "workflow_pre_raw": "workflowPreRaw",
     "workflow_post_raw": "workflowPostRaw",
     "workflow_lock_pre_raw": "workflowLockPreRaw",
@@ -584,6 +606,8 @@ export type CliEvent$Outbound = {
   gh_action_run_link?: string | undefined;
   gh_action_version?: string | undefined;
   gh_action_organization?: string | undefined;
+  gh_pull_request?: string | undefined;
+  gh_changes_committed?: boolean | undefined;
   gh_action_ref?: string | undefined;
   gh_action_repository?: string | undefined;
   repo_label?: string | undefined;
@@ -620,8 +644,8 @@ export type CliEvent$Outbound = {
   generate_bump_type?: string | undefined;
   generate_number_of_operations_ignored?: number | undefined;
   generate_number_of_operations_used?: number | undefined;
+  generate_number_of_terraform_resources?: number | undefined;
   generate_published?: boolean | undefined;
-  gh_pull_request?: string | undefined;
   generate_repo_url?: string | undefined;
   publish_package_url?: string | undefined;
   publish_package_name?: string | undefined;
@@ -643,6 +667,7 @@ export type CliEvent$Outbound = {
   error?: string | undefined;
   mermaid_diagram?: string | undefined;
   last_step?: string | undefined;
+  test_report_raw?: string | undefined;
   workflow_pre_raw?: string | undefined;
   workflow_post_raw?: string | undefined;
   workflow_lock_pre_raw?: string | undefined;
@@ -671,6 +696,8 @@ export const CliEvent$outboundSchema: z.ZodType<
   ghActionRunLink: z.string().optional(),
   ghActionVersion: z.string().optional(),
   ghActionOrganization: z.string().optional(),
+  ghPullRequest: z.string().optional(),
+  ghChangesCommitted: z.boolean().optional(),
   ghActionRef: z.string().optional(),
   ghActionRepository: z.string().optional(),
   repoLabel: z.string().optional(),
@@ -707,8 +734,8 @@ export const CliEvent$outboundSchema: z.ZodType<
   generateBumpType: GenerateBumpType$outboundSchema.optional(),
   generateNumberOfOperationsIgnored: z.number().int().optional(),
   generateNumberOfOperationsUsed: z.number().int().optional(),
+  generateNumberOfTerraformResources: z.number().int().optional(),
   generatePublished: z.boolean().optional(),
-  ghPullRequest: z.string().optional(),
   generateRepoUrl: z.string().optional(),
   publishPackageUrl: z.string().optional(),
   publishPackageName: z.string().optional(),
@@ -730,6 +757,7 @@ export const CliEvent$outboundSchema: z.ZodType<
   error: z.string().optional(),
   mermaidDiagram: z.string().optional(),
   lastStep: z.string().optional(),
+  testReportRaw: z.string().optional(),
   workflowPreRaw: z.string().optional(),
   workflowPostRaw: z.string().optional(),
   workflowLockPreRaw: z.string().optional(),
@@ -750,6 +778,8 @@ export const CliEvent$outboundSchema: z.ZodType<
     ghActionRunLink: "gh_action_run_link",
     ghActionVersion: "gh_action_version",
     ghActionOrganization: "gh_action_organization",
+    ghPullRequest: "gh_pull_request",
+    ghChangesCommitted: "gh_changes_committed",
     ghActionRef: "gh_action_ref",
     ghActionRepository: "gh_action_repository",
     repoLabel: "repo_label",
@@ -785,8 +815,9 @@ export const CliEvent$outboundSchema: z.ZodType<
     generateBumpType: "generate_bump_type",
     generateNumberOfOperationsIgnored: "generate_number_of_operations_ignored",
     generateNumberOfOperationsUsed: "generate_number_of_operations_used",
+    generateNumberOfTerraformResources:
+      "generate_number_of_terraform_resources",
     generatePublished: "generate_published",
-    ghPullRequest: "gh_pull_request",
     generateRepoUrl: "generate_repo_url",
     publishPackageUrl: "publish_package_url",
     publishPackageName: "publish_package_name",
@@ -809,6 +840,7 @@ export const CliEvent$outboundSchema: z.ZodType<
     openapiDiffBumpType: "openapi_diff_bump_type",
     mermaidDiagram: "mermaid_diagram",
     lastStep: "last_step",
+    testReportRaw: "test_report_raw",
     workflowPreRaw: "workflow_pre_raw",
     workflowPostRaw: "workflow_post_raw",
     workflowLockPreRaw: "workflow_lock_pre_raw",
@@ -827,4 +859,18 @@ export namespace CliEvent$ {
   export const outboundSchema = CliEvent$outboundSchema;
   /** @deprecated use `CliEvent$Outbound` instead. */
   export type Outbound = CliEvent$Outbound;
+}
+
+export function cliEventToJSON(cliEvent: CliEvent): string {
+  return JSON.stringify(CliEvent$outboundSchema.parse(cliEvent));
+}
+
+export function cliEventFromJSON(
+  jsonString: string,
+): SafeParseResult<CliEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CliEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CliEvent' from JSON`,
+  );
 }

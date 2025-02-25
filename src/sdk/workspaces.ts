@@ -14,6 +14,7 @@ import { workspacesGetTeam } from "../funcs/workspacesGetTeam.js";
 import { workspacesGetTokens } from "../funcs/workspacesGetTokens.js";
 import { workspacesGrantAccess } from "../funcs/workspacesGrantAccess.js";
 import { workspacesRevokeAccess } from "../funcs/workspacesRevokeAccess.js";
+import { workspacesSetFeatureFlags } from "../funcs/workspacesSetFeatureFlags.js";
 import { workspacesUpdate } from "../funcs/workspacesUpdate.js";
 import { workspacesUpdateSettings } from "../funcs/workspacesUpdateSettings.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
@@ -76,7 +77,7 @@ export class Workspaces extends ClientSDK {
    * Get information about a particular workspace.
    */
   async getByID(
-    workspaceId: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWorkspaceResponse> {
     return unwrapAsync(workspacesGetByID(
@@ -94,7 +95,7 @@ export class Workspaces extends ClientSDK {
    */
   async update(
     workspace: components.Workspace,
-    workspaceId: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.UpdateWorkspaceDetailsResponse> {
     return unwrapAsync(workspacesUpdate(
@@ -112,7 +113,7 @@ export class Workspaces extends ClientSDK {
    * Get settings about a particular workspace.
    */
   async getSettings(
-    workspaceId: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWorkspaceSettingsResponse> {
     return unwrapAsync(workspacesGetSettings(
@@ -130,7 +131,7 @@ export class Workspaces extends ClientSDK {
    */
   async updateSettings(
     workspaceSettings: components.WorkspaceSettings,
-    workspaceId: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.UpdateWorkspaceSettingsResponse> {
     return unwrapAsync(workspacesUpdateSettings(
@@ -145,7 +146,7 @@ export class Workspaces extends ClientSDK {
    * Get team members for a particular workspace
    */
   async getTeam(
-    workspaceId: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWorkspaceTeamResponse> {
     return unwrapAsync(workspacesGetTeam(
@@ -159,14 +160,14 @@ export class Workspaces extends ClientSDK {
    * Grant a user access to a particular workspace
    */
   async grantAccess(
-    workspaceId: string,
     email: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GrantUserAccessToWorkspaceResponse> {
     return unwrapAsync(workspacesGrantAccess(
       this,
-      workspaceId,
       email,
+      workspaceId,
       options,
     ));
   }
@@ -175,14 +176,14 @@ export class Workspaces extends ClientSDK {
    * Revoke a user's access to a particular workspace
    */
   async revokeAccess(
-    workspaceId: string,
     userId: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.RevokeUserAccessToWorkspaceResponse> {
     return unwrapAsync(workspacesRevokeAccess(
       this,
-      workspaceId,
       userId,
+      workspaceId,
       options,
     ));
   }
@@ -191,7 +192,7 @@ export class Workspaces extends ClientSDK {
    * Get tokens for a particular workspace
    */
   async getTokens(
-    workspaceId: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWorkspaceTokensResponse> {
     return unwrapAsync(workspacesGetTokens(
@@ -206,7 +207,7 @@ export class Workspaces extends ClientSDK {
    */
   async createToken(
     workspaceToken: components.WorkspaceToken,
-    workspaceId: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.CreateWorkspaceTokenResponse> {
     return unwrapAsync(workspacesCreateToken(
@@ -221,14 +222,28 @@ export class Workspaces extends ClientSDK {
    * Delete a token for a particular workspace
    */
   async deleteToken(
-    workspaceId: string,
     tokenID: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.DeleteWorkspaceTokenResponse> {
     return unwrapAsync(workspacesDeleteToken(
       this,
-      workspaceId,
       tokenID,
+      workspaceId,
+      options,
+    ));
+  }
+
+  /**
+   * Set workspace feature flags
+   */
+  async setFeatureFlags(
+    request: components.WorkspaceFeatureFlagRequest,
+    options?: RequestOptions,
+  ): Promise<operations.SetWorkspaceFeatureFlagsResponse> {
+    return unwrapAsync(workspacesSetFeatureFlags(
+      this,
+      request,
       options,
     ));
   }
@@ -237,7 +252,7 @@ export class Workspaces extends ClientSDK {
    * Get workspace feature flags
    */
   async getFeatureFlags(
-    workspaceId: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWorkspaceFeatureFlagsResponse> {
     return unwrapAsync(workspacesGetFeatureFlags(

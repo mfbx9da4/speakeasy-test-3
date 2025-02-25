@@ -8,7 +8,7 @@ OK
 import { GetLintingReportSignedUrlSignedAccess } from "petstore/models/operations";
 
 let value: GetLintingReportSignedUrlSignedAccess = {
-  url: "https://intrepid-technician.info",
+  url: "https://misguided-hawk.biz",
 };
 ```
 

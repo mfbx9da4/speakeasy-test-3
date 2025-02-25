@@ -3,6 +3,8 @@
 
 ## Overview
 
+REST APIs for managing Organizations (speakeasy L1 Tenancy construct)
+
 ### Available Operations
 
 * [getAll](#getall) - Get organizations for a user
@@ -110,8 +112,9 @@ async function run() {
     slug: "<value>",
     accountType: AccountType.ScaleUp,
     telemetryDisabled: false,
-    createdAt: new Date("2023-04-03T12:48:32.253Z"),
-    updatedAt: new Date("2022-05-28T06:20:22.766Z"),
+    createdAt: new Date("2024-04-02T12:48:32.253Z"),
+    updatedAt: new Date("2023-05-28T06:20:22.766Z"),
+    ssoActivated: true,
   });
 
   // Handle the result
@@ -145,8 +148,9 @@ async function run() {
     slug: "<value>",
     accountType: AccountType.ScaleUp,
     telemetryDisabled: false,
-    createdAt: new Date("2023-04-03T12:48:32.253Z"),
-    updatedAt: new Date("2022-05-28T06:20:22.766Z"),
+    createdAt: new Date("2024-04-02T12:48:32.253Z"),
+    updatedAt: new Date("2023-05-28T06:20:22.766Z"),
+    ssoActivated: true,
   });
 
   if (!res.ok) {

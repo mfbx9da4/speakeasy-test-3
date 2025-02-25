@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GithubCheckPublishingSecretsRequest = {
   generateGenLockId: string;
@@ -66,6 +69,27 @@ export namespace GithubCheckPublishingSecretsRequest$ {
   export type Outbound = GithubCheckPublishingSecretsRequest$Outbound;
 }
 
+export function githubCheckPublishingSecretsRequestToJSON(
+  githubCheckPublishingSecretsRequest: GithubCheckPublishingSecretsRequest,
+): string {
+  return JSON.stringify(
+    GithubCheckPublishingSecretsRequest$outboundSchema.parse(
+      githubCheckPublishingSecretsRequest,
+    ),
+  );
+}
+
+export function githubCheckPublishingSecretsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GithubCheckPublishingSecretsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GithubCheckPublishingSecretsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GithubCheckPublishingSecretsRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GithubCheckPublishingSecretsResponse$inboundSchema: z.ZodType<
   GithubCheckPublishingSecretsResponse,
@@ -121,4 +145,25 @@ export namespace GithubCheckPublishingSecretsResponse$ {
     GithubCheckPublishingSecretsResponse$outboundSchema;
   /** @deprecated use `GithubCheckPublishingSecretsResponse$Outbound` instead. */
   export type Outbound = GithubCheckPublishingSecretsResponse$Outbound;
+}
+
+export function githubCheckPublishingSecretsResponseToJSON(
+  githubCheckPublishingSecretsResponse: GithubCheckPublishingSecretsResponse,
+): string {
+  return JSON.stringify(
+    GithubCheckPublishingSecretsResponse$outboundSchema.parse(
+      githubCheckPublishingSecretsResponse,
+    ),
+  );
+}
+
+export function githubCheckPublishingSecretsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GithubCheckPublishingSecretsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GithubCheckPublishingSecretsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GithubCheckPublishingSecretsResponse' from JSON`,
+  );
 }

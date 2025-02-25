@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GithubStorePublishingSecretsResponse = {
   httpMeta: components.HTTPMetadata;
@@ -54,4 +57,25 @@ export namespace GithubStorePublishingSecretsResponse$ {
     GithubStorePublishingSecretsResponse$outboundSchema;
   /** @deprecated use `GithubStorePublishingSecretsResponse$Outbound` instead. */
   export type Outbound = GithubStorePublishingSecretsResponse$Outbound;
+}
+
+export function githubStorePublishingSecretsResponseToJSON(
+  githubStorePublishingSecretsResponse: GithubStorePublishingSecretsResponse,
+): string {
+  return JSON.stringify(
+    GithubStorePublishingSecretsResponse$outboundSchema.parse(
+      githubStorePublishingSecretsResponse,
+    ),
+  );
+}
+
+export function githubStorePublishingSecretsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GithubStorePublishingSecretsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GithubStorePublishingSecretsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GithubStorePublishingSecretsResponse' from JSON`,
+  );
 }

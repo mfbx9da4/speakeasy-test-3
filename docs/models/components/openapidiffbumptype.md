@@ -7,7 +7,7 @@ Bump type of the lock file (calculated semver delta, or a custom change (manual 
 ```typescript
 import { OpenapiDiffBumpType } from "petstore/models/components";
 
-let value: OpenapiDiffBumpType = OpenapiDiffBumpType.Major;
+let value: OpenapiDiffBumpType = OpenapiDiffBumpType.Minor;
 ```
 
 ## Values

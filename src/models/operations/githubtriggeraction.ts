@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GithubTriggerActionResponse = {
   httpMeta: components.HTTPMetadata;
@@ -52,4 +55,24 @@ export namespace GithubTriggerActionResponse$ {
   export const outboundSchema = GithubTriggerActionResponse$outboundSchema;
   /** @deprecated use `GithubTriggerActionResponse$Outbound` instead. */
   export type Outbound = GithubTriggerActionResponse$Outbound;
+}
+
+export function githubTriggerActionResponseToJSON(
+  githubTriggerActionResponse: GithubTriggerActionResponse,
+): string {
+  return JSON.stringify(
+    GithubTriggerActionResponse$outboundSchema.parse(
+      githubTriggerActionResponse,
+    ),
+  );
+}
+
+export function githubTriggerActionResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GithubTriggerActionResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GithubTriggerActionResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GithubTriggerActionResponse' from JSON`,
+  );
 }

@@ -6,7 +6,7 @@
 import { SuggestionType, SuggestOptsOld } from "petstore/models/components";
 
 let value: SuggestOptsOld = {
-  suggestionType: SuggestionType.DiagnosticsOnly,
+  suggestionType: SuggestionType.MethodNames,
 };
 ```
 

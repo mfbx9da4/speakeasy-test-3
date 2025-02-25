@@ -4,12 +4,19 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type OrganizationUsage = {
   /**
    * Number of operations performed
    */
   numberOfOperations: number;
+  /**
+   * Maximum Number of operations per SDK specific in contract
+   */
+  maxOperations: number;
   /**
    * The programming language used
    */
@@ -43,6 +50,7 @@ export const OrganizationUsage$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   number_of_operations: z.number().int(),
+  max_operations: z.number().int(),
   language: z.string(),
   used_features: z.array(z.string()),
   accessible_features: z.array(z.string()),
@@ -52,6 +60,7 @@ export const OrganizationUsage$inboundSchema: z.ZodType<
 }).transform((v) => {
   return remap$(v, {
     "number_of_operations": "numberOfOperations",
+    "max_operations": "maxOperations",
     "used_features": "usedFeatures",
     "accessible_features": "accessibleFeatures",
     "gen_lock_ids": "genLockIds",
@@ -61,6 +70,7 @@ export const OrganizationUsage$inboundSchema: z.ZodType<
 /** @internal */
 export type OrganizationUsage$Outbound = {
   number_of_operations: number;
+  max_operations: number;
   language: string;
   used_features: Array<string>;
   accessible_features: Array<string>;
@@ -76,6 +86,7 @@ export const OrganizationUsage$outboundSchema: z.ZodType<
   OrganizationUsage
 > = z.object({
   numberOfOperations: z.number().int(),
+  maxOperations: z.number().int(),
   language: z.string(),
   usedFeatures: z.array(z.string()),
   accessibleFeatures: z.array(z.string()),
@@ -85,6 +96,7 @@ export const OrganizationUsage$outboundSchema: z.ZodType<
 }).transform((v) => {
   return remap$(v, {
     numberOfOperations: "number_of_operations",
+    maxOperations: "max_operations",
     usedFeatures: "used_features",
     accessibleFeatures: "accessible_features",
     genLockIds: "gen_lock_ids",
@@ -102,4 +114,22 @@ export namespace OrganizationUsage$ {
   export const outboundSchema = OrganizationUsage$outboundSchema;
   /** @deprecated use `OrganizationUsage$Outbound` instead. */
   export type Outbound = OrganizationUsage$Outbound;
+}
+
+export function organizationUsageToJSON(
+  organizationUsage: OrganizationUsage,
+): string {
+  return JSON.stringify(
+    OrganizationUsage$outboundSchema.parse(organizationUsage),
+  );
+}
+
+export function organizationUsageFromJSON(
+  jsonString: string,
+): SafeParseResult<OrganizationUsage, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OrganizationUsage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OrganizationUsage' from JSON`,
+  );
 }

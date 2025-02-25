@@ -20,7 +20,7 @@ specific category of applications.
 
 ```typescript
 import { SDKCore } from "petstore/core.js";
-import { apisGetApis } from "petstore/funcs/apisGetApis.js";
+import { authValidateApiKey } from "petstore/funcs/authValidateApiKey.js";
 import { SDKValidationError } from "petstore/models/errors/sdkvalidationerror.js";
 
 // Use `SDKCore` for best tree-shaking performance.
@@ -32,7 +32,7 @@ const sdk = new SDKCore({
 });
 
 async function run() {
-  const res = await apisGetApis(sdk);
+  const res = await authValidateApiKey(sdk);
 
   switch (true) {
     case res.ok:

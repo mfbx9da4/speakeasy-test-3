@@ -8,7 +8,7 @@ OK
 import { GetChangesReportSignedUrlSignedAccess } from "petstore/models/operations";
 
 let value: GetChangesReportSignedUrlSignedAccess = {
-  url: "https://unique-shipper.net/",
+  url: "https://lasting-metabolite.com",
 };
 ```
 

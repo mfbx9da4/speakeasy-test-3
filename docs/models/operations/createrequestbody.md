@@ -6,7 +6,7 @@
 import { CreateRequestBody } from "petstore/models/operations";
 
 let value: CreateRequestBody = {
-  url: "https://rubbery-gift.biz/",
+  url: "https://intrepid-technician.info",
 };
 ```
 

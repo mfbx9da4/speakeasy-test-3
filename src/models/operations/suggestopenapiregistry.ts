@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type SuggestOpenAPIRegistryRequest = {
   xSessionId: string;
@@ -86,6 +89,26 @@ export namespace SuggestOpenAPIRegistryRequest$ {
   export type Outbound = SuggestOpenAPIRegistryRequest$Outbound;
 }
 
+export function suggestOpenAPIRegistryRequestToJSON(
+  suggestOpenAPIRegistryRequest: SuggestOpenAPIRegistryRequest,
+): string {
+  return JSON.stringify(
+    SuggestOpenAPIRegistryRequest$outboundSchema.parse(
+      suggestOpenAPIRegistryRequest,
+    ),
+  );
+}
+
+export function suggestOpenAPIRegistryRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<SuggestOpenAPIRegistryRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SuggestOpenAPIRegistryRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SuggestOpenAPIRegistryRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const SuggestOpenAPIRegistryResponse$inboundSchema: z.ZodType<
   SuggestOpenAPIRegistryResponse,
@@ -133,4 +156,24 @@ export namespace SuggestOpenAPIRegistryResponse$ {
   export const outboundSchema = SuggestOpenAPIRegistryResponse$outboundSchema;
   /** @deprecated use `SuggestOpenAPIRegistryResponse$Outbound` instead. */
   export type Outbound = SuggestOpenAPIRegistryResponse$Outbound;
+}
+
+export function suggestOpenAPIRegistryResponseToJSON(
+  suggestOpenAPIRegistryResponse: SuggestOpenAPIRegistryResponse,
+): string {
+  return JSON.stringify(
+    SuggestOpenAPIRegistryResponse$outboundSchema.parse(
+      suggestOpenAPIRegistryResponse,
+    ),
+  );
+}
+
+export function suggestOpenAPIRegistryResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<SuggestOpenAPIRegistryResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SuggestOpenAPIRegistryResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SuggestOpenAPIRegistryResponse' from JSON`,
+  );
 }

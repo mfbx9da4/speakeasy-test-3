@@ -4,10 +4,13 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import { blobLikeSchema } from "../../types/blobs.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type UploadReportFile = {
+export type FileT = {
   fileName: string;
   content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
@@ -17,7 +20,7 @@ export type UploadReportFile = {
  */
 export type UploadReportRequestBody = {
   data: components.Report;
-  file: UploadReportFile | Blob;
+  file: FileT | Blob;
 };
 
 /**
@@ -36,31 +39,28 @@ export type UploadReportResponse = {
 };
 
 /** @internal */
-export const UploadReportFile$inboundSchema: z.ZodType<
-  UploadReportFile,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  fileName: z.string(),
-  content: z.union([
-    z.instanceof(ReadableStream<Uint8Array>),
-    z.instanceof(Blob),
-    z.instanceof(ArrayBuffer),
-    z.instanceof(Uint8Array),
-  ]),
-});
+export const FileT$inboundSchema: z.ZodType<FileT, z.ZodTypeDef, unknown> = z
+  .object({
+    fileName: z.string(),
+    content: z.union([
+      z.instanceof(ReadableStream<Uint8Array>),
+      z.instanceof(Blob),
+      z.instanceof(ArrayBuffer),
+      z.instanceof(Uint8Array),
+    ]),
+  });
 
 /** @internal */
-export type UploadReportFile$Outbound = {
+export type FileT$Outbound = {
   fileName: string;
   content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 /** @internal */
-export const UploadReportFile$outboundSchema: z.ZodType<
-  UploadReportFile$Outbound,
+export const FileT$outboundSchema: z.ZodType<
+  FileT$Outbound,
   z.ZodTypeDef,
-  UploadReportFile
+  FileT
 > = z.object({
   fileName: z.string(),
   content: z.union([
@@ -75,13 +75,27 @@ export const UploadReportFile$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace UploadReportFile$ {
-  /** @deprecated use `UploadReportFile$inboundSchema` instead. */
-  export const inboundSchema = UploadReportFile$inboundSchema;
-  /** @deprecated use `UploadReportFile$outboundSchema` instead. */
-  export const outboundSchema = UploadReportFile$outboundSchema;
-  /** @deprecated use `UploadReportFile$Outbound` instead. */
-  export type Outbound = UploadReportFile$Outbound;
+export namespace FileT$ {
+  /** @deprecated use `FileT$inboundSchema` instead. */
+  export const inboundSchema = FileT$inboundSchema;
+  /** @deprecated use `FileT$outboundSchema` instead. */
+  export const outboundSchema = FileT$outboundSchema;
+  /** @deprecated use `FileT$Outbound` instead. */
+  export type Outbound = FileT$Outbound;
+}
+
+export function fileToJSON(fileT: FileT): string {
+  return JSON.stringify(FileT$outboundSchema.parse(fileT));
+}
+
+export function fileFromJSON(
+  jsonString: string,
+): SafeParseResult<FileT, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => FileT$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FileT' from JSON`,
+  );
 }
 
 /** @internal */
@@ -91,13 +105,13 @@ export const UploadReportRequestBody$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   data: components.Report$inboundSchema,
-  file: z.lazy(() => UploadReportFile$inboundSchema),
+  file: z.lazy(() => FileT$inboundSchema),
 });
 
 /** @internal */
 export type UploadReportRequestBody$Outbound = {
   data: components.Report$Outbound;
-  file: UploadReportFile$Outbound | Blob;
+  file: FileT$Outbound | Blob;
 };
 
 /** @internal */
@@ -107,7 +121,7 @@ export const UploadReportRequestBody$outboundSchema: z.ZodType<
   UploadReportRequestBody
 > = z.object({
   data: components.Report$outboundSchema,
-  file: z.lazy(() => UploadReportFile$outboundSchema).or(blobLikeSchema),
+  file: z.lazy(() => FileT$outboundSchema).or(blobLikeSchema),
 });
 
 /**
@@ -121,6 +135,24 @@ export namespace UploadReportRequestBody$ {
   export const outboundSchema = UploadReportRequestBody$outboundSchema;
   /** @deprecated use `UploadReportRequestBody$Outbound` instead. */
   export type Outbound = UploadReportRequestBody$Outbound;
+}
+
+export function uploadReportRequestBodyToJSON(
+  uploadReportRequestBody: UploadReportRequestBody,
+): string {
+  return JSON.stringify(
+    UploadReportRequestBody$outboundSchema.parse(uploadReportRequestBody),
+  );
+}
+
+export function uploadReportRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<UploadReportRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UploadReportRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UploadReportRequestBody' from JSON`,
+  );
 }
 
 /** @internal */
@@ -157,6 +189,24 @@ export namespace UploadReportUploadedReport$ {
   export const outboundSchema = UploadReportUploadedReport$outboundSchema;
   /** @deprecated use `UploadReportUploadedReport$Outbound` instead. */
   export type Outbound = UploadReportUploadedReport$Outbound;
+}
+
+export function uploadReportUploadedReportToJSON(
+  uploadReportUploadedReport: UploadReportUploadedReport,
+): string {
+  return JSON.stringify(
+    UploadReportUploadedReport$outboundSchema.parse(uploadReportUploadedReport),
+  );
+}
+
+export function uploadReportUploadedReportFromJSON(
+  jsonString: string,
+): SafeParseResult<UploadReportUploadedReport, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UploadReportUploadedReport$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UploadReportUploadedReport' from JSON`,
+  );
 }
 
 /** @internal */
@@ -206,4 +256,22 @@ export namespace UploadReportResponse$ {
   export const outboundSchema = UploadReportResponse$outboundSchema;
   /** @deprecated use `UploadReportResponse$Outbound` instead. */
   export type Outbound = UploadReportResponse$Outbound;
+}
+
+export function uploadReportResponseToJSON(
+  uploadReportResponse: UploadReportResponse,
+): string {
+  return JSON.stringify(
+    UploadReportResponse$outboundSchema.parse(uploadReportResponse),
+  );
+}
+
+export function uploadReportResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<UploadReportResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UploadReportResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UploadReportResponse' from JSON`,
+  );
 }

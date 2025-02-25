@@ -10,8 +10,8 @@ let value: GetNamespacesResponse = {
     {
       id: "<id>",
       name: "<value>",
-      createdAt: new Date("2022-11-30T16:09:25.804Z"),
-      updatedAt: new Date("2024-12-29T18:23:56.613Z"),
+      createdAt: new Date("2023-01-19T11:47:32.986Z"),
+      updatedAt: new Date("2025-02-02T08:16:25.886Z"),
     },
   ],
 };

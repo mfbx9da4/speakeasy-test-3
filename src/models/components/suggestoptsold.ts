@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   Diagnostic,
   Diagnostic$inboundSchema,
@@ -87,4 +90,18 @@ export namespace SuggestOptsOld$ {
   export const outboundSchema = SuggestOptsOld$outboundSchema;
   /** @deprecated use `SuggestOptsOld$Outbound` instead. */
   export type Outbound = SuggestOptsOld$Outbound;
+}
+
+export function suggestOptsOldToJSON(suggestOptsOld: SuggestOptsOld): string {
+  return JSON.stringify(SuggestOptsOld$outboundSchema.parse(suggestOptsOld));
+}
+
+export function suggestOptsOldFromJSON(
+  jsonString: string,
+): SafeParseResult<SuggestOptsOld, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SuggestOptsOld$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SuggestOptsOld' from JSON`,
+  );
 }

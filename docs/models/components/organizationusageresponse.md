@@ -10,7 +10,8 @@ import { OrganizationUsageResponse } from "petstore/models/components";
 let value: OrganizationUsageResponse = {
   usage: [
     {
-      numberOfOperations: 24313,
+      numberOfOperations: 928082,
+      maxOperations: 704415,
       language: "<value>",
       usedFeatures: [
         "<value>",
@@ -27,7 +28,7 @@ let value: OrganizationUsageResponse = {
       ],
     },
   ],
-  totalAllowedLanguages: 342611,
+  totalAllowedLanguages: 31838,
   allowedLanguages: [
     "<value>",
   ],

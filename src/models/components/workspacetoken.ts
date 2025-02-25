@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * A workspace token
@@ -11,11 +14,11 @@ import { remap as remap$ } from "../../lib/primitives.js";
 export type WorkspaceToken = {
   id: string;
   name: string;
-  workspaceId?: string | undefined;
+  workspaceId: string;
   alg: string;
   key: string;
-  lastUsed?: string | null | undefined;
-  createdAt: string;
+  lastUsed?: Date | null | undefined;
+  createdAt: Date;
   createdBy?: string | null | undefined;
   email?: string | null | undefined;
 };
@@ -28,11 +31,13 @@ export const WorkspaceToken$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   name: z.string(),
-  workspace_id: z.string().optional(),
+  workspace_id: z.string(),
   alg: z.string(),
   key: z.string(),
-  last_used: z.nullable(z.string()).optional(),
-  created_at: z.string(),
+  last_used: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ).optional(),
+  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   created_by: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
 }).transform((v) => {
@@ -48,7 +53,7 @@ export const WorkspaceToken$inboundSchema: z.ZodType<
 export type WorkspaceToken$Outbound = {
   id: string;
   name: string;
-  workspace_id?: string | undefined;
+  workspace_id: string;
   alg: string;
   key: string;
   last_used?: string | null | undefined;
@@ -65,11 +70,11 @@ export const WorkspaceToken$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   name: z.string(),
-  workspaceId: z.string().optional(),
+  workspaceId: z.string(),
   alg: z.string(),
   key: z.string(),
-  lastUsed: z.nullable(z.string()).optional(),
-  createdAt: z.string(),
+  lastUsed: z.nullable(z.date().transform(v => v.toISOString())).optional(),
+  createdAt: z.date().transform(v => v.toISOString()),
   createdBy: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
 }).transform((v) => {
@@ -92,4 +97,18 @@ export namespace WorkspaceToken$ {
   export const outboundSchema = WorkspaceToken$outboundSchema;
   /** @deprecated use `WorkspaceToken$Outbound` instead. */
   export type Outbound = WorkspaceToken$Outbound;
+}
+
+export function workspaceTokenToJSON(workspaceToken: WorkspaceToken): string {
+  return JSON.stringify(WorkspaceToken$outboundSchema.parse(workspaceToken));
+}
+
+export function workspaceTokenFromJSON(
+  jsonString: string,
+): SafeParseResult<WorkspaceToken, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => WorkspaceToken$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'WorkspaceToken' from JSON`,
+  );
 }

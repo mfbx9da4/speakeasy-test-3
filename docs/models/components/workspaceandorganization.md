@@ -9,23 +9,23 @@ import { AccountType, WorkspaceAndOrganization } from "petstore/models/component
 
 let value: WorkspaceAndOrganization = {
   workspace: {
-    createdAt: new Date("2023-08-17T08:28:49.436Z"),
+    createdAt: new Date("2025-10-20T21:33:54.006Z"),
     id: "<id>",
     name: "<value>",
     organizationId: "<id>",
     slug: "<value>",
-    telemetryDisabled: false,
-    updatedAt: new Date("2024-10-08T22:38:34.116Z"),
+    updatedAt: new Date("2024-11-03T21:45:37.821Z"),
     verified: false,
   },
   organization: {
     id: "<id>",
     name: "<value>",
     slug: "<value>",
-    accountType: AccountType.Enterprise,
+    accountType: AccountType.Business,
     telemetryDisabled: false,
-    createdAt: new Date("2024-11-27T05:48:20.651Z"),
-    updatedAt: new Date("2024-10-05T01:58:01.397Z"),
+    createdAt: new Date("2024-10-08T12:59:31.265Z"),
+    updatedAt: new Date("2025-03-11T05:07:47.512Z"),
+    ssoActivated: false,
   },
 };
 ```

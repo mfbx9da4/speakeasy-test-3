@@ -9,7 +9,7 @@ let value: OASInfo = {
   title: "<value>",
   summary: "<value>",
   description:
-    "storyboard joy unexpectedly sightseeing contravene jaggedly programme ecliptic make woot",
+    "bravely teammate marketplace gazebo atop per about holster minority",
   version: "<value>",
   license: {},
 };

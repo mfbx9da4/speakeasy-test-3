@@ -7,9 +7,9 @@ import { OASOperation } from "petstore/models/components";
 
 let value: OASOperation = {
   method: "<value>",
-  path: "/usr/obj",
+  path: "/sbin",
   operationId: "<id>",
-  description: "hence hence per",
+  description: "describe yesterday retool huzzah print",
   tags: [
     "<value>",
   ],

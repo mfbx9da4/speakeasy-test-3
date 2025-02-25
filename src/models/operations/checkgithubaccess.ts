@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CheckGithubAccessRequest = {
   org: string;
@@ -54,6 +57,24 @@ export namespace CheckGithubAccessRequest$ {
   export type Outbound = CheckGithubAccessRequest$Outbound;
 }
 
+export function checkGithubAccessRequestToJSON(
+  checkGithubAccessRequest: CheckGithubAccessRequest,
+): string {
+  return JSON.stringify(
+    CheckGithubAccessRequest$outboundSchema.parse(checkGithubAccessRequest),
+  );
+}
+
+export function checkGithubAccessRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<CheckGithubAccessRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CheckGithubAccessRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CheckGithubAccessRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const CheckGithubAccessResponse$inboundSchema: z.ZodType<
   CheckGithubAccessResponse,
@@ -96,4 +117,22 @@ export namespace CheckGithubAccessResponse$ {
   export const outboundSchema = CheckGithubAccessResponse$outboundSchema;
   /** @deprecated use `CheckGithubAccessResponse$Outbound` instead. */
   export type Outbound = CheckGithubAccessResponse$Outbound;
+}
+
+export function checkGithubAccessResponseToJSON(
+  checkGithubAccessResponse: CheckGithubAccessResponse,
+): string {
+  return JSON.stringify(
+    CheckGithubAccessResponse$outboundSchema.parse(checkGithubAccessResponse),
+  );
+}
+
+export function checkGithubAccessResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<CheckGithubAccessResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CheckGithubAccessResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CheckGithubAccessResponse' from JSON`,
+  );
 }
