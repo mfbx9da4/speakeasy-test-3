@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type SuggestRequest = {
   xSessionId: string;
@@ -71,6 +74,20 @@ export namespace SuggestRequest$ {
   export type Outbound = SuggestRequest$Outbound;
 }
 
+export function suggestRequestToJSON(suggestRequest: SuggestRequest): string {
+  return JSON.stringify(SuggestRequest$outboundSchema.parse(suggestRequest));
+}
+
+export function suggestRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<SuggestRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SuggestRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SuggestRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const SuggestResponse$inboundSchema: z.ZodType<
   SuggestResponse,
@@ -118,4 +135,20 @@ export namespace SuggestResponse$ {
   export const outboundSchema = SuggestResponse$outboundSchema;
   /** @deprecated use `SuggestResponse$Outbound` instead. */
   export type Outbound = SuggestResponse$Outbound;
+}
+
+export function suggestResponseToJSON(
+  suggestResponse: SuggestResponse,
+): string {
+  return JSON.stringify(SuggestResponse$outboundSchema.parse(suggestResponse));
+}
+
+export function suggestResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<SuggestResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SuggestResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SuggestResponse' from JSON`,
+  );
 }

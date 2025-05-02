@@ -10,8 +10,8 @@ import { Namespace } from "petstore/models/components";
 let value: Namespace = {
   id: "<id>",
   name: "<value>",
-  createdAt: new Date("2023-02-01T23:01:15.623Z"),
-  updatedAt: new Date("2023-05-31T19:56:59.856Z"),
+  createdAt: new Date("2025-01-28T08:46:24.999Z"),
+  updatedAt: new Date("2023-12-30T01:59:14.256Z"),
 };
 ```
 
@@ -23,3 +23,7 @@ let value: Namespace = {
 | `name`                                                                                        | *string*                                                                                      | :heavy_check_mark:                                                                            | A human-readable name for the namespace.                                                      |
 | `createdAt`                                                                                   | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_check_mark:                                                                            | N/A                                                                                           |
 | `updatedAt`                                                                                   | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `public`                                                                                      | *boolean*                                                                                     | :heavy_minus_sign:                                                                            | Indicates whether the namespace is publicly accessible                                        |
+| `archivedAt`                                                                                  | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `latestRevisionMetadata`                                                                      | [components.RevisionContentsMetadata](../../models/components/revisioncontentsmetadata.md)    | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `compositeSpecMetadata`                                                                       | [components.CompositeSpecMetadata](../../models/components/compositespecmetadata.md)          | :heavy_minus_sign:                                                                            | N/A                                                                                           |

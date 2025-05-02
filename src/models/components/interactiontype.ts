@@ -19,6 +19,7 @@ export enum InteractionType {
   Run = "RUN",
   Configure = "CONFIGURE",
   Publish = "PUBLISH",
+  Test = "TEST",
 }
 
 /** @internal */

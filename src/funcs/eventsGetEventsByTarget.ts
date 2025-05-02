@@ -5,6 +5,7 @@
 import { SDKCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
+import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
@@ -20,18 +21,19 @@ import * as errors from "../models/errors/index.js";
 import { SDKError } from "../models/errors/sdkerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
+import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
  * Load recent events for a particular workspace
  */
-export async function eventsGetEventsByTarget(
+export function eventsGetEventsByTarget(
   client: SDKCore,
-  workspaceId: string,
   targetId: string,
+  workspaceId?: string | undefined,
   afterCreatedAt?: Date | undefined,
   options?: RequestOptions,
-): Promise<
+): APIPromise<
   Result<
     operations.GetWorkspaceEventsByTargetResponse,
     | errors.ErrorT
@@ -44,9 +46,40 @@ export async function eventsGetEventsByTarget(
     | ConnectionError
   >
 > {
+  return new APIPromise($do(
+    client,
+    targetId,
+    workspaceId,
+    afterCreatedAt,
+    options,
+  ));
+}
+
+async function $do(
+  client: SDKCore,
+  targetId: string,
+  workspaceId?: string | undefined,
+  afterCreatedAt?: Date | undefined,
+  options?: RequestOptions,
+): Promise<
+  [
+    Result<
+      operations.GetWorkspaceEventsByTargetResponse,
+      | errors.ErrorT
+      | SDKError
+      | SDKValidationError
+      | UnexpectedClientError
+      | InvalidRequestError
+      | RequestAbortedError
+      | RequestTimeoutError
+      | ConnectionError
+    >,
+    APICall,
+  ]
+> {
   const input: operations.GetWorkspaceEventsByTargetRequest = {
-    workspaceId: workspaceId,
     targetId: targetId,
+    workspaceId: workspaceId,
     afterCreatedAt: afterCreatedAt,
   };
 
@@ -57,7 +90,7 @@ export async function eventsGetEventsByTarget(
     "Input validation failed",
   );
   if (!parsed.ok) {
-    return parsed;
+    return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
   const body = null;
@@ -67,10 +100,11 @@ export async function eventsGetEventsByTarget(
       explode: false,
       charEncoding: "percent",
     }),
-    workspace_id: encodeSimple("workspace_id", payload.workspace_id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    workspace_id: encodeSimple(
+      "workspace_id",
+      payload.workspace_id ?? client._options.workspaceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
 
   const path = pathToFunc(
@@ -81,21 +115,31 @@ export async function eventsGetEventsByTarget(
     "after_created_at": payload.after_created_at,
   });
 
-  const headers = new Headers({
+  const headers = new Headers(compactMap({
     Accept: "application/json",
-  });
+  }));
 
   const securityInput = await extractSecurity(client._options.security);
+  const requestSecurity = resolveGlobalSecurity(securityInput);
+
   const context = {
+    baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "getWorkspaceEventsByTarget",
     oAuth2Scopes: [],
+
+    resolvedSecurity: requestSecurity,
+
     securitySource: client._options.security,
+    retryConfig: options?.retries
+      || client._options.retryConfig
+      || { strategy: "none" },
+    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
   };
-  const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "GET",
+    baseURL: options?.serverURL,
     path: path,
     headers: headers,
     query: query,
@@ -103,19 +147,18 @@ export async function eventsGetEventsByTarget(
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
-    return requestRes;
+    return [requestRes, { status: "invalid" }];
   }
   const req = requestRes.value;
 
   const doResult = await client._do(req, {
     context,
     errorCodes: ["4XX", "5XX"],
-    retryConfig: options?.retries
-      || client._options.retryConfig,
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryConfig: context.retryConfig,
+    retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
-    return doResult;
+    return [doResult, { status: "request-error", request: req }];
   }
   const response = doResult.value;
 
@@ -141,8 +184,8 @@ export async function eventsGetEventsByTarget(
     M.jsonErr("5XX", errors.ErrorT$inboundSchema),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
-    return result;
+    return [result, { status: "complete", request: req, response }];
   }
 
-  return result;
+  return [result, { status: "complete", request: req, response }];
 }

@@ -15,8 +15,8 @@ let value: GetRevisionsResponse = {
       tags: [
         "<value>",
       ],
-      createdAt: new Date("2023-02-19T13:21:39.892Z"),
-      updatedAt: new Date("2024-12-09T13:28:34.858Z"),
+      createdAt: new Date("2024-01-20T07:01:46.379Z"),
+      updatedAt: new Date("2024-07-08T03:34:57.970Z"),
     },
   ],
   nextPageToken: "<value>",

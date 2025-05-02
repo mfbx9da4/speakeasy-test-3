@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostTagsRequest = {
   namespaceName: string;
@@ -67,6 +70,22 @@ export namespace PostTagsRequest$ {
   export type Outbound = PostTagsRequest$Outbound;
 }
 
+export function postTagsRequestToJSON(
+  postTagsRequest: PostTagsRequest,
+): string {
+  return JSON.stringify(PostTagsRequest$outboundSchema.parse(postTagsRequest));
+}
+
+export function postTagsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<PostTagsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostTagsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostTagsRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const PostTagsResponse$inboundSchema: z.ZodType<
   PostTagsResponse,
@@ -109,4 +128,22 @@ export namespace PostTagsResponse$ {
   export const outboundSchema = PostTagsResponse$outboundSchema;
   /** @deprecated use `PostTagsResponse$Outbound` instead. */
   export type Outbound = PostTagsResponse$Outbound;
+}
+
+export function postTagsResponseToJSON(
+  postTagsResponse: PostTagsResponse,
+): string {
+  return JSON.stringify(
+    PostTagsResponse$outboundSchema.parse(postTagsResponse),
+  );
+}
+
+export function postTagsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<PostTagsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostTagsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostTagsResponse' from JSON`,
+  );
 }

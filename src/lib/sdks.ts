@@ -42,17 +42,23 @@ export type RequestOptions = {
    */
   retryCodes?: string[];
   /**
+   * Overrides the base server URL that will be used by an operation.
+   */
+  serverURL?: string | URL;
+  /**
+   * @deprecated `fetchOptions` has been flattened into `RequestOptions`.
+   *
    * Sets various request options on the `fetch` call made by an SDK method.
    *
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options|Request}
    */
   fetchOptions?: Omit<RequestInit, "method" | "body">;
-};
+} & Omit<RequestInit, "method" | "body">;
 
 type RequestConfig = {
   method: string;
   path: string;
-  baseURL?: string | URL;
+  baseURL?: string | URL | undefined;
   query?: string;
   body?: RequestInit["body"];
   headers?: HeadersInit;
@@ -74,7 +80,7 @@ export class ClientSDK {
   readonly #httpClient: HTTPClient;
   readonly #hooks: SDKHooks;
   readonly #logger?: Logger | undefined;
-  protected readonly _baseURL: URL | null;
+  public readonly _baseURL: URL | null;
   public readonly _options: SDKOptions & { hooks?: SDKHooks };
 
   constructor(options: SDKOptions = {}) {
@@ -119,6 +125,7 @@ export class ClientSDK {
     const inputURL = new URL(path, reqURL);
 
     if (path) {
+      reqURL.pathname += reqURL.pathname.endsWith("/") ? "" : "/";
       reqURL.pathname += inputURL.pathname.replace(/^\/+/, "");
     }
 
@@ -126,7 +133,10 @@ export class ClientSDK {
 
     const secQuery: string[] = [];
     for (const [k, v] of Object.entries(security?.queryParams || {})) {
-      secQuery.push(encodeForm(k, v, { charEncoding: "percent" }));
+      const q = encodeForm(k, v, { charEncoding: "percent" });
+      if (typeof q !== "undefined") {
+        secQuery.push(q);
+      }
     }
     if (secQuery.length) {
       finalQuery += `&${secQuery.join("&")}`;
@@ -160,7 +170,9 @@ export class ClientSDK {
     cookie = cookie.startsWith("; ") ? cookie.slice(2) : cookie;
     headers.set("cookie", cookie);
 
-    const userHeaders = new Headers(options?.fetchOptions?.headers);
+    const userHeaders = new Headers(
+      options?.headers ?? options?.fetchOptions?.headers,
+    );
     for (const [k, v] of userHeaders) {
       headers.set(k, v);
     }
@@ -171,26 +183,17 @@ export class ClientSDK {
       headers.set(conf.uaHeader ?? "user-agent", SDK_METADATA.userAgent);
     }
 
-    let fetchOptions = options?.fetchOptions;
+    const fetchOptions: Omit<RequestInit, "method" | "body"> = {
+      ...options?.fetchOptions,
+      ...options,
+    };
     if (!fetchOptions?.signal && conf.timeoutMs && conf.timeoutMs > 0) {
       const timeoutSignal = AbortSignal.timeout(conf.timeoutMs);
-      if (!fetchOptions) {
-        fetchOptions = { signal: timeoutSignal };
-      } else {
-        fetchOptions.signal = timeoutSignal;
-      }
+      fetchOptions.signal = timeoutSignal;
     }
 
     if (conf.body instanceof ReadableStream) {
-      if (!fetchOptions) {
-        fetchOptions = {
-          // @ts-expect-error see https://github.com/node-fetch/node-fetch/issues/1769
-          duplex: "half",
-        };
-      } else {
-        // @ts-expect-error see https://github.com/node-fetch/node-fetch/issues/1769
-        fetchOptions.duplex = "half";
-      }
+      Object.assign(fetchOptions, { duplex: "half" });
     }
 
     let input;
@@ -220,8 +223,8 @@ export class ClientSDK {
     options: {
       context: HookContext;
       errorCodes: number | string | (number | string)[];
-      retryConfig?: RetryConfig | undefined;
-      retryCodes?: string[] | undefined;
+      retryConfig: RetryConfig;
+      retryCodes: string[];
     },
   ): Promise<
     Result<
@@ -233,8 +236,6 @@ export class ClientSDK {
     >
   > {
     const { context, errorCodes } = options;
-    const retryConfig = options.retryConfig || { strategy: "none" };
-    const retryCodes = options.retryCodes || [];
 
     return retry(
       async () => {
@@ -245,22 +246,28 @@ export class ClientSDK {
 
         let response = await this.#httpClient.request(req);
 
-        if (matchStatusCode(response, errorCodes)) {
-          const result = await this.#hooks.afterError(context, response, null);
-          if (result.error) {
-            throw result.error;
+        try {
+          if (matchStatusCode(response, errorCodes)) {
+            const result = await this.#hooks.afterError(
+              context,
+              response,
+              null,
+            );
+            if (result.error) {
+              throw result.error;
+            }
+            response = result.response || response;
+          } else {
+            response = await this.#hooks.afterSuccess(context, response);
           }
-          response = result.response || response;
-        } else {
-          response = await this.#hooks.afterSuccess(context, response);
+        } finally {
+          await logResponse(this.#logger, response, req)
+            .catch(e => this.#logger?.log("Failed to log response:", e));
         }
-
-        await logResponse(this.#logger, response, req)
-          .catch(e => this.#logger?.log("Failed to log response:", e));
 
         return response;
       },
-      { config: retryConfig, statusCodes: retryCodes },
+      { config: options.retryConfig, statusCodes: options.retryCodes },
     ).then(
       (r) => OK(r),
       (err) => {
@@ -291,7 +298,9 @@ export class ClientSDK {
   }
 }
 
-const jsonLikeContentTypeRE = /^application\/(?:.{0,100}\+)?json/;
+const jsonLikeContentTypeRE = /(application|text)\/.*?\+*json.*/;
+const jsonlLikeContentTypeRE =
+  /(application|text)\/(.*?\+*\bjsonl\b.*|.*?\+*\bx-ndjson\b.*)/;
 async function logRequest(logger: Logger | undefined, req: Request) {
   if (!logger) {
     return;
@@ -357,8 +366,12 @@ async function logResponse(
   logger.group("Body:");
   switch (true) {
     case matchContentType(res, "application/json")
-      || jsonLikeContentTypeRE.test(ct):
+      || jsonLikeContentTypeRE.test(ct) && !jsonlLikeContentTypeRE.test(ct):
       logger.log(await res.clone().json());
+      break;
+    case matchContentType(res, "application/jsonl")
+      || jsonlLikeContentTypeRE.test(ct):
+      logger.log(await res.clone().text());
       break;
     case matchContentType(res, "text/event-stream"):
       logger.log(`<${contentType}>`);

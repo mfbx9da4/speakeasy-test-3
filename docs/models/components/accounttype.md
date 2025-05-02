@@ -5,7 +5,7 @@
 ```typescript
 import { AccountType } from "petstore/models/components";
 
-let value: AccountType = AccountType.ScaleUp;
+let value: AccountType = AccountType.Enterprise;
 ```
 
 ## Values

@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CreateFreeTrialResponse = {
   httpMeta: components.HTTPMetadata;
@@ -52,4 +55,22 @@ export namespace CreateFreeTrialResponse$ {
   export const outboundSchema = CreateFreeTrialResponse$outboundSchema;
   /** @deprecated use `CreateFreeTrialResponse$Outbound` instead. */
   export type Outbound = CreateFreeTrialResponse$Outbound;
+}
+
+export function createFreeTrialResponseToJSON(
+  createFreeTrialResponse: CreateFreeTrialResponse,
+): string {
+  return JSON.stringify(
+    CreateFreeTrialResponse$outboundSchema.parse(createFreeTrialResponse),
+  );
+}
+
+export function createFreeTrialResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateFreeTrialResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateFreeTrialResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateFreeTrialResponse' from JSON`,
+  );
 }

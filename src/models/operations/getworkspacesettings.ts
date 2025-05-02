@@ -4,13 +4,20 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+export type GetWorkspaceSettingsGlobals = {
+  workspaceId?: string | undefined;
+};
 
 export type GetWorkspaceSettingsRequest = {
   /**
    * Unique identifier of the workspace.
    */
-  workspaceId: string;
+  workspaceId?: string | undefined;
 };
 
 export type GetWorkspaceSettingsResponse = {
@@ -22,12 +29,76 @@ export type GetWorkspaceSettingsResponse = {
 };
 
 /** @internal */
+export const GetWorkspaceSettingsGlobals$inboundSchema: z.ZodType<
+  GetWorkspaceSettingsGlobals,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  workspace_id: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "workspace_id": "workspaceId",
+  });
+});
+
+/** @internal */
+export type GetWorkspaceSettingsGlobals$Outbound = {
+  workspace_id?: string | undefined;
+};
+
+/** @internal */
+export const GetWorkspaceSettingsGlobals$outboundSchema: z.ZodType<
+  GetWorkspaceSettingsGlobals$Outbound,
+  z.ZodTypeDef,
+  GetWorkspaceSettingsGlobals
+> = z.object({
+  workspaceId: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    workspaceId: "workspace_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWorkspaceSettingsGlobals$ {
+  /** @deprecated use `GetWorkspaceSettingsGlobals$inboundSchema` instead. */
+  export const inboundSchema = GetWorkspaceSettingsGlobals$inboundSchema;
+  /** @deprecated use `GetWorkspaceSettingsGlobals$outboundSchema` instead. */
+  export const outboundSchema = GetWorkspaceSettingsGlobals$outboundSchema;
+  /** @deprecated use `GetWorkspaceSettingsGlobals$Outbound` instead. */
+  export type Outbound = GetWorkspaceSettingsGlobals$Outbound;
+}
+
+export function getWorkspaceSettingsGlobalsToJSON(
+  getWorkspaceSettingsGlobals: GetWorkspaceSettingsGlobals,
+): string {
+  return JSON.stringify(
+    GetWorkspaceSettingsGlobals$outboundSchema.parse(
+      getWorkspaceSettingsGlobals,
+    ),
+  );
+}
+
+export function getWorkspaceSettingsGlobalsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWorkspaceSettingsGlobals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWorkspaceSettingsGlobals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWorkspaceSettingsGlobals' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetWorkspaceSettingsRequest$inboundSchema: z.ZodType<
   GetWorkspaceSettingsRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  workspace_id: z.string(),
+  workspace_id: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     "workspace_id": "workspaceId",
@@ -36,7 +107,7 @@ export const GetWorkspaceSettingsRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetWorkspaceSettingsRequest$Outbound = {
-  workspace_id: string;
+  workspace_id?: string | undefined;
 };
 
 /** @internal */
@@ -45,7 +116,7 @@ export const GetWorkspaceSettingsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetWorkspaceSettingsRequest
 > = z.object({
-  workspaceId: z.string(),
+  workspaceId: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     workspaceId: "workspace_id",
@@ -63,6 +134,26 @@ export namespace GetWorkspaceSettingsRequest$ {
   export const outboundSchema = GetWorkspaceSettingsRequest$outboundSchema;
   /** @deprecated use `GetWorkspaceSettingsRequest$Outbound` instead. */
   export type Outbound = GetWorkspaceSettingsRequest$Outbound;
+}
+
+export function getWorkspaceSettingsRequestToJSON(
+  getWorkspaceSettingsRequest: GetWorkspaceSettingsRequest,
+): string {
+  return JSON.stringify(
+    GetWorkspaceSettingsRequest$outboundSchema.parse(
+      getWorkspaceSettingsRequest,
+    ),
+  );
+}
+
+export function getWorkspaceSettingsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWorkspaceSettingsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWorkspaceSettingsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWorkspaceSettingsRequest' from JSON`,
+  );
 }
 
 /** @internal */
@@ -112,4 +203,24 @@ export namespace GetWorkspaceSettingsResponse$ {
   export const outboundSchema = GetWorkspaceSettingsResponse$outboundSchema;
   /** @deprecated use `GetWorkspaceSettingsResponse$Outbound` instead. */
   export type Outbound = GetWorkspaceSettingsResponse$Outbound;
+}
+
+export function getWorkspaceSettingsResponseToJSON(
+  getWorkspaceSettingsResponse: GetWorkspaceSettingsResponse,
+): string {
+  return JSON.stringify(
+    GetWorkspaceSettingsResponse$outboundSchema.parse(
+      getWorkspaceSettingsResponse,
+    ),
+  );
+}
+
+export function getWorkspaceSettingsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWorkspaceSettingsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWorkspaceSettingsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWorkspaceSettingsResponse' from JSON`,
+  );
 }

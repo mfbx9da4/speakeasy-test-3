@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetWorkspacesResponse = {
   httpMeta: components.HTTPMetadata;
@@ -61,4 +64,22 @@ export namespace GetWorkspacesResponse$ {
   export const outboundSchema = GetWorkspacesResponse$outboundSchema;
   /** @deprecated use `GetWorkspacesResponse$Outbound` instead. */
   export type Outbound = GetWorkspacesResponse$Outbound;
+}
+
+export function getWorkspacesResponseToJSON(
+  getWorkspacesResponse: GetWorkspacesResponse,
+): string {
+  return JSON.stringify(
+    GetWorkspacesResponse$outboundSchema.parse(getWorkspacesResponse),
+  );
+}
+
+export function getWorkspacesResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWorkspacesResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWorkspacesResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWorkspacesResponse' from JSON`,
+  );
 }

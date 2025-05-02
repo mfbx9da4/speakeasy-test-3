@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type User = {
   /**
@@ -58,6 +61,18 @@ export type User = {
    * Timestamp of the user's last update.
    */
   updatedAt: Date;
+  /**
+   * Indicates whether the user is internal.
+   */
+  internal?: boolean | undefined;
+  /**
+   * Hash used for pylon identity verification returned on v1/user.
+   */
+  pylonIdentityHash?: string | undefined;
+  /**
+   * Indicates whether the user has created an API key. Not always populated
+   */
+  hasCreatedApiKey?: boolean | undefined;
 };
 
 /** @internal */
@@ -82,6 +97,9 @@ export const User$inboundSchema: z.ZodType<User, z.ZodTypeDef, unknown> = z
     updated_at: z.string().datetime({ offset: true }).transform(v =>
       new Date(v)
     ),
+    internal: z.boolean().optional(),
+    pylon_identity_hash: z.string().optional(),
+    has_created_api_key: z.boolean().optional(),
   }).transform((v) => {
     return remap$(v, {
       "email_verified": "emailVerified",
@@ -92,6 +110,8 @@ export const User$inboundSchema: z.ZodType<User, z.ZodTypeDef, unknown> = z
       "last_login_at": "lastLoginAt",
       "created_at": "createdAt",
       "updated_at": "updatedAt",
+      "pylon_identity_hash": "pylonIdentityHash",
+      "has_created_api_key": "hasCreatedApiKey",
     });
   });
 
@@ -110,6 +130,9 @@ export type User$Outbound = {
   admin: boolean;
   created_at: string;
   updated_at: string;
+  internal?: boolean | undefined;
+  pylon_identity_hash?: string | undefined;
+  has_created_api_key?: boolean | undefined;
 };
 
 /** @internal */
@@ -129,6 +152,9 @@ export const User$outboundSchema: z.ZodType<User$Outbound, z.ZodTypeDef, User> =
     admin: z.boolean(),
     createdAt: z.date().transform(v => v.toISOString()),
     updatedAt: z.date().transform(v => v.toISOString()),
+    internal: z.boolean().optional(),
+    pylonIdentityHash: z.string().optional(),
+    hasCreatedApiKey: z.boolean().optional(),
   }).transform((v) => {
     return remap$(v, {
       emailVerified: "email_verified",
@@ -139,6 +165,8 @@ export const User$outboundSchema: z.ZodType<User$Outbound, z.ZodTypeDef, User> =
       lastLoginAt: "last_login_at",
       createdAt: "created_at",
       updatedAt: "updated_at",
+      pylonIdentityHash: "pylon_identity_hash",
+      hasCreatedApiKey: "has_created_api_key",
     });
   });
 
@@ -153,4 +181,18 @@ export namespace User$ {
   export const outboundSchema = User$outboundSchema;
   /** @deprecated use `User$Outbound` instead. */
   export type Outbound = User$Outbound;
+}
+
+export function userToJSON(user: User): string {
+  return JSON.stringify(User$outboundSchema.parse(user));
+}
+
+export function userFromJSON(
+  jsonString: string,
+): SafeParseResult<User, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => User$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'User' from JSON`,
+  );
 }

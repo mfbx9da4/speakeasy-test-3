@@ -9,17 +9,16 @@ let value: OASSummary = {
   info: {
     title: "<value>",
     summary: "<value>",
-    description: "ha gadzooks although cap cope against even noisily harangue",
+    description: "tensely transplant quip over meh jaggedly",
     version: "<value>",
     license: {},
   },
   operations: [
     {
       method: "<value>",
-      path: "/usr/share",
+      path: "/selinux",
       operationId: "<id>",
-      description:
-        "ew absent mmm feline following willfully however ultimately",
+      description: "aboard how cutover provided if the",
       tags: [
         "<value>",
       ],

@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetWorkspaceAccessRequest = {
   /**
@@ -71,6 +74,24 @@ export namespace GetWorkspaceAccessRequest$ {
   export type Outbound = GetWorkspaceAccessRequest$Outbound;
 }
 
+export function getWorkspaceAccessRequestToJSON(
+  getWorkspaceAccessRequest: GetWorkspaceAccessRequest,
+): string {
+  return JSON.stringify(
+    GetWorkspaceAccessRequest$outboundSchema.parse(getWorkspaceAccessRequest),
+  );
+}
+
+export function getWorkspaceAccessRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWorkspaceAccessRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWorkspaceAccessRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWorkspaceAccessRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetWorkspaceAccessResponse$inboundSchema: z.ZodType<
   GetWorkspaceAccessResponse,
@@ -118,4 +139,22 @@ export namespace GetWorkspaceAccessResponse$ {
   export const outboundSchema = GetWorkspaceAccessResponse$outboundSchema;
   /** @deprecated use `GetWorkspaceAccessResponse$Outbound` instead. */
   export type Outbound = GetWorkspaceAccessResponse$Outbound;
+}
+
+export function getWorkspaceAccessResponseToJSON(
+  getWorkspaceAccessResponse: GetWorkspaceAccessResponse,
+): string {
+  return JSON.stringify(
+    GetWorkspaceAccessResponse$outboundSchema.parse(getWorkspaceAccessResponse),
+  );
+}
+
+export function getWorkspaceAccessResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWorkspaceAccessResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWorkspaceAccessResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWorkspaceAccessResponse' from JSON`,
+  );
 }

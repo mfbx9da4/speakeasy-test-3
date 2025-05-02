@@ -1,0 +1,25 @@
+# UsageSnippets
+
+## Example Usage
+
+```typescript
+import { UsageSnippets } from "petstore/models/components";
+
+let value: UsageSnippets = {
+  snippets: [
+    {
+      path: "/Library",
+      method: "<value>",
+      operationId: "<id>",
+      language: "<value>",
+      code: "<value>",
+    },
+  ],
+};
+```
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `snippets`                                                           | [components.UsageSnippet](../../models/components/usagesnippet.md)[] | :heavy_check_mark:                                                   | N/A                                                                  |

@@ -10,16 +10,16 @@ let value: SuggestRequestBody = {
     info: {
       title: "<value>",
       summary: "<value>",
-      description: "burgeon pupil great vice",
+      description: "dress etch boo realistic recklessly very weakly",
       version: "<value>",
       license: {},
     },
     operations: [
       {
         method: "<value>",
-        path: "/etc/mail",
+        path: "/usr/lib",
         operationId: "<id>",
-        description: "joshingly overload nor",
+        description: "duh whose flashy",
         tags: [
           "<value>",
         ],
@@ -31,7 +31,7 @@ let value: SuggestRequestBody = {
     {
       message: "<value>",
       path: [
-        "/opt/sbin",
+        "/var",
       ],
       type: "<value>",
     },

@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CreateRequestBody = {
   /**
@@ -57,6 +60,24 @@ export namespace CreateRequestBody$ {
   export type Outbound = CreateRequestBody$Outbound;
 }
 
+export function createRequestBodyToJSON(
+  createRequestBody: CreateRequestBody,
+): string {
+  return JSON.stringify(
+    CreateRequestBody$outboundSchema.parse(createRequestBody),
+  );
+}
+
+export function createRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateRequestBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const CreateResponse$inboundSchema: z.ZodType<
   CreateResponse,
@@ -104,4 +125,18 @@ export namespace CreateResponse$ {
   export const outboundSchema = CreateResponse$outboundSchema;
   /** @deprecated use `CreateResponse$Outbound` instead. */
   export type Outbound = CreateResponse$Outbound;
+}
+
+export function createResponseToJSON(createResponse: CreateResponse): string {
+  return JSON.stringify(CreateResponse$outboundSchema.parse(createResponse));
+}
+
+export function createResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateResponse' from JSON`,
+  );
 }
