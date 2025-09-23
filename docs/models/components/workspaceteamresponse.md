@@ -11,14 +11,14 @@ let value: WorkspaceTeamResponse = {
   users: [
     {
       id: "<id>",
-      email: "Chandler16@gmail.com",
+      email: "Jean_Kassulke52@gmail.com",
       emailVerified: false,
-      displayName: "Isabelle_Cronin44",
-      confirmed: false,
+      displayName: "Sofia_Koepp",
+      confirmed: true,
       whitelisted: false,
       admin: false,
-      createdAt: new Date("2024-02-03T07:45:59.605Z"),
-      updatedAt: new Date("2022-09-29T03:34:36.716Z"),
+      createdAt: new Date("2023-02-06T14:06:48.353Z"),
+      updatedAt: new Date("2025-09-27T23:13:03.367Z"),
     },
   ],
 };

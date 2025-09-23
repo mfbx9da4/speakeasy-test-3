@@ -4,11 +4,19 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   AccountType$inboundSchema,
   AccountType$outboundSchema,
   AccountTypeOpen,
 } from "./accounttype.js";
+import {
+  BillingAddOn$inboundSchema,
+  BillingAddOn$outboundSchema,
+  BillingAddOnOpen,
+} from "./billingaddon.js";
 
 export type ApiKeyDetails = {
   workspaceId: string;
@@ -17,11 +25,16 @@ export type ApiKeyDetails = {
   generationAccessUnlimited?: boolean | undefined;
   accountTypeV2: AccountTypeOpen;
   enabledFeatures: Array<string>;
+  billingAddOns: Array<BillingAddOnOpen>;
   /**
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   featureFlags?: Array<string> | undefined;
   telemetryDisabled: boolean;
+  /**
+   * Workspace creation timestamp.
+   */
+  workspaceCreatedAt: Date;
 };
 
 /** @internal */
@@ -36,8 +49,12 @@ export const ApiKeyDetails$inboundSchema: z.ZodType<
   generation_access_unlimited: z.boolean().optional(),
   account_type_v2: AccountType$inboundSchema,
   enabled_features: z.array(z.string()),
+  billing_add_ons: z.array(BillingAddOn$inboundSchema),
   feature_flags: z.array(z.string()).optional(),
   telemetry_disabled: z.boolean(),
+  workspace_created_at: z.string().datetime({ offset: true }).transform(v =>
+    new Date(v)
+  ),
 }).transform((v) => {
   return remap$(v, {
     "workspace_id": "workspaceId",
@@ -46,8 +63,10 @@ export const ApiKeyDetails$inboundSchema: z.ZodType<
     "generation_access_unlimited": "generationAccessUnlimited",
     "account_type_v2": "accountTypeV2",
     "enabled_features": "enabledFeatures",
+    "billing_add_ons": "billingAddOns",
     "feature_flags": "featureFlags",
     "telemetry_disabled": "telemetryDisabled",
+    "workspace_created_at": "workspaceCreatedAt",
   });
 });
 
@@ -59,8 +78,10 @@ export type ApiKeyDetails$Outbound = {
   generation_access_unlimited?: boolean | undefined;
   account_type_v2: string;
   enabled_features: Array<string>;
+  billing_add_ons: Array<string>;
   feature_flags?: Array<string> | undefined;
   telemetry_disabled: boolean;
+  workspace_created_at: string;
 };
 
 /** @internal */
@@ -75,8 +96,10 @@ export const ApiKeyDetails$outboundSchema: z.ZodType<
   generationAccessUnlimited: z.boolean().optional(),
   accountTypeV2: AccountType$outboundSchema,
   enabledFeatures: z.array(z.string()),
+  billingAddOns: z.array(BillingAddOn$outboundSchema),
   featureFlags: z.array(z.string()).optional(),
   telemetryDisabled: z.boolean(),
+  workspaceCreatedAt: z.date().transform(v => v.toISOString()),
 }).transform((v) => {
   return remap$(v, {
     workspaceId: "workspace_id",
@@ -85,8 +108,10 @@ export const ApiKeyDetails$outboundSchema: z.ZodType<
     generationAccessUnlimited: "generation_access_unlimited",
     accountTypeV2: "account_type_v2",
     enabledFeatures: "enabled_features",
+    billingAddOns: "billing_add_ons",
     featureFlags: "feature_flags",
     telemetryDisabled: "telemetry_disabled",
+    workspaceCreatedAt: "workspace_created_at",
   });
 });
 
@@ -101,4 +126,18 @@ export namespace ApiKeyDetails$ {
   export const outboundSchema = ApiKeyDetails$outboundSchema;
   /** @deprecated use `ApiKeyDetails$Outbound` instead. */
   export type Outbound = ApiKeyDetails$Outbound;
+}
+
+export function apiKeyDetailsToJSON(apiKeyDetails: ApiKeyDetails): string {
+  return JSON.stringify(ApiKeyDetails$outboundSchema.parse(apiKeyDetails));
+}
+
+export function apiKeyDetailsFromJSON(
+  jsonString: string,
+): SafeParseResult<ApiKeyDetails, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApiKeyDetails$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApiKeyDetails' from JSON`,
+  );
 }

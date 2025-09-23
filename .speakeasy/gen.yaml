@@ -4,25 +4,42 @@ generation:
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
   useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
+    nameResolutionFeb2025: false
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: true
+    securityFeb2025: false
+    sharedErrorComponentsApr2025: false
   auth:
     oAuth2ClientCredentialsEnabled: false
+    oAuth2PasswordEnabled: false
+    hoistGlobalSecurity: true
+  tests:
+    generateTests: true
+    generateNewTests: false
+    skipResponseBodyAssertions: false
 typescript:
-  version: 1.0.0
+  version: 1.1.0
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
     peerDependencies: {}
   additionalPackageJSON: {}
   author: Speakeasy
+  baseErrorName: SDKBaseError
   clientServerStatusCodesAsErrors: true
+  constFieldsAlwaysOptional: true
+  defaultErrorName: SDKError
+  enableCustomCodeRegions: false
+  enableMCPServer: false
+  enableReactQuery: false
   enumFormat: enum
   flattenGlobalSecurity: true
   flatteningOrder: body-first
+  generateExamples: true
   imports:
     option: openapi
     paths:
@@ -32,11 +49,15 @@ typescript:
       shared: models/components
       webhooks: models/webhooks
   inputModelSuffix: input
+  jsonpath: legacy
   maxMethodParams: 4
   methodArguments: require-security-and-request
+  modelPropertyCasing: camel
   moduleFormat: commonjs
   outputModelSuffix: output
   packageName: petstore
   responseFormat: envelope-http
+  sseFlatResponse: false
   templateVersion: v2
+  usageSDKInitImports: []
   useIndexModules: true

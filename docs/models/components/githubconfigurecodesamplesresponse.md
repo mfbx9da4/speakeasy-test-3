@@ -11,7 +11,7 @@ let value: GithubConfigureCodeSamplesResponse = {
   source: {
     location: "<value>",
   },
-  codeSampleOverlayRegistryURL: "https://acidic-gastropod.name",
+  codeSampleOverlayRegistryURL: "https://gullible-pillbox.com",
 };
 ```
 

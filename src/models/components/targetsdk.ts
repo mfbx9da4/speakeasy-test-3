@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   InteractionType,
   InteractionType$inboundSchema,
@@ -88,6 +91,10 @@ export type TargetSDK = {
    */
   generateNumberOfOperationsUsed?: number | undefined;
   /**
+   * The number of terraform resources used in generation.
+   */
+  generateNumberOfTerraformResources?: number | undefined;
+  /**
    * Indicates whether the target was considered published.
    */
   generatePublished?: boolean | undefined;
@@ -156,6 +163,14 @@ export type TargetSDK = {
    */
   workflowPostRaw?: string | undefined;
   /**
+   * Workflow lock file (prior to execution)
+   */
+  workflowLockPreRaw?: string | undefined;
+  /**
+   * Workflow lock file (post execution)
+   */
+  workflowLockPostRaw?: string | undefined;
+  /**
    * URL of the published package.
    */
   publishPackageUrl?: string | undefined;
@@ -171,6 +186,14 @@ export type TargetSDK = {
    * Name of the registry where the package was published.
    */
   publishPackageRegistryName?: string | undefined;
+  /**
+   * Timestamp when the last publishing event was created.
+   */
+  lastPublishCreatedAt?: Date | undefined;
+  /**
+   * Link to the GitHub action run for the last publishing event.
+   */
+  lastPublishGhActionRunLink?: string | undefined;
 };
 
 /** @internal */
@@ -200,6 +223,7 @@ export const TargetSDK$inboundSchema: z.ZodType<
   generate_eligible_features: z.string().optional(),
   generate_number_of_operations_ignored: z.number().int().optional(),
   generate_number_of_operations_used: z.number().int().optional(),
+  generate_number_of_terraform_resources: z.number().int().optional(),
   generate_published: z.boolean().optional(),
   continuous_integration_environment: z.string().optional(),
   gh_action_ref: z.string().optional(),
@@ -217,10 +241,16 @@ export const TargetSDK$inboundSchema: z.ZodType<
   error: z.string().optional(),
   workflow_pre_raw: z.string().optional(),
   workflow_post_raw: z.string().optional(),
+  workflow_lock_pre_raw: z.string().optional(),
+  workflow_lock_post_raw: z.string().optional(),
   publish_package_url: z.string().optional(),
   publish_package_name: z.string().optional(),
   publish_package_version: z.string().optional(),
   publish_package_registry_name: z.string().optional(),
+  last_publish_created_at: z.string().datetime({ offset: true }).transform(v =>
+    new Date(v)
+  ).optional(),
+  last_publish_gh_action_run_link: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     "last_event_id": "lastEventId",
@@ -241,6 +271,8 @@ export const TargetSDK$inboundSchema: z.ZodType<
     "generate_number_of_operations_ignored":
       "generateNumberOfOperationsIgnored",
     "generate_number_of_operations_used": "generateNumberOfOperationsUsed",
+    "generate_number_of_terraform_resources":
+      "generateNumberOfTerraformResources",
     "generate_published": "generatePublished",
     "continuous_integration_environment": "continuousIntegrationEnvironment",
     "gh_action_ref": "ghActionRef",
@@ -256,10 +288,14 @@ export const TargetSDK$inboundSchema: z.ZodType<
     "source_namespace_name": "sourceNamespaceName",
     "workflow_pre_raw": "workflowPreRaw",
     "workflow_post_raw": "workflowPostRaw",
+    "workflow_lock_pre_raw": "workflowLockPreRaw",
+    "workflow_lock_post_raw": "workflowLockPostRaw",
     "publish_package_url": "publishPackageUrl",
     "publish_package_name": "publishPackageName",
     "publish_package_version": "publishPackageVersion",
     "publish_package_registry_name": "publishPackageRegistryName",
+    "last_publish_created_at": "lastPublishCreatedAt",
+    "last_publish_gh_action_run_link": "lastPublishGhActionRunLink",
   });
 });
 
@@ -284,6 +320,7 @@ export type TargetSDK$Outbound = {
   generate_eligible_features?: string | undefined;
   generate_number_of_operations_ignored?: number | undefined;
   generate_number_of_operations_used?: number | undefined;
+  generate_number_of_terraform_resources?: number | undefined;
   generate_published?: boolean | undefined;
   continuous_integration_environment?: string | undefined;
   gh_action_ref?: string | undefined;
@@ -301,10 +338,14 @@ export type TargetSDK$Outbound = {
   error?: string | undefined;
   workflow_pre_raw?: string | undefined;
   workflow_post_raw?: string | undefined;
+  workflow_lock_pre_raw?: string | undefined;
+  workflow_lock_post_raw?: string | undefined;
   publish_package_url?: string | undefined;
   publish_package_name?: string | undefined;
   publish_package_version?: string | undefined;
   publish_package_registry_name?: string | undefined;
+  last_publish_created_at?: string | undefined;
+  last_publish_gh_action_run_link?: string | undefined;
 };
 
 /** @internal */
@@ -332,6 +373,7 @@ export const TargetSDK$outboundSchema: z.ZodType<
   generateEligibleFeatures: z.string().optional(),
   generateNumberOfOperationsIgnored: z.number().int().optional(),
   generateNumberOfOperationsUsed: z.number().int().optional(),
+  generateNumberOfTerraformResources: z.number().int().optional(),
   generatePublished: z.boolean().optional(),
   continuousIntegrationEnvironment: z.string().optional(),
   ghActionRef: z.string().optional(),
@@ -349,10 +391,14 @@ export const TargetSDK$outboundSchema: z.ZodType<
   error: z.string().optional(),
   workflowPreRaw: z.string().optional(),
   workflowPostRaw: z.string().optional(),
+  workflowLockPreRaw: z.string().optional(),
+  workflowLockPostRaw: z.string().optional(),
   publishPackageUrl: z.string().optional(),
   publishPackageName: z.string().optional(),
   publishPackageVersion: z.string().optional(),
   publishPackageRegistryName: z.string().optional(),
+  lastPublishCreatedAt: z.date().transform(v => v.toISOString()).optional(),
+  lastPublishGhActionRunLink: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     lastEventId: "last_event_id",
@@ -372,6 +418,8 @@ export const TargetSDK$outboundSchema: z.ZodType<
     generateEligibleFeatures: "generate_eligible_features",
     generateNumberOfOperationsIgnored: "generate_number_of_operations_ignored",
     generateNumberOfOperationsUsed: "generate_number_of_operations_used",
+    generateNumberOfTerraformResources:
+      "generate_number_of_terraform_resources",
     generatePublished: "generate_published",
     continuousIntegrationEnvironment: "continuous_integration_environment",
     ghActionRef: "gh_action_ref",
@@ -387,10 +435,14 @@ export const TargetSDK$outboundSchema: z.ZodType<
     sourceNamespaceName: "source_namespace_name",
     workflowPreRaw: "workflow_pre_raw",
     workflowPostRaw: "workflow_post_raw",
+    workflowLockPreRaw: "workflow_lock_pre_raw",
+    workflowLockPostRaw: "workflow_lock_post_raw",
     publishPackageUrl: "publish_package_url",
     publishPackageName: "publish_package_name",
     publishPackageVersion: "publish_package_version",
     publishPackageRegistryName: "publish_package_registry_name",
+    lastPublishCreatedAt: "last_publish_created_at",
+    lastPublishGhActionRunLink: "last_publish_gh_action_run_link",
   });
 });
 
@@ -405,4 +457,18 @@ export namespace TargetSDK$ {
   export const outboundSchema = TargetSDK$outboundSchema;
   /** @deprecated use `TargetSDK$Outbound` instead. */
   export type Outbound = TargetSDK$Outbound;
+}
+
+export function targetSDKToJSON(targetSDK: TargetSDK): string {
+  return JSON.stringify(TargetSDK$outboundSchema.parse(targetSDK));
+}
+
+export function targetSDKFromJSON(
+  jsonString: string,
+): SafeParseResult<TargetSDK, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TargetSDK$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TargetSDK' from JSON`,
+  );
 }

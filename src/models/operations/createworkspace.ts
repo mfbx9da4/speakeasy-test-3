@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CreateWorkspaceResponse = {
   httpMeta: components.HTTPMetadata;
@@ -61,4 +64,22 @@ export namespace CreateWorkspaceResponse$ {
   export const outboundSchema = CreateWorkspaceResponse$outboundSchema;
   /** @deprecated use `CreateWorkspaceResponse$Outbound` instead. */
   export type Outbound = CreateWorkspaceResponse$Outbound;
+}
+
+export function createWorkspaceResponseToJSON(
+  createWorkspaceResponse: CreateWorkspaceResponse,
+): string {
+  return JSON.stringify(
+    CreateWorkspaceResponse$outboundSchema.parse(createWorkspaceResponse),
+  );
+}
+
+export function createWorkspaceResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateWorkspaceResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateWorkspaceResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateWorkspaceResponse' from JSON`,
+  );
 }

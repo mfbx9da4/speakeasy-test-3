@@ -7,16 +7,15 @@ import { InteractionType } from "petstore/models/components";
 import { PostWorkspaceEventsRequest } from "petstore/models/operations";
 
 let value: PostWorkspaceEventsRequest = {
-  workspaceId: "<id>",
   requestBody: [
     {
       id: "<id>",
       executionId: "<id>",
       workspaceId: "<id>",
       speakeasyApiKeyName: "<value>",
-      interactionType: InteractionType.OpenapiDiff,
-      localStartedAt: new Date("2023-11-09T08:16:40.240Z"),
-      createdAt: new Date("2023-04-15T22:19:54.875Z"),
+      interactionType: InteractionType.Tombstone,
+      localStartedAt: new Date("2024-04-20T05:34:53.347Z"),
+      createdAt: new Date("2024-11-09T15:10:21.242Z"),
       speakeasyVersion: "<value>",
       success: false,
     },
@@ -28,5 +27,5 @@ let value: PostWorkspaceEventsRequest = {
 
 | Field                                                        | Type                                                         | Required                                                     | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `workspaceId`                                                | *string*                                                     | :heavy_check_mark:                                           | Unique identifier of the workspace.                          |
+| `workspaceId`                                                | *string*                                                     | :heavy_minus_sign:                                           | Unique identifier of the workspace.                          |
 | `requestBody`                                                | [components.CliEvent](../../models/components/clievent.md)[] | :heavy_check_mark:                                           | N/A                                                          |

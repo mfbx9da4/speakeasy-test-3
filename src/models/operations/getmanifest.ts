@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetManifestRequest = {
   organizationSlug: string;
@@ -83,6 +86,24 @@ export namespace GetManifestRequest$ {
   export type Outbound = GetManifestRequest$Outbound;
 }
 
+export function getManifestRequestToJSON(
+  getManifestRequest: GetManifestRequest,
+): string {
+  return JSON.stringify(
+    GetManifestRequest$outboundSchema.parse(getManifestRequest),
+  );
+}
+
+export function getManifestRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetManifestRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetManifestRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetManifestRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetManifestResponse$inboundSchema: z.ZodType<
   GetManifestResponse,
@@ -130,4 +151,22 @@ export namespace GetManifestResponse$ {
   export const outboundSchema = GetManifestResponse$outboundSchema;
   /** @deprecated use `GetManifestResponse$Outbound` instead. */
   export type Outbound = GetManifestResponse$Outbound;
+}
+
+export function getManifestResponseToJSON(
+  getManifestResponse: GetManifestResponse,
+): string {
+  return JSON.stringify(
+    GetManifestResponse$outboundSchema.parse(getManifestResponse),
+  );
+}
+
+export function getManifestResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetManifestResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetManifestResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetManifestResponse' from JSON`,
+  );
 }

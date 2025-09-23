@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GithubConfigureMintlifyRepoResponse = {
   httpMeta: components.HTTPMetadata;
@@ -54,4 +57,25 @@ export namespace GithubConfigureMintlifyRepoResponse$ {
     GithubConfigureMintlifyRepoResponse$outboundSchema;
   /** @deprecated use `GithubConfigureMintlifyRepoResponse$Outbound` instead. */
   export type Outbound = GithubConfigureMintlifyRepoResponse$Outbound;
+}
+
+export function githubConfigureMintlifyRepoResponseToJSON(
+  githubConfigureMintlifyRepoResponse: GithubConfigureMintlifyRepoResponse,
+): string {
+  return JSON.stringify(
+    GithubConfigureMintlifyRepoResponse$outboundSchema.parse(
+      githubConfigureMintlifyRepoResponse,
+    ),
+  );
+}
+
+export function githubConfigureMintlifyRepoResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GithubConfigureMintlifyRepoResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GithubConfigureMintlifyRepoResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GithubConfigureMintlifyRepoResponse' from JSON`,
+  );
 }

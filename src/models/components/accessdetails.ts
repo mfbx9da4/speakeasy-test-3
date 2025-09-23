@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export enum Level {
   Allowed = "allowed",
@@ -85,4 +88,18 @@ export namespace AccessDetails$ {
   export const outboundSchema = AccessDetails$outboundSchema;
   /** @deprecated use `AccessDetails$Outbound` instead. */
   export type Outbound = AccessDetails$Outbound;
+}
+
+export function accessDetailsToJSON(accessDetails: AccessDetails): string {
+  return JSON.stringify(AccessDetails$outboundSchema.parse(accessDetails));
+}
+
+export function accessDetailsFromJSON(
+  jsonString: string,
+): SafeParseResult<AccessDetails, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AccessDetails$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AccessDetails' from JSON`,
+  );
 }

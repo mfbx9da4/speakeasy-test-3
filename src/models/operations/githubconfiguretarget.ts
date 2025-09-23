@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GithubConfigureTargetResponse = {
   httpMeta: components.HTTPMetadata;
@@ -52,4 +55,24 @@ export namespace GithubConfigureTargetResponse$ {
   export const outboundSchema = GithubConfigureTargetResponse$outboundSchema;
   /** @deprecated use `GithubConfigureTargetResponse$Outbound` instead. */
   export type Outbound = GithubConfigureTargetResponse$Outbound;
+}
+
+export function githubConfigureTargetResponseToJSON(
+  githubConfigureTargetResponse: GithubConfigureTargetResponse,
+): string {
+  return JSON.stringify(
+    GithubConfigureTargetResponse$outboundSchema.parse(
+      githubConfigureTargetResponse,
+    ),
+  );
+}
+
+export function githubConfigureTargetResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GithubConfigureTargetResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GithubConfigureTargetResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GithubConfigureTargetResponse' from JSON`,
+  );
 }
