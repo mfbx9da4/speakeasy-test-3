@@ -7,14 +7,14 @@ import { User } from "petstore/models/components";
 
 let value: User = {
   id: "<id>",
-  email: "Delmer52@yahoo.com",
+  email: "Carissa_Lehner@yahoo.com",
   emailVerified: false,
-  displayName: "Estell.Stoltenberg",
-  confirmed: false,
+  displayName: "Eusebio.Fritsch17",
+  confirmed: true,
   whitelisted: false,
-  admin: false,
-  createdAt: new Date("2022-04-25T16:07:55.147Z"),
-  updatedAt: new Date("2023-01-17T22:18:44.696Z"),
+  admin: true,
+  createdAt: new Date("2025-03-27T17:41:37.781Z"),
+  updatedAt: new Date("2024-04-12T12:11:34.717Z"),
 };
 ```
 
@@ -35,3 +35,6 @@ let value: User = {
 | `admin`                                                                                       | *boolean*                                                                                     | :heavy_check_mark:                                                                            | Indicates whether the user is an admin.                                                       |
 | `createdAt`                                                                                   | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_check_mark:                                                                            | Timestamp of the user's creation.                                                             |
 | `updatedAt`                                                                                   | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_check_mark:                                                                            | Timestamp of the user's last update.                                                          |
+| `internal`                                                                                    | *boolean*                                                                                     | :heavy_minus_sign:                                                                            | Indicates whether the user is internal.                                                       |
+| `pylonIdentityHash`                                                                           | *string*                                                                                      | :heavy_minus_sign:                                                                            | Hash used for pylon identity verification returned on v1/user.                                |
+| `hasCreatedApiKey`                                                                            | *boolean*                                                                                     | :heavy_minus_sign:                                                                            | Indicates whether the user has created an API key. Not always populated                       |

@@ -3,7 +3,7 @@
 
 ## Overview
 
-REST APIs for capturing event data
+REST APIs for managing events captured by a speakeasy binary (CLI, GitHub Action etc)
 
 ### Available Operations
 
@@ -19,21 +19,20 @@ Search events for a particular workspace by any field
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="searchWorkspaceEvents" method="get" path="/v1/workspace/{workspace_id}/events" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.events.search({
-    workspaceId: "<id>",
-  });
+  const result = await sdk.events.search({});
 
-  // Handle the result
   console.log(result);
 }
 
@@ -51,24 +50,20 @@ import { eventsSearch } from "petstore/funcs/eventsSearch.js";
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventsSearch(sdk, {
-    workspaceId: "<id>",
-  });
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await eventsSearch(sdk, {});
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("eventsSearch failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -100,11 +95,13 @@ Sends an array of events to be stored for a particular workspace.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="postWorkspaceEvents" method="post" path="/v1/workspace/{workspace_id}/events" -->
 ```typescript
 import { SDK } from "petstore";
 import { InteractionType } from "petstore/models/components";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
@@ -117,15 +114,14 @@ async function run() {
       executionId: "<id>",
       workspaceId: "<id>",
       speakeasyApiKeyName: "<value>",
-      interactionType: InteractionType.Quickstart,
-      localStartedAt: new Date("2023-09-09T05:59:33.876Z"),
-      createdAt: new Date("2024-08-12T17:54:17.538Z"),
+      interactionType: InteractionType.CiExec,
+      localStartedAt: new Date("2024-12-22T21:01:06.740Z"),
+      createdAt: new Date("2024-01-24T01:13:51.002Z"),
       speakeasyVersion: "<value>",
       success: true,
     },
-  ], "<id>");
+  ]);
 
-  // Handle the result
   console.log(result);
 }
 
@@ -144,6 +140,7 @@ import { InteractionType } from "petstore/models/components";
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
@@ -156,22 +153,19 @@ async function run() {
       executionId: "<id>",
       workspaceId: "<id>",
       speakeasyApiKeyName: "<value>",
-      interactionType: InteractionType.Quickstart,
-      localStartedAt: new Date("2023-09-09T05:59:33.876Z"),
-      createdAt: new Date("2024-08-12T17:54:17.538Z"),
+      interactionType: InteractionType.CiExec,
+      localStartedAt: new Date("2024-12-22T21:01:06.740Z"),
+      createdAt: new Date("2024-01-24T01:13:51.002Z"),
       speakeasyVersion: "<value>",
       success: true,
     },
-  ], "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  ]);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("eventsPost failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -181,8 +175,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `requestBody`                                                                                                                                                                  | [components.CliEvent](../../models/components/clievent.md)[]                                                                                                                   | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -204,19 +198,20 @@ Load recent events for a particular workspace
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkspaceEventsByTarget" method="get" path="/v1/workspace/{workspace_id}/events/targets/{target_id}/events" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.events.getEventsByTarget("<id>", "<id>");
+  const result = await sdk.events.getEventsByTarget("<id>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -234,22 +229,20 @@ import { eventsGetEventsByTarget } from "petstore/funcs/eventsGetEventsByTarget.
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventsGetEventsByTarget(sdk, "<id>", "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await eventsGetEventsByTarget(sdk, "<id>");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("eventsGetEventsByTarget failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -259,8 +252,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `targetId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Filter to only return events corresponding to a particular gen_lock_id (gen_lock_id uniquely identifies a target)                                                              |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `afterCreatedAt`                                                                                                                                                               | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Filter to only return events created after this timestamp                                                                                                                      |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
@@ -283,6 +276,7 @@ Load targets for a particular workspace
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkspaceTargets" method="get" path="/v1/workspace/events/targets" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -295,7 +289,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.events.getTargets();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -320,15 +313,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await eventsGetTargets(sdk);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("eventsGetTargets failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -360,19 +350,20 @@ Load targets for a particular workspace
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkspaceTargetsDeprecated" method="get" path="/v1/workspace/{workspace_id}/events/targets" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.events.getTargetsDeprecated("<id>");
+  const result = await sdk.events.getTargetsDeprecated();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -390,22 +381,20 @@ import { eventsGetTargetsDeprecated } from "petstore/funcs/eventsGetTargetsDepre
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await eventsGetTargetsDeprecated(sdk, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await eventsGetTargetsDeprecated(sdk);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("eventsGetTargetsDeprecated failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -415,7 +404,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `afterLastEventCreatedAt`                                                                                                                                                      | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Filter to only return targets with events created after this timestamp                                                                                                         |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |

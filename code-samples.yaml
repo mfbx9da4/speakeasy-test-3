@@ -3,573 +3,6 @@ info:
   title: CodeSamples overlay for typescript target
   version: 0.0.0
 actions:
-  - target: $["paths"]["/v1/apis"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getApis
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apis.getApis();
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getAllApiVersions
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apis.getAllApiVersions("<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}"]["put"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: upsertApi
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apis.upsertApi({
-                apiId: "<id>",
-                description: "consequently brr happily yowza however gosh investigate joyfully direct",
-                versionId: "<id>",
-              }, "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/api_endpoints"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getAllApiEndpoints
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apiEndpoints.getAllApiEndpoints("<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: deleteApi
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apis.deleteApi("<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getAllForVersionApiEndpoints
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apiEndpoints.getAllForVersionApiEndpoints("<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/find/{displayName}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: findApiEndpoint
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apiEndpoints.findApiEndpoint("<id>", "<id>", "Don_Kihn39");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: deleteApiEndpoint
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apiEndpoints.deleteApiEndpoint("<id>", "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getApiEndpoint
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apiEndpoints.getApiEndpoint("<id>", "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}"]["put"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: upsertApiEndpoint
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apiEndpoints.upsertApiEndpoint({
-                apiEndpointId: "<id>",
-                description: "commandeer equate pish psst hoot ugh frankly supposing",
-                displayName: "Eliseo.Little15",
-                method: "<value>",
-                path: "/etc/defaults",
-                versionId: "<id>",
-              }, "<id>", "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}/generate/openapi"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: generateOpenApiSpecForApiEndpoint
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apiEndpoints.generateOpenApiSpecForApiEndpoint("<id>", "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/api_endpoints/{apiEndpointID}/generate/postman"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: generatePostmanCollectionForApiEndpoint
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apiEndpoints.generatePostmanCollectionForApiEndpoint("<id>", "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/generate/openapi"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: generateOpenApiSpec
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apis.generateOpenApiSpec("<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/generate/postman"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: generatePostmanCollection
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.apis.generatePostmanCollection("<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/metadata"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getVersionMetadata
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.metadata.getVersionMetadata("<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/metadata"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: insertVersionMetadata
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.metadata.insertVersionMetadata({
-                metaKey: "<value>",
-                metaValue: "<value>",
-              }, "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/metadata/{metaKey}/{metaValue}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: deleteVersionMetadata
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.metadata.deleteVersionMetadata("<id>", "<id>", "<value>", "<value>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getSchema
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.schemas.getSchema("<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: registerSchema
-          source: |-
-            import { openAsBlob } from "node:fs";
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.schemas.registerSchema({
-                file: await openAsBlob("example.file"),
-              }, "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/download"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: downloadSchema
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.schemas.downloadSchema("<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{baseRevisionID}/diff/{targetRevisionID}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getSchemaDiff
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.schemas.getSchemaDiff("<id>", "<id>", "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{revisionID}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: deleteSchema
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.schemas.deleteSchema("<id>", "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{revisionID}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getSchemaRevision
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.schemas.getSchemaRevision("<id>", "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schema/{revisionID}/download"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: downloadSchemaRevision
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.schemas.downloadSchemaRevision("<id>", "<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/apis/{apiID}/version/{versionID}/schemas"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getSchemas
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.schemas.getSchemas("<id>", "<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
   - target: $["paths"]["/v1/artifacts/namespaces"]["get"]
     update:
       x-codeSamples:
@@ -587,7 +20,27 @@ actions:
             async function run() {
               const result = await sdk.artifacts.getNamespaces();
 
-              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/artifacts/namespaces/{namespace_name}/archive"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: archiveNamespace
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.setArchived("<value>");
+
               console.log(result);
             }
 
@@ -609,7 +62,6 @@ actions:
             async function run() {
               const result = await sdk.artifacts.getRevisions("<value>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -631,7 +83,6 @@ actions:
             async function run() {
               const result = await sdk.artifacts.getTags("<value>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -653,7 +104,27 @@ actions:
             async function run() {
               const result = await sdk.artifacts.postTags("<value>");
 
-              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/artifacts/namespaces/{namespace_name}/visibility"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: setVisibility
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.setVisibility("<value>");
+
               console.log(result);
             }
 
@@ -675,7 +146,48 @@ actions:
             async function run() {
               const result = await sdk.artifacts.preflight();
 
-              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/artifacts/remote_sources"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: listRemoteSources
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.listRemoteSources("<value>");
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/artifacts/remote_sources"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createRemoteSource
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.artifacts.createRemoteSource();
+
               console.log(result);
             }
 
@@ -693,7 +205,6 @@ actions:
             async function run() {
               const result = await sdk.auth.getAccessToken("<id>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -715,16 +226,103 @@ actions:
             async function run() {
               const result = await sdk.auth.validateApiKey();
 
-              // Handle the result
               console.log(result);
             }
 
             run();
-  - target: $["paths"]["/v1/eventlog/query"]["get"]
+  - target: $["paths"]["/v1/code_sample"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: queryEventLog
+          label: getCodeSamples
+          source: |-
+            import { SDK } from "petstore";
+            import { HttpMethod } from "petstore/models/components";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.codeSamples.get("https://spec.speakeasy.com/my-org/my-workspace/my-source", [
+                "g",
+                "e",
+                "t",
+                "P",
+                "e",
+                "t",
+                "s",
+              ], [
+                {
+                  method: HttpMethod.Get,
+                  path: "/pets",
+                },
+              ], [
+                "python",
+                "javascript",
+              ]);
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/code_sample/preview"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generateCodeSamplePreview
+          source: |-
+            import { openAsBlob } from "node:fs";
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.codeSamples.generateCodeSamplePreview({
+                language: "<value>",
+                schemaFile: await openAsBlob("example.file"),
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/code_sample/preview/async"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: generateCodeSamplePreviewAsync
+          source: |-
+            import { openAsBlob } from "node:fs";
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.codeSamples.generateCodeSamplePreviewAsync({
+                language: "<value>",
+                schemaFile: await openAsBlob("example.file"),
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/code_sample/preview/async/{jobID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getCodeSamplePreviewAsync
           source: |-
             import { SDK } from "petstore";
 
@@ -735,53 +333,8 @@ actions:
             });
 
             async function run() {
-              const result = await sdk.requests.queryEventLog();
+              const result = await sdk.codeSamples.getCodeSamplePreviewAsync("<id>");
 
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/eventlog/{requestID}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getRequestFromEventLog
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.requests.getRequestFromEventLog("<id>");
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/eventlog/{requestID}/generate/postman"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: generateRequestPostmanCollection
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.requests.generateRequestPostmanCollection("<id>");
-
-              // Handle the result
               console.log(result);
             }
 
@@ -803,7 +356,6 @@ actions:
             async function run() {
               const result = await sdk.github.getAction("<value>", "<value>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -825,7 +377,6 @@ actions:
             async function run() {
               const result = await sdk.github.checkAccess("<value>", "<value>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -851,7 +402,6 @@ actions:
                 targetName: "<value>",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -876,11 +426,10 @@ actions:
                 repo: "<value>",
                 input: "<value>",
                 overlays: [
-                  "<value>",
+                  "<value 1>",
                 ],
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -905,7 +454,27 @@ actions:
                 repoName: "<value>",
               });
 
-              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/link"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: linkGithubAccess
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.linkGithub();
+
               console.log(result);
             }
 
@@ -927,7 +496,6 @@ actions:
             async function run() {
               const result = await sdk.github.checkPublishingPRs("<id>", "<value>", "<value>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -949,7 +517,6 @@ actions:
             async function run() {
               const result = await sdk.github.checkPublishingSecrets("<id>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -973,7 +540,27 @@ actions:
                 generateGenLockId: "<id>",
               });
 
-              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/github/setup"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getGithubSetupState
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.github.getSetup("<value>", "<value>", "<id>");
+
               console.log(result);
             }
 
@@ -999,7 +586,6 @@ actions:
                 genLockId: "<id>",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1021,7 +607,6 @@ actions:
             async function run() {
               const result = await sdk.artifacts.getBlob("<value>", "<value>", "<value>", "<value>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1043,7 +628,6 @@ actions:
             async function run() {
               const result = await sdk.artifacts.getManifest("<value>", "<value>", "<value>", "<value>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1070,11 +654,80 @@ actions:
                 slug: "<value>",
                 accountType: AccountType.ScaleUp,
                 telemetryDisabled: false,
-                createdAt: new Date("2023-04-03T12:48:32.253Z"),
-                updatedAt: new Date("2022-05-28T06:20:22.766Z"),
+                createdAt: new Date("2025-12-17T21:02:28.497Z"),
+                updatedAt: new Date("2025-07-22T00:26:10.078Z"),
+                ssoActivated: true,
               });
 
-              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/organization/add_ons"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getBillingAddOns
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.organizations.getBillingAddOns();
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/organization/add_ons"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createBillingAddOns
+          source: |-
+            import { SDK } from "petstore";
+            import { BillingAddOn } from "petstore/models/components";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.organizations.createBillingAddOns({
+                addOns: [
+                  BillingAddOn.CustomCodeRegions,
+                ],
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/organization/add_ons/{add_on}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteBillingAddOn
+          source: |-
+            import { SDK } from "petstore";
+            import { BillingAddOn } from "petstore/models/components";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.organizations.deleteBillingAddOn(BillingAddOn.SDKTesting);
+
               console.log(result);
             }
 
@@ -1096,7 +749,6 @@ actions:
             async function run() {
               const result = await sdk.organizations.createFreeTrial();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1118,7 +770,6 @@ actions:
             async function run() {
               const result = await sdk.organizations.getUsage();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1140,7 +791,6 @@ actions:
             async function run() {
               const result = await sdk.organizations.get("<id>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1162,7 +812,153 @@ actions:
             async function run() {
               const result = await sdk.organizations.getAll();
 
-              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/publishing-tokens"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getPublishingToken
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.publishingTokens.list();
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/publishing-tokens"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createPublishingToken
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.publishingTokens.create();
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/publishing-tokens/{tokenID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deletePublishingToken
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.publishingTokens.delete("<id>");
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/publishing-tokens/{tokenID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getPublishingTokenByID
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.publishingTokens.get("<id>");
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/publishing-tokens/{tokenID}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: updatePublishingTokenExpiration
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.publishingTokens.update("<id>");
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/publishing-tokens/{tokenID}/metadata"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getPublishingTokenPublicMetadata
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.publishingTokens.resolveMetadata("<id>");
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/publishing-tokens/{tokenID}/target"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getPublishingTokenTargetByID
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.publishingTokens.resolveTarget("<id>");
+
               console.log(result);
             }
 
@@ -1188,7 +984,6 @@ actions:
                 file: await openAsBlob("example.file"),
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1210,7 +1005,6 @@ actions:
             async function run() {
               const result = await sdk.reports.getChangesReportSignedUrl("<value>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1232,7 +1026,33 @@ actions:
             async function run() {
               const result = await sdk.reports.getLintingReportSignedUrl("<value>");
 
-              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/schema_store"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createSchemaStoreItem
+          source: |-
+            import { SDK } from "petstore";
+            import { Format } from "petstore/models/operations";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.schemaStore.createSchemaStoreItem({
+                spec: "<value>",
+                packageName: "<value>",
+                sdkClassname: "<value>",
+                format: Format.Yaml,
+              });
+
               console.log(result);
             }
 
@@ -1253,10 +1073,77 @@ actions:
 
             async function run() {
               const result = await sdk.shortURLs.create({
-                url: "https://probable-heating.com/",
+                url: "https://exalted-heroine.org/",
               });
 
-              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/subscriptions/{subscriptionID}/{namespaceName}/activate"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: activateSubscriptionNamespace
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.subscriptions.activateSubscriptionNamespace("<id>", "<value>");
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/subscriptions/{subscriptionID}/{namespaceName}/ignore"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: ignoreSubscriptionNamespace
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.subscriptions.ignoreSubscriptionNamespace("<id>", "<value>");
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/suggest/items"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: suggestItems
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.suggest.suggestItems({
+                prompt: "<value>",
+                items: [
+                  "<value 1>",
+                ],
+              });
+
               console.log(result);
             }
 
@@ -1281,7 +1168,6 @@ actions:
                 schema: await openAsBlob("example.file"),
               }, "<id>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1303,7 +1189,6 @@ actions:
             async function run() {
               const result = await sdk.suggest.suggestOpenAPIRegistry("<id>", "<value>", "<value>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1329,35 +1214,16 @@ actions:
                   info: {
                     title: "<value>",
                     summary: "<value>",
-                    description: "ugh which garrote ashamed sarong fiddle really",
+                    description: "strictly shyly who and than majority unit boohoo",
                     version: "<value>",
                     license: {},
                   },
-                  operations: [
-                    {
-                      method: "<value>",
-                      path: "/rescue",
-                      operationId: "<id>",
-                      description: "kielbasa psst stitcher cannon devoted blindly apropos low",
-                      tags: [
-                        "<value>",
-                      ],
-                    },
-                  ],
+                  operations: [],
                 },
-                suggestionType: SuggestRequestBodySuggestionType.DiagnosticsOnly,
-                diagnostics: [
-                  {
-                    message: "<value>",
-                    path: [
-                      "/opt/share",
-                    ],
-                    type: "<value>",
-                  },
-                ],
+                suggestionType: SuggestRequestBodySuggestionType.MethodNames,
+                diagnostics: [],
               }, "<id>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1379,7 +1245,6 @@ actions:
             async function run() {
               const result = await sdk.auth.getUser();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1401,7 +1266,6 @@ actions:
             async function run() {
               const result = await sdk.workspaces.get();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1422,17 +1286,15 @@ actions:
 
             async function run() {
               const result = await sdk.workspaces.create({
-                createdAt: new Date("2023-06-18T07:14:55.338Z"),
+                createdAt: new Date("2023-11-18T13:41:10.525Z"),
                 id: "<id>",
                 name: "<value>",
                 organizationId: "<id>",
                 slug: "<value>",
-                telemetryDisabled: false,
-                updatedAt: new Date("2023-04-03T12:48:32.253Z"),
+                updatedAt: new Date("2024-11-21T08:36:32.740Z"),
                 verified: true,
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1454,73 +1316,6 @@ actions:
             async function run() {
               const result = await sdk.auth.getAccess();
 
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/workspace/embed-access-token"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getEmbedAccessToken
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.embeds.getEmbedAccessToken();
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/workspace/embed-access-tokens/valid"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getValidEmbedAccessTokens
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.embeds.getValidEmbedAccessTokens();
-
-              // Handle the result
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v1/workspace/embed-access-tokens/{tokenID}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: revokeEmbedAccessToken
-          source: |-
-            import { SDK } from "petstore";
-
-            const sdk = new SDK({
-              security: {
-                apiKey: "<YOUR_API_KEY_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await sdk.embeds.revokeEmbedAccessToken("<id>");
-
-              // Handle the result
               console.log(result);
             }
 
@@ -1542,7 +1337,29 @@ actions:
             async function run() {
               const result = await sdk.events.getTargets();
 
-              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/workspace/feature_flags"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: setWorkspaceFeatureFlags
+          source: |-
+            import { SDK } from "petstore";
+
+            const sdk = new SDK({
+              security: {
+                apiKey: "<YOUR_API_KEY_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await sdk.workspaces.setFeatureFlags({
+                featureFlags: [],
+              });
+
               console.log(result);
             }
 
@@ -1556,15 +1373,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.workspaces.getByID("<id>");
+              const result = await sdk.workspaces.getByID();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1578,6 +1395,7 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
@@ -1585,17 +1403,15 @@ actions:
 
             async function run() {
               const result = await sdk.workspaces.update({
-                createdAt: new Date("2024-07-28T19:04:48.565Z"),
+                createdAt: new Date("2023-08-02T22:30:24.264Z"),
                 id: "<id>",
                 name: "<value>",
                 organizationId: "<id>",
                 slug: "<value>",
-                telemetryDisabled: false,
-                updatedAt: new Date("2023-01-13T16:52:57.274Z"),
-                verified: false,
-              }, "<id>");
+                updatedAt: new Date("2025-01-24T03:53:13.581Z"),
+                verified: true,
+              });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1609,17 +1425,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.events.search({
-                workspaceId: "<id>",
-              });
+              const result = await sdk.events.search({});
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1634,6 +1448,7 @@ actions:
             import { InteractionType } from "petstore/models/components";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
@@ -1646,15 +1461,14 @@ actions:
                   executionId: "<id>",
                   workspaceId: "<id>",
                   speakeasyApiKeyName: "<value>",
-                  interactionType: InteractionType.Quickstart,
-                  localStartedAt: new Date("2023-09-09T05:59:33.876Z"),
-                  createdAt: new Date("2024-08-12T17:54:17.538Z"),
+                  interactionType: InteractionType.CiExec,
+                  localStartedAt: new Date("2024-12-22T21:01:06.740Z"),
+                  createdAt: new Date("2024-01-24T01:13:51.002Z"),
                   speakeasyVersion: "<value>",
                   success: true,
                 },
-              ], "<id>");
+              ]);
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1668,15 +1482,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.events.getTargetsDeprecated("<id>");
+              const result = await sdk.events.getTargetsDeprecated();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1690,15 +1504,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.events.getEventsByTarget("<id>", "<id>");
+              const result = await sdk.events.getEventsByTarget("<id>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1712,15 +1526,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.workspaces.getFeatureFlags("<id>");
+              const result = await sdk.workspaces.getFeatureFlags();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1734,15 +1548,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.workspaces.getSettings("<id>");
+              const result = await sdk.workspaces.getSettings();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1756,6 +1570,7 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
@@ -1764,9 +1579,11 @@ actions:
             async function run() {
               const result = await sdk.workspaces.updateSettings({
                 workspaceId: "<id>",
-              }, "<id>");
+                webhookUrl: "https://wicked-reboot.org",
+                createdAt: new Date("2024-07-27T10:14:11.397Z"),
+                updatedAt: new Date("2025-12-12T17:54:28.990Z"),
+              });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1780,15 +1597,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.workspaces.getTeam("<id>");
+              const result = await sdk.workspaces.getTeam();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1802,15 +1619,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.workspaces.grantAccess("<id>", "Lucinda.Batz8@hotmail.com");
+              const result = await sdk.workspaces.grantAccess("Idella24@gmail.com");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1824,15 +1641,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.workspaces.revokeAccess("<id>", "<id>");
+              const result = await sdk.workspaces.revokeAccess("<id>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1846,15 +1663,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.workspaces.getTokens("<id>");
+              const result = await sdk.workspaces.getTokens();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1868,6 +1685,7 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
@@ -1877,12 +1695,12 @@ actions:
               const result = await sdk.workspaces.createToken({
                 id: "<id>",
                 name: "<value>",
+                workspaceId: "<id>",
                 alg: "<value>",
                 key: "<key>",
-                createdAt: "<value>",
-              }, "<id>");
+                createdAt: new Date("2024-10-04T10:23:04.522Z"),
+              });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1896,15 +1714,15 @@ actions:
             import { SDK } from "petstore";
 
             const sdk = new SDK({
+              workspaceId: "<id>",
               security: {
                 apiKey: "<YOUR_API_KEY_HERE>",
               },
             });
 
             async function run() {
-              const result = await sdk.workspaces.deleteToken("<id>", "<id>");
+              const result = await sdk.workspaces.deleteToken("<id>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -1926,7 +1744,6 @@ actions:
             async function run() {
               const result = await sdk.workspaces.getAll();
 
-              // Handle the result
               console.log(result);
             }
 

@@ -20,8 +20,7 @@ specific category of applications.
 
 ```typescript
 import { SDKCore } from "petstore/core.js";
-import { apisGetApis } from "petstore/funcs/apisGetApis.js";
-import { SDKValidationError } from "petstore/models/errors/sdkvalidationerror.js";
+import { authValidateApiKey } from "petstore/funcs/authValidateApiKey.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -32,29 +31,13 @@ const sdk = new SDKCore({
 });
 
 async function run() {
-  const res = await apisGetApis(sdk);
-
-  switch (true) {
-    case res.ok:
-      // The success case will be handled outside of the switch block
-      break;
-    case res.error instanceof SDKValidationError:
-      // Pretty-print validation errors.
-      return console.log(res.error.pretty());
-    case res.error instanceof Error:
-      return console.log(res.error);
-    default:
-      // TypeScript's type checking will fail on the following line if the above
-      // cases were not exhaustive.
-      res.error satisfies never;
-      throw new Error("Assertion failed: expected error checks to be exhaustive: " + res.error);
+  const res = await authValidateApiKey(sdk);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("authValidateApiKey failed:", res.error);
   }
-
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();

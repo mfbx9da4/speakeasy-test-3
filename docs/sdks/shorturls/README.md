@@ -15,6 +15,7 @@ Shorten a URL.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="create" method="post" path="/v1/short_urls" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -26,10 +27,9 @@ const sdk = new SDK({
 
 async function run() {
   const result = await sdk.shortURLs.create({
-    url: "https://probable-heating.com/",
+    url: "https://exalted-heroine.org/",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -54,17 +54,14 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await shortURLsCreate(sdk, {
-    url: "https://probable-heating.com/",
+    url: "https://exalted-heroine.org/",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("shortURLsCreate failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();

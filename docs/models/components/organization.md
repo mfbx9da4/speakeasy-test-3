@@ -12,9 +12,10 @@ let value: Organization = {
   name: "<value>",
   slug: "<value>",
   accountType: AccountType.Enterprise,
-  telemetryDisabled: false,
-  createdAt: new Date("2022-04-09T02:03:52.245Z"),
-  updatedAt: new Date("2023-03-21T21:54:24.613Z"),
+  telemetryDisabled: true,
+  createdAt: new Date("2024-09-21T03:00:08.692Z"),
+  updatedAt: new Date("2024-07-11T06:03:56.483Z"),
+  ssoActivated: true,
 };
 ```
 
@@ -30,3 +31,6 @@ let value: Organization = {
 | `createdAt`                                                                                   | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_check_mark:                                                                            | N/A                                                                                           |
 | `updatedAt`                                                                                   | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_check_mark:                                                                            | N/A                                                                                           |
 | `freeTrialExpiry`                                                                             | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `ssoConnectionId`                                                                             | *string*                                                                                      | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `ssoActivated`                                                                                | *boolean*                                                                                     | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `internal`                                                                                    | *boolean*                                                                                     | :heavy_minus_sign:                                                                            | N/A                                                                                           |
