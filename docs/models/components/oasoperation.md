@@ -7,11 +7,11 @@ import { OASOperation } from "petstore/models/components";
 
 let value: OASOperation = {
   method: "<value>",
-  path: "/usr/obj",
+  path: "/private/var",
   operationId: "<id>",
-  description: "hence hence per",
+  description: "beyond tough absent ick",
   tags: [
-    "<value>",
+    "<value 1>",
   ],
 };
 ```

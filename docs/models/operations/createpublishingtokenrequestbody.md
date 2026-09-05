@@ -1,0 +1,25 @@
+# CreatePublishingTokenRequestBody
+
+The publishing token to create
+
+## Example Usage
+
+```typescript
+import { CreatePublishingTokenRequestBody } from "petstore/models/operations";
+
+let value: CreatePublishingTokenRequestBody = {
+  targetId: "<id>",
+  targetResource: "<value>",
+  validUntil: new Date("2024-10-11T16:59:12.606Z"),
+  tokenName: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `targetId`                                                                                    | *string*                                                                                      | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `targetResource`                                                                              | *string*                                                                                      | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `validUntil`                                                                                  | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `tokenName`                                                                                   | *string*                                                                                      | :heavy_check_mark:                                                                            | N/A                                                                                           |
