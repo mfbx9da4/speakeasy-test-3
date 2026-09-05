@@ -3,6 +3,7 @@
  */
 
 import { suggestSuggest } from "../funcs/suggestSuggest.js";
+import { suggestSuggestItems } from "../funcs/suggestSuggestItems.js";
 import { suggestSuggestOpenAPI } from "../funcs/suggestSuggestOpenAPI.js";
 import { suggestSuggestOpenAPIRegistry } from "../funcs/suggestSuggestOpenAPIRegistry.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
@@ -45,6 +46,20 @@ export class Suggest extends ClientSDK {
       this,
       suggestRequestBody,
       xSessionId,
+      options,
+    ));
+  }
+
+  /**
+   * Generate generic suggestions for a list of items.
+   */
+  async suggestItems(
+    request: components.SuggestItemsRequestBody,
+    options?: RequestOptions,
+  ): Promise<operations.SuggestItemsResponse> {
+    return unwrapAsync(suggestSuggestItems(
+      this,
+      request,
       options,
     ));
   }

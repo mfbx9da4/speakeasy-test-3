@@ -1,7 +1,8 @@
 # Workspaces
-(*workspaces*)
 
 ## Overview
+
+REST APIs for managing Workspaces (speakeasy tenancy)
 
 ### Available Operations
 
@@ -18,6 +19,7 @@
 * [getTokens](#gettokens) - Get tokens for a particular workspace
 * [createToken](#createtoken) - Create a token for a particular workspace
 * [deleteToken](#deletetoken) - Delete a token for a particular workspace
+* [setFeatureFlags](#setfeatureflags) - Set workspace feature flags
 * [getFeatureFlags](#getfeatureflags) - Get workspace feature flags
 
 ## getAll
@@ -26,6 +28,7 @@ Returns a list of workspaces a user has access too
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkspaces" method="get" path="/v1/workspaces" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -38,7 +41,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.workspaces.getAll();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -63,15 +65,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await workspacesGetAll(sdk);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesGetAll failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -102,6 +101,7 @@ Get information about a particular workspace by context.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkspaceByContext" method="get" path="/v1/workspace" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -114,7 +114,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.workspaces.get();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -139,15 +138,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await workspacesGet(sdk);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesGet failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -178,6 +174,7 @@ Creates a workspace
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createWorkspace" method="post" path="/v1/workspace" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -189,17 +186,15 @@ const sdk = new SDK({
 
 async function run() {
   const result = await sdk.workspaces.create({
-    createdAt: new Date("2023-06-18T07:14:55.338Z"),
+    createdAt: new Date("2024-11-17T13:41:10.525Z"),
     id: "<id>",
     name: "<value>",
     organizationId: "<id>",
     slug: "<value>",
-    telemetryDisabled: false,
-    updatedAt: new Date("2023-04-03T12:48:32.253Z"),
+    updatedAt: new Date("2025-11-21T08:36:32.740Z"),
     verified: true,
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -224,24 +219,20 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await workspacesCreate(sdk, {
-    createdAt: new Date("2023-06-18T07:14:55.338Z"),
+    createdAt: new Date("2024-11-17T13:41:10.525Z"),
     id: "<id>",
     name: "<value>",
     organizationId: "<id>",
     slug: "<value>",
-    telemetryDisabled: false,
-    updatedAt: new Date("2023-04-03T12:48:32.253Z"),
+    updatedAt: new Date("2025-11-21T08:36:32.740Z"),
     verified: true,
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesCreate failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -273,19 +264,20 @@ Get information about a particular workspace.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkspace" method="get" path="/v1/workspace/{workspace_id}" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.workspaces.getByID("<id>");
+  const result = await sdk.workspaces.getByID();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -303,22 +295,20 @@ import { workspacesGetByID } from "petstore/funcs/workspacesGetByID.js";
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await workspacesGetByID(sdk, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await workspacesGetByID(sdk);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesGetByID failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -328,7 +318,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -350,10 +340,12 @@ Update information about a particular workspace.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateWorkspaceDetails" method="post" path="/v1/workspace/{workspace_id}/details" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
@@ -361,17 +353,15 @@ const sdk = new SDK({
 
 async function run() {
   const result = await sdk.workspaces.update({
-    createdAt: new Date("2024-07-28T19:04:48.565Z"),
+    createdAt: new Date("2024-08-01T22:30:24.264Z"),
     id: "<id>",
     name: "<value>",
     organizationId: "<id>",
     slug: "<value>",
-    telemetryDisabled: false,
-    updatedAt: new Date("2023-01-13T16:52:57.274Z"),
-    verified: false,
-  }, "<id>");
+    updatedAt: new Date("2026-01-24T03:53:13.581Z"),
+    verified: true,
+  });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -389,6 +379,7 @@ import { workspacesUpdate } from "petstore/funcs/workspacesUpdate.js";
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
@@ -396,24 +387,20 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await workspacesUpdate(sdk, {
-    createdAt: new Date("2024-07-28T19:04:48.565Z"),
+    createdAt: new Date("2024-08-01T22:30:24.264Z"),
     id: "<id>",
     name: "<value>",
     organizationId: "<id>",
     slug: "<value>",
-    telemetryDisabled: false,
-    updatedAt: new Date("2023-01-13T16:52:57.274Z"),
-    verified: false,
-  }, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+    updatedAt: new Date("2026-01-24T03:53:13.581Z"),
+    verified: true,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesUpdate failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -423,8 +410,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `workspace`                                                                                                                                                                    | [components.Workspace](../../models/components/workspace.md)                                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The workspace details to update.                                                                                                                                               |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -446,19 +433,20 @@ Get settings about a particular workspace.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkspaceSettings" method="get" path="/v1/workspace/{workspace_id}/settings" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.workspaces.getSettings("<id>");
+  const result = await sdk.workspaces.getSettings();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -476,22 +464,20 @@ import { workspacesGetSettings } from "petstore/funcs/workspacesGetSettings.js";
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await workspacesGetSettings(sdk, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await workspacesGetSettings(sdk);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesGetSettings failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -501,7 +487,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -523,10 +509,12 @@ Update settings about a particular workspace.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateWorkspaceSettings" method="put" path="/v1/workspace/{workspace_id}/settings" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
@@ -535,9 +523,11 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.workspaces.updateSettings({
     workspaceId: "<id>",
-  }, "<id>");
+    webhookUrl: "https://wicked-reboot.org",
+    createdAt: new Date("2025-07-27T10:14:11.397Z"),
+    updatedAt: new Date("2026-12-12T17:54:28.990Z"),
+  });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -555,6 +545,7 @@ import { workspacesUpdateSettings } from "petstore/funcs/workspacesUpdateSetting
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
@@ -563,16 +554,16 @@ const sdk = new SDKCore({
 async function run() {
   const res = await workspacesUpdateSettings(sdk, {
     workspaceId: "<id>",
-  }, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+    webhookUrl: "https://wicked-reboot.org",
+    createdAt: new Date("2025-07-27T10:14:11.397Z"),
+    updatedAt: new Date("2026-12-12T17:54:28.990Z"),
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesUpdateSettings failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -582,8 +573,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `workspaceSettings`                                                                                                                                                            | [components.WorkspaceSettings](../../models/components/workspacesettings.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The workspace settings to update.                                                                                                                                              |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -605,19 +596,20 @@ Get team members for a particular workspace
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkspaceTeam" method="get" path="/v1/workspace/{workspace_id}/team" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.workspaces.getTeam("<id>");
+  const result = await sdk.workspaces.getTeam();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -635,22 +627,20 @@ import { workspacesGetTeam } from "petstore/funcs/workspacesGetTeam.js";
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await workspacesGetTeam(sdk, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await workspacesGetTeam(sdk);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesGetTeam failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -660,7 +650,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -682,19 +672,20 @@ Grant a user access to a particular workspace
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="grantUserAccessToWorkspace" method="put" path="/v1/workspace/{workspace_id}/team/email/{email}" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.workspaces.grantAccess("<id>", "Lucinda.Batz8@hotmail.com");
+  const result = await sdk.workspaces.grantAccess("Idella24@gmail.com");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -712,22 +703,20 @@ import { workspacesGrantAccess } from "petstore/funcs/workspacesGrantAccess.js";
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await workspacesGrantAccess(sdk, "<id>", "Lucinda.Batz8@hotmail.com");
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await workspacesGrantAccess(sdk, "Idella24@gmail.com");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesGrantAccess failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -737,8 +726,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `email`                                                                                                                                                                        | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Email of the user to grant access to.                                                                                                                                          |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -760,19 +749,20 @@ Revoke a user's access to a particular workspace
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="revokeUserAccessToWorkspace" method="delete" path="/v1/workspace/{workspace_id}/team/{userId}" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.workspaces.revokeAccess("<id>", "<id>");
+  const result = await sdk.workspaces.revokeAccess("<id>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -790,22 +780,20 @@ import { workspacesRevokeAccess } from "petstore/funcs/workspacesRevokeAccess.js
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await workspacesRevokeAccess(sdk, "<id>", "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await workspacesRevokeAccess(sdk, "<id>");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesRevokeAccess failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -815,8 +803,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `userId`                                                                                                                                                                       | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the user.                                                                                                                                                 |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -838,19 +826,20 @@ Get tokens for a particular workspace
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkspaceTokens" method="get" path="/v1/workspace/{workspace_id}/tokens" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.workspaces.getTokens("<id>");
+  const result = await sdk.workspaces.getTokens();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -868,22 +857,20 @@ import { workspacesGetTokens } from "petstore/funcs/workspacesGetTokens.js";
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await workspacesGetTokens(sdk, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await workspacesGetTokens(sdk);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesGetTokens failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -893,7 +880,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -915,10 +902,12 @@ Create a token for a particular workspace
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createWorkspaceToken" method="post" path="/v1/workspace/{workspace_id}/tokens" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
@@ -928,12 +917,12 @@ async function run() {
   const result = await sdk.workspaces.createToken({
     id: "<id>",
     name: "<value>",
+    workspaceId: "<id>",
     alg: "<value>",
     key: "<key>",
-    createdAt: "<value>",
-  }, "<id>");
+    createdAt: new Date("2025-10-04T10:23:04.522Z"),
+  });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -951,6 +940,7 @@ import { workspacesCreateToken } from "petstore/funcs/workspacesCreateToken.js";
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
@@ -960,19 +950,17 @@ async function run() {
   const res = await workspacesCreateToken(sdk, {
     id: "<id>",
     name: "<value>",
+    workspaceId: "<id>",
     alg: "<value>",
     key: "<key>",
-    createdAt: "<value>",
-  }, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+    createdAt: new Date("2025-10-04T10:23:04.522Z"),
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesCreateToken failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -982,8 +970,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `workspaceToken`                                                                                                                                                               | [components.WorkspaceToken](../../models/components/workspacetoken.md)                                                                                                         | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1005,19 +993,20 @@ Delete a token for a particular workspace
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteWorkspaceToken" method="delete" path="/v1/workspace/{workspace_id}/tokens/{tokenID}" -->
 ```typescript
 import { SDK } from "petstore";
 
 const sdk = new SDK({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const result = await sdk.workspaces.deleteToken("<id>", "<id>");
+  const result = await sdk.workspaces.deleteToken("<id>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -1035,22 +1024,20 @@ import { workspacesDeleteToken } from "petstore/funcs/workspacesDeleteToken.js";
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await workspacesDeleteToken(sdk, "<id>", "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await workspacesDeleteToken(sdk, "<id>");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesDeleteToken failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -1060,8 +1047,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `tokenID`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the token.                                                                                                                                                |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1077,12 +1064,13 @@ run();
 | errors.ErrorT    | 4XX              | application/json |
 | errors.SDKError  | 5XX              | \*/\*            |
 
-## getFeatureFlags
+## setFeatureFlags
 
-Get workspace feature flags
+Set workspace feature flags
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="setWorkspaceFeatureFlags" method="post" path="/v1/workspace/feature_flags" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -1093,9 +1081,87 @@ const sdk = new SDK({
 });
 
 async function run() {
-  const result = await sdk.workspaces.getFeatureFlags("<id>");
+  const result = await sdk.workspaces.setFeatureFlags({
+    featureFlags: [],
+  });
 
-  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SDKCore } from "petstore/core.js";
+import { workspacesSetFeatureFlags } from "petstore/funcs/workspacesSetFeatureFlags.js";
+
+// Use `SDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const sdk = new SDKCore({
+  security: {
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await workspacesSetFeatureFlags(sdk, {
+    featureFlags: [],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesSetFeatureFlags failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.WorkspaceFeatureFlagRequest](../../models/components/workspacefeatureflagrequest.md)                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.SetWorkspaceFeatureFlagsResponse](../../models/operations/setworkspacefeatureflagsresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ErrorT    | 5XX              | application/json |
+| errors.SDKError  | 4XX              | \*/\*            |
+
+## getFeatureFlags
+
+Get workspace feature flags
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getWorkspaceFeatureFlags" method="get" path="/v1/workspace/{workspace_id}/feature_flags" -->
+```typescript
+import { SDK } from "petstore";
+
+const sdk = new SDK({
+  workspaceId: "<id>",
+  security: {
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const result = await sdk.workspaces.getFeatureFlags();
+
   console.log(result);
 }
 
@@ -1113,22 +1179,20 @@ import { workspacesGetFeatureFlags } from "petstore/funcs/workspacesGetFeatureFl
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const sdk = new SDKCore({
+  workspaceId: "<id>",
   security: {
     apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
-  const res = await workspacesGetFeatureFlags(sdk, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  const res = await workspacesGetFeatureFlags(sdk);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("workspacesGetFeatureFlags failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -1138,7 +1202,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
+| `workspaceId`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Unique identifier of the workspace.                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

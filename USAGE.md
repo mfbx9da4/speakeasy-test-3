@@ -9,9 +9,8 @@ const sdk = new SDK({
 });
 
 async function run() {
-  const result = await sdk.apis.getApis();
+  const result = await sdk.auth.validateApiKey();
 
-  // Handle the result
   console.log(result);
 }
 
