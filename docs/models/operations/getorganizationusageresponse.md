@@ -5,14 +5,7 @@
 ```typescript
 import { GetOrganizationUsageResponse } from "petstore/models/operations";
 
-let value: GetOrganizationUsageResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-};
+let value: GetOrganizationUsageResponse = {};
 ```
 
 ## Fields

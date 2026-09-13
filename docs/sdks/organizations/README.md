@@ -1,7 +1,8 @@
 # Organizations
-(*organizations*)
 
 ## Overview
+
+REST APIs for managing Organizations (speakeasy L1 Tenancy construct)
 
 ### Available Operations
 
@@ -10,6 +11,9 @@
 * [get](#get) - Get organization
 * [createFreeTrial](#createfreetrial) - Create a free trial for an organization
 * [getUsage](#getusage) - Get billing usage summary for a particular organization
+* [createBillingAddOns](#createbillingaddons) - Create billing add ons
+* [getBillingAddOns](#getbillingaddons) - Get billing add ons
+* [deleteBillingAddOn](#deletebillingaddon) - Delete billing add ons
 
 ## getAll
 
@@ -17,6 +21,7 @@ Returns a list of organizations a user has access too
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getOrganizations" method="get" path="/v1/organizations" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -29,7 +34,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.organizations.getAll();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -54,15 +58,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await organizationsGetAll(sdk);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("organizationsGetAll failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -93,6 +94,7 @@ Creates an organization
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createOrganization" method="post" path="/v1/organization" -->
 ```typescript
 import { SDK } from "petstore";
 import { AccountType } from "petstore/models/components";
@@ -110,11 +112,11 @@ async function run() {
     slug: "<value>",
     accountType: AccountType.ScaleUp,
     telemetryDisabled: false,
-    createdAt: new Date("2023-04-03T12:48:32.253Z"),
-    updatedAt: new Date("2022-05-28T06:20:22.766Z"),
+    createdAt: new Date("2026-12-17T21:02:28.497Z"),
+    updatedAt: new Date("2026-07-22T00:26:10.078Z"),
+    ssoActivated: true,
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -145,18 +147,16 @@ async function run() {
     slug: "<value>",
     accountType: AccountType.ScaleUp,
     telemetryDisabled: false,
-    createdAt: new Date("2023-04-03T12:48:32.253Z"),
-    updatedAt: new Date("2022-05-28T06:20:22.766Z"),
+    createdAt: new Date("2026-12-17T21:02:28.497Z"),
+    updatedAt: new Date("2026-07-22T00:26:10.078Z"),
+    ssoActivated: true,
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("organizationsCreate failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -188,6 +188,7 @@ Get information about a particular organization.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getOrganization" method="get" path="/v1/organization/{organizationID}" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -200,7 +201,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.organizations.get("<id>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -225,15 +225,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await organizationsGet(sdk, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("organizationsGet failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -265,6 +262,7 @@ Creates a free trial for an organization
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createFreeTrial" method="post" path="/v1/organization/free_trial" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -277,7 +275,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.organizations.createFreeTrial();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -302,15 +299,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await organizationsCreateFreeTrial(sdk);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("organizationsCreateFreeTrial failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -341,6 +335,7 @@ Returns a billing usage summary by target languages for a particular organizatio
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getOrganizationUsage" method="get" path="/v1/organization/usage" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -353,7 +348,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.organizations.getUsage();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -378,15 +372,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await organizationsGetUsage(sdk);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("organizationsGetUsage failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -410,3 +401,236 @@ run();
 | ---------------- | ---------------- | ---------------- |
 | errors.ErrorT    | 4XX              | application/json |
 | errors.SDKError  | 5XX              | \*/\*            |
+
+## createBillingAddOns
+
+Create billing add ons
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="createBillingAddOns" method="post" path="/v1/organization/add_ons" -->
+```typescript
+import { SDK } from "petstore";
+import { BillingAddOn } from "petstore/models/components";
+
+const sdk = new SDK({
+  security: {
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const result = await sdk.organizations.createBillingAddOns({
+    addOns: [
+      BillingAddOn.CustomCodeRegions,
+    ],
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SDKCore } from "petstore/core.js";
+import { organizationsCreateBillingAddOns } from "petstore/funcs/organizationsCreateBillingAddOns.js";
+import { BillingAddOn } from "petstore/models/components";
+
+// Use `SDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const sdk = new SDKCore({
+  security: {
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await organizationsCreateBillingAddOns(sdk, {
+    addOns: [
+      BillingAddOn.CustomCodeRegions,
+    ],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("organizationsCreateBillingAddOns failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.OrganizationBillingAddOnRequest](../../models/components/organizationbillingaddonrequest.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.CreateBillingAddOnsResponse](../../models/operations/createbillingaddonsresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ErrorT    | 5XX              | application/json |
+| errors.SDKError  | 4XX              | \*/\*            |
+
+## getBillingAddOns
+
+Get billing add ons
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getBillingAddOns" method="get" path="/v1/organization/add_ons" -->
+```typescript
+import { SDK } from "petstore";
+
+const sdk = new SDK({
+  security: {
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const result = await sdk.organizations.getBillingAddOns();
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SDKCore } from "petstore/core.js";
+import { organizationsGetBillingAddOns } from "petstore/funcs/organizationsGetBillingAddOns.js";
+
+// Use `SDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const sdk = new SDKCore({
+  security: {
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await organizationsGetBillingAddOns(sdk);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("organizationsGetBillingAddOns failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetBillingAddOnsResponse](../../models/operations/getbillingaddonsresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ErrorT    | 5XX              | application/json |
+| errors.SDKError  | 4XX              | \*/\*            |
+
+## deleteBillingAddOn
+
+Delete billing add ons
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="deleteBillingAddOn" method="delete" path="/v1/organization/add_ons/{add_on}" -->
+```typescript
+import { SDK } from "petstore";
+import { BillingAddOn } from "petstore/models/components";
+
+const sdk = new SDK({
+  security: {
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const result = await sdk.organizations.deleteBillingAddOn(BillingAddOn.SDKTesting);
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SDKCore } from "petstore/core.js";
+import { organizationsDeleteBillingAddOn } from "petstore/funcs/organizationsDeleteBillingAddOn.js";
+import { BillingAddOn } from "petstore/models/components";
+
+// Use `SDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const sdk = new SDKCore({
+  security: {
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await organizationsDeleteBillingAddOn(sdk, BillingAddOn.SDKTesting);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("organizationsDeleteBillingAddOn failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `addOn`                                                                                                                                                                        | [components.BillingAddOn](../../models/components/billingaddon.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The specific add-on to delete.                                                                                                                                                 |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.DeleteBillingAddOnResponse](../../models/operations/deletebillingaddonresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ErrorT    | 5XX              | application/json |
+| errors.SDKError  | 4XX              | \*/\*            |
