@@ -8,7 +8,9 @@ import { Diagnostic } from "petstore/models/components";
 let value: Diagnostic = {
   message: "<value>",
   path: [
-    "/private/tmp",
+    "/net",
+    "/usr/local/src",
+    "/opt/include",
   ],
   type: "<value>",
 };

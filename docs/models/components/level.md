@@ -5,7 +5,7 @@
 ```typescript
 import { Level } from "petstore/models/components";
 
-let value: Level = Level.Blocked;
+let value: Level = Level.Warning;
 ```
 
 ## Values
