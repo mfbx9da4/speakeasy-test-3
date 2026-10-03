@@ -5,14 +5,7 @@
 ```typescript
 import { ValidateApiKeyResponse } from "petstore/models/operations";
 
-let value: ValidateApiKeyResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-};
+let value: ValidateApiKeyResponse = {};
 ```
 
 ## Fields

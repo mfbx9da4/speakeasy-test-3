@@ -5,7 +5,7 @@
 ```typescript
 import { SuggestionType } from "petstore/models/components";
 
-let value: SuggestionType = SuggestionType.MethodNames;
+let value: SuggestionType = SuggestionType.DiagnosticsOnly;
 ```
 
 ## Values
