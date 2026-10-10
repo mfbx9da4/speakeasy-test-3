@@ -10,28 +10,20 @@ let value: SuggestRequestBody = {
     info: {
       title: "<value>",
       summary: "<value>",
-      description: "burgeon pupil great vice",
+      description:
+        "calmly account apropos huzzah colossal ramp huge optimistically purse ha",
       version: "<value>",
       license: {},
     },
-    operations: [
-      {
-        method: "<value>",
-        path: "/etc/mail",
-        operationId: "<id>",
-        description: "joshingly overload nor",
-        tags: [
-          "<value>",
-        ],
-      },
-    ],
+    operations: [],
   },
   suggestionType: SuggestRequestBodySuggestionType.DiagnosticsOnly,
   diagnostics: [
     {
       message: "<value>",
       path: [
-        "/opt/sbin",
+        "/usr/local/bin",
+        "/var/yp",
       ],
       type: "<value>",
     },

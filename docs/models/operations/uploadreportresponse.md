@@ -5,14 +5,7 @@
 ```typescript
 import { UploadReportResponse } from "petstore/models/operations";
 
-let value: UploadReportResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-};
+let value: UploadReportResponse = {};
 ```
 
 ## Fields
