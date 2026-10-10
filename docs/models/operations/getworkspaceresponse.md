@@ -5,14 +5,7 @@
 ```typescript
 import { GetWorkspaceResponse } from "petstore/models/operations";
 
-let value: GetWorkspaceResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-};
+let value: GetWorkspaceResponse = {};
 ```
 
 ## Fields
