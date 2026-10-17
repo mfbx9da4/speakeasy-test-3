@@ -1,9 +1,8 @@
 # Reports
-(*reports*)
 
 ## Overview
 
-REST APIs for managing reports
+REST APIs for managing reports (lint reports, change reports, etc)
 
 ### Available Operations
 
@@ -17,6 +16,7 @@ Upload a report.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="uploadReport" method="post" path="/v1/reports" -->
 ```typescript
 import { openAsBlob } from "node:fs";
 import { SDK } from "petstore";
@@ -33,7 +33,6 @@ async function run() {
     file: await openAsBlob("example.file"),
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -62,15 +61,12 @@ async function run() {
     data: {},
     file: await openAsBlob("example.file"),
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("reportsUploadReport failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -101,6 +97,7 @@ Get the signed access url for the linting reports for a particular document.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getLintingReportSignedUrl" method="get" path="/v1/reports/linting/{documentChecksum}" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -113,7 +110,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.reports.getLintingReportSignedUrl("<value>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -138,15 +134,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await reportsGetLintingReportSignedUrl(sdk, "<value>");
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("reportsGetLintingReportSignedUrl failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -177,6 +170,7 @@ Get the signed access url for the change reports for a particular document.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getChangesReportSignedUrl" method="get" path="/v1/reports/changes/{documentChecksum}" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -189,7 +183,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.reports.getChangesReportSignedUrl("<value>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -214,15 +207,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await reportsGetChangesReportSignedUrl(sdk, "<value>");
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("reportsGetChangesReportSignedUrl failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
