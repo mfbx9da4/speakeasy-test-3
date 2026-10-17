@@ -5,7 +5,7 @@
 ```typescript
 import { Type } from "petstore/models/components";
 
-let value: Type = Type.Changes;
+let value: Type = Type.Linting;
 ```
 
 ## Values
