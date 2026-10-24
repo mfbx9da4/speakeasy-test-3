@@ -5,13 +5,11 @@
 ```typescript
 import { GetWorkspaceTokensRequest } from "petstore/models/operations";
 
-let value: GetWorkspaceTokensRequest = {
-  workspaceId: "<id>",
-};
+let value: GetWorkspaceTokensRequest = {};
 ```
 
 ## Fields
 
 | Field                               | Type                                | Required                            | Description                         |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| `workspaceId`                       | *string*                            | :heavy_check_mark:                  | Unique identifier of the workspace. |
+| `workspaceId`                       | *string*                            | :heavy_minus_sign:                  | Unique identifier of the workspace. |
