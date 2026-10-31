@@ -8,7 +8,7 @@ OK
 import { UploadReportUploadedReport } from "petstore/models/operations";
 
 let value: UploadReportUploadedReport = {
-  url: "https://overdue-minion.name",
+  url: "https://sleepy-cinder.info",
 };
 ```
 

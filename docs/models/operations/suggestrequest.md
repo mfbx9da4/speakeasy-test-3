@@ -13,28 +13,20 @@ let value: SuggestRequest = {
       info: {
         title: "<value>",
         summary: "<value>",
-        description: "queasily ha intensely",
+        description:
+          "calmly account apropos huzzah colossal ramp huge optimistically purse ha",
         version: "<value>",
         license: {},
       },
-      operations: [
-        {
-          method: "<value>",
-          path: "/usr/include",
-          operationId: "<id>",
-          description: "immediately geez justly pfft",
-          tags: [
-            "<value>",
-          ],
-        },
-      ],
+      operations: [],
     },
     suggestionType: SuggestRequestBodySuggestionType.MethodNames,
     diagnostics: [
       {
         message: "<value>",
         path: [
-          "/opt/share",
+          "/usr/local/bin",
+          "/var/yp",
         ],
         type: "<value>",
       },
