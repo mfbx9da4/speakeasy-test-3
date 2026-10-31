@@ -1,0 +1,20 @@
+# GetCodeSamplePreviewAsyncResponseBody
+
+Job is still in progress
+
+## Example Usage
+
+```typescript
+import { CodeSamplesJobStatus } from "petstore/models/components";
+import { GetCodeSamplePreviewAsyncResponseBody } from "petstore/models/operations";
+
+let value: GetCodeSamplePreviewAsyncResponseBody = {
+  status: CodeSamplesJobStatus.Running,
+};
+```
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `status`                                                                           | [components.CodeSamplesJobStatus](../../models/components/codesamplesjobstatus.md) | :heavy_check_mark:                                                                 | The current status of the job. Possible values are `pending` or `running`.         |
