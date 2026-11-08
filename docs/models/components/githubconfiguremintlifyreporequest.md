@@ -11,9 +11,7 @@ let value: GithubConfigureMintlifyRepoRequest = {
   org: "<value>",
   repo: "<value>",
   input: "<value>",
-  overlays: [
-    "<value>",
-  ],
+  overlays: [],
 };
 ```
 
