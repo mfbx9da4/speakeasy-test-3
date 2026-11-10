@@ -5,14 +5,7 @@
 ```typescript
 import { DeleteWorkspaceTokenResponse } from "petstore/models/operations";
 
-let value: DeleteWorkspaceTokenResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-};
+let value: DeleteWorkspaceTokenResponse = {};
 ```
 
 ## Fields
