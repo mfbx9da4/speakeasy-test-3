@@ -10,7 +10,9 @@ import { AddTags } from "petstore/models/components";
 let value: AddTags = {
   revisionDigest: "<value>",
   tags: [
-    "<value>",
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
 };
 ```
