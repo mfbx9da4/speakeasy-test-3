@@ -7,7 +7,7 @@ Type of interaction.
 ```typescript
 import { InteractionType } from "petstore/models/components";
 
-let value: InteractionType = InteractionType.Configure;
+let value: InteractionType = InteractionType.TargetGenerate;
 ```
 
 ## Values
@@ -25,3 +25,4 @@ let value: InteractionType = InteractionType.Configure;
 | `Run`            | RUN              |
 | `Configure`      | CONFIGURE        |
 | `Publish`        | PUBLISH          |
+| `Test`           | TEST             |

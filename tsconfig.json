@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "incremental": true,
-    "tsBuildInfoFile": ".tsbuildinfo",
-    "target": "ES2018",
+    "incremental": false,
+    "target": "ES2020",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
 
     "module": "Node16",
     "moduleResolution": "Node16",
@@ -13,6 +13,7 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
+    "rootDir": "src",
     "outDir": ".",
     
 
@@ -36,5 +37,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/__tests__"]
 }
