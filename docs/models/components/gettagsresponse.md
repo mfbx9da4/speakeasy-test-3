@@ -6,14 +6,7 @@
 import { GetTagsResponse } from "petstore/models/components";
 
 let value: GetTagsResponse = {
-  items: [
-    {
-      id: "<id>",
-      name: "<value>",
-      namespaceName: "<value>",
-      revisionDigest: "<value>",
-    },
-  ],
+  items: [],
 };
 ```
 
