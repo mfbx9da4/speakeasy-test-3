@@ -9,6 +9,8 @@ import { githubConfigureCodeSamples } from "../funcs/githubConfigureCodeSamples.
 import { githubConfigureMintlifyRepo } from "../funcs/githubConfigureMintlifyRepo.js";
 import { githubConfigureTarget } from "../funcs/githubConfigureTarget.js";
 import { githubGetAction } from "../funcs/githubGetAction.js";
+import { githubGetSetup } from "../funcs/githubGetSetup.js";
+import { githubLinkGithub } from "../funcs/githubLinkGithub.js";
 import { githubStorePublishingSecrets } from "../funcs/githubStorePublishingSecrets.js";
 import { githubTriggerAction } from "../funcs/githubTriggerAction.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
@@ -17,6 +19,21 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Github extends ClientSDK {
+  async getSetup(
+    org: string,
+    repo: string,
+    generateGenLockId: string,
+    options?: RequestOptions,
+  ): Promise<operations.GetGithubSetupStateResponse> {
+    return unwrapAsync(githubGetSetup(
+      this,
+      org,
+      repo,
+      generateGenLockId,
+      options,
+    ));
+  }
+
   async checkAccess(
     org: string,
     repo: string,
@@ -26,6 +43,21 @@ export class Github extends ClientSDK {
       this,
       org,
       repo,
+      options,
+    ));
+  }
+
+  async linkGithub(
+    installationId?: string | undefined,
+    githubOrg?: string | undefined,
+    githubOidcToken?: string | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.LinkGithubAccessResponse> {
+    return unwrapAsync(githubLinkGithub(
+      this,
+      installationId,
+      githubOrg,
+      githubOidcToken,
       options,
     ));
   }

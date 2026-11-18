@@ -6,8 +6,8 @@
 import { ShortURL } from "petstore/models/components";
 
 let value: ShortURL = {
-  shortUrl: "https://unwritten-rawhide.net/",
-  fullUrl: "https://orderly-saw.net/",
+  shortUrl: "https://dead-bump.name/",
+  fullUrl: "https://free-stitcher.com",
 };
 ```
 

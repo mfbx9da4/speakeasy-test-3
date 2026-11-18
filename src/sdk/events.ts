@@ -35,7 +35,7 @@ export class Events extends ClientSDK {
    */
   async post(
     requestBody: Array<components.CliEvent>,
-    workspaceId: string,
+    workspaceId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.PostWorkspaceEventsResponse> {
     return unwrapAsync(eventsPost(
@@ -50,15 +50,15 @@ export class Events extends ClientSDK {
    * Load recent events for a particular workspace
    */
   async getEventsByTarget(
-    workspaceId: string,
     targetId: string,
+    workspaceId?: string | undefined,
     afterCreatedAt?: Date | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWorkspaceEventsByTargetResponse> {
     return unwrapAsync(eventsGetEventsByTarget(
       this,
-      workspaceId,
       targetId,
+      workspaceId,
       afterCreatedAt,
       options,
     ));
@@ -82,7 +82,7 @@ export class Events extends ClientSDK {
    * Load targets for a particular workspace
    */
   async getTargetsDeprecated(
-    workspaceId: string,
+    workspaceId?: string | undefined,
     afterLastEventCreatedAt?: Date | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWorkspaceTargetsDeprecatedResponse> {
