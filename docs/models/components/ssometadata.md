@@ -8,10 +8,8 @@ SSO metadata for a workspace
 import { SSOMetadata } from "petstore/models/components";
 
 let value: SSOMetadata = {
-  ssoActivated: false,
-  ssoDomains: [
-    "<value>",
-  ],
+  ssoActivated: true,
+  ssoDomains: [],
 };
 ```
 

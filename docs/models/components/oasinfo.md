@@ -8,8 +8,7 @@ import { OASInfo } from "petstore/models/components";
 let value: OASInfo = {
   title: "<value>",
   summary: "<value>",
-  description:
-    "storyboard joy unexpectedly sightseeing contravene jaggedly programme ecliptic make woot",
+  description: "into sheepishly meanwhile",
   version: "<value>",
   license: {},
 };
