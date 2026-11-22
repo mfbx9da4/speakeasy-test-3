@@ -5,26 +5,7 @@
 ```typescript
 import { GetManifestResponse } from "petstore/models/operations";
 
-let value: GetManifestResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-  manifest: {
-    schemaVersion: 2,
-    mediaType: "application/vnd.docker.distribution.manifest.v2+json",
-    layers: [
-      {
-        digest:
-          "sha256:5d20c808ce198565ff70b3ed23a991dd49afac45dece63474b27ce6ed036adc6",
-        mediaType: "application/vnd.docker.image.rootfs.diff.tar.gzip",
-        size: 2107098,
-      },
-    ],
-  },
-};
+let value: GetManifestResponse = {};
 ```
 
 ## Fields
