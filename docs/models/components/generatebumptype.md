@@ -7,7 +7,7 @@ Bump type of the lock file (calculated semver delta, custom change (manual relea
 ```typescript
 import { GenerateBumpType } from "petstore/models/components";
 
-let value: GenerateBumpType = GenerateBumpType.Major;
+let value: GenerateBumpType = GenerateBumpType.Custom;
 ```
 
 ## Values

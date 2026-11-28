@@ -4,17 +4,30 @@
 
 import * as components from "../models/components/index.js";
 
-export enum SecurityErrorCode {
-  Incomplete = "incomplete",
-  UnrecognisedSecurityType = "unrecognized_security_type",
-}
+type OAuth2PasswordFlow = {
+  username: string;
+  password: string;
+  clientID?: string | undefined;
+  clientSecret?: string | undefined;
+  tokenURL: string;
+};
+
+export const SecurityErrorCode = {
+  Incomplete: "incomplete",
+  UnrecognisedSecurityType: "unrecognized_security_type",
+} as const;
+export type SecurityErrorCode =
+  (typeof SecurityErrorCode)[keyof typeof SecurityErrorCode];
 
 export class SecurityError extends Error {
+  public code: SecurityErrorCode;
+
   constructor(
-    public code: SecurityErrorCode,
+    code: SecurityErrorCode,
     message: string,
   ) {
     super(message);
+    this.code = code;
     this.name = "SecurityError";
   }
 
@@ -37,6 +50,7 @@ export type SecurityState = {
   headers: Record<string, string>;
   queryParams: Record<string, string>;
   cookies: Record<string, string>;
+  oauth2: ({ type: "password" } & OAuth2PasswordFlow) | { type: "none" };
 };
 
 type SecurityInputBasic = {
@@ -74,15 +88,29 @@ type SecurityInputOAuth2 = {
 type SecurityInputOAuth2ClientCredentials = {
   type: "oauth2:client_credentials";
   value:
-    | { clientID?: string | undefined; clientSecret?: string | undefined }
+    | {
+      clientID?: string | undefined;
+      clientSecret?: string | undefined;
+    }
+    | null
+    | string
+    | undefined;
+  fieldName?: string;
+};
+
+type SecurityInputOAuth2PasswordCredentials = {
+  type: "oauth2:password";
+  value:
+    | string
     | null
     | undefined;
+  fieldName?: string;
 };
 
 type SecurityInputCustom = {
   type: "http:custom";
   value: any | null | undefined;
-  fieldName: string;
+  fieldName?: string;
 };
 
 export type SecurityInput =
@@ -91,6 +119,7 @@ export type SecurityInput =
   | SecurityInputAPIKey
   | SecurityInputOAuth2
   | SecurityInputOAuth2ClientCredentials
+  | SecurityInputOAuth2PasswordCredentials
   | SecurityInputOIDC
   | SecurityInputCustom;
 
@@ -98,10 +127,11 @@ export function resolveSecurity(
   ...options: SecurityInput[][]
 ): SecurityState | null {
   const state: SecurityState = {
-    basic: { username: "", password: "" },
+    basic: {},
     headers: {},
     queryParams: {},
     cookies: {},
+    oauth2: { type: "none" },
   };
 
   const option = options.find((opts) => {
@@ -112,7 +142,14 @@ export function resolveSecurity(
         return o.value.username != null || o.value.password != null;
       } else if (o.type === "http:custom") {
         return null;
+      } else if (o.type === "oauth2:password") {
+        return (
+          typeof o.value === "string" && !!o.value
+        );
       } else if (o.type === "oauth2:client_credentials") {
+        if (typeof o.value == "string") {
+          return !!o.value;
+        }
         return o.value.clientID != null || o.value.clientSecret != null;
       } else if (typeof o.value === "string") {
         return !!o.value;
@@ -156,14 +193,16 @@ export function resolveSecurity(
       case "oauth2":
         applyBearer(state, spec);
         break;
+      case "oauth2:password":
+        applyBearer(state, spec);
+        break;
       case "oauth2:client_credentials":
         break;
       case "openIdConnect":
         applyBearer(state, spec);
         break;
       default:
-        spec satisfies never;
-        throw SecurityError.unrecognizedType(type);
+        throw SecurityError.unrecognizedType((spec satisfies never, type));
     }
   });
 
@@ -183,9 +222,13 @@ function applyBasic(
 
 function applyBearer(
   state: SecurityState,
-  spec: SecurityInputBearer | SecurityInputOAuth2 | SecurityInputOIDC,
+  spec:
+    | SecurityInputBearer
+    | SecurityInputOAuth2
+    | SecurityInputOIDC
+    | SecurityInputOAuth2PasswordCredentials,
 ) {
-  if (spec.value == null) {
+  if (typeof spec.value !== "string" || !spec.value) {
     return;
   }
 
@@ -194,12 +237,16 @@ function applyBearer(
     value = `Bearer ${value}`;
   }
 
-  state.headers[spec.fieldName] = value;
+  if (spec.fieldName !== undefined) {
+    state.headers[spec.fieldName] = value;
+  }
 }
+
 export function resolveGlobalSecurity(
   security: Partial<components.Security> | null | undefined,
+  allowedFields?: number[],
 ): SecurityState | null {
-  return resolveSecurity(
+  let inputs: SecurityInput[][] = [
     [
       {
         fieldName: "x-api-key",
@@ -221,7 +268,18 @@ export function resolveGlobalSecurity(
         value: security?.bearer,
       },
     ],
-  );
+  ];
+
+  if (allowedFields) {
+    inputs = allowedFields.map((i) => {
+      if (i < 0 || i >= inputs.length) {
+        throw new RangeError(`invalid allowedFields index ${i}`);
+      }
+      return inputs[i]!;
+    });
+  }
+
+  return resolveSecurity(...inputs);
 }
 
 export async function extractSecurity<

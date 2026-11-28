@@ -1,5 +1,4 @@
 # Auth
-(*auth*)
 
 ## Overview
 
@@ -18,6 +17,7 @@ Validate the current api key.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="validateApiKey" method="get" path="/v1/auth/validate" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -30,7 +30,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.auth.validateApiKey();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -55,15 +54,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await authValidateApiKey(sdk);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("authValidateApiKey failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -94,6 +90,7 @@ Get information about the current user.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getUser" method="get" path="/v1/user" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -106,7 +103,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.auth.getUser();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -131,15 +127,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await authGetUser(sdk);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("authGetUser failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -170,6 +163,7 @@ Get or refresh an access token for the current workspace.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getAccessToken" method="get" path="/v1/auth/access_token" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -178,7 +172,6 @@ const sdk = new SDK();
 async function run() {
   const result = await sdk.auth.getAccessToken("<id>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -199,15 +192,12 @@ const sdk = new SDKCore();
 
 async function run() {
   const res = await authGetAccessToken(sdk, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("authGetAccessToken failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -239,6 +229,7 @@ Checks if generation is permitted for a particular run of the CLI
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkspaceAccess" method="get" path="/v1/workspace/access" -->
 ```typescript
 import { SDK } from "petstore";
 
@@ -251,7 +242,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.auth.getAccess();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -276,15 +266,12 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await authGetAccess(sdk);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("authGetAccess failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
